@@ -1,0 +1,39 @@
+.red{
+	color: $red;
+}
+
+.text-desc{
+	font-size:$font-size-small;
+	color: $font-color-gray;
+}
+
+.float-r {
+	float: right;
+}
+
+.float-l {
+	float: left;
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.one_border {
+	@include one-border;
+}
+
+.one_border:last-child::after {
+	border-bottom-width: 0px;
+}
+
+.text-center{
+	text-align: center;
+}

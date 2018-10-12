@@ -1,0 +1,41 @@
+@import "./var";
+@import "mixin";
+
+@import "./common";
+@import "./vant-theme";
+@import "./spinner";
+
+a {
+	color: #000
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+html {
+	-webkit-overflow-scrolling: touch;
+}
+
+body {
+	overflow-x: hidden;
+	max-width: 700px;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+.view-router {
+	background-color: $bg-color;
+	height: 100vh;
+	overflow-y: auto;
+	padding-bottom: 50px;
+	box-sizing: border-box;
+}
+
+//商品详情页
+.item_desc{
+	img{
+		max-width: 100%;
+		display: block;
+	}
+}
