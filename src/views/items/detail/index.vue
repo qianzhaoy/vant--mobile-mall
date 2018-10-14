@@ -1,12 +1,12 @@
 <template>
 	<div class="item_detail">
-	
+
 		<van-swipe :autoplay="3000" v-if="goods">
 			<van-swipe-item v-for="(image, index) in goods.item_imgs" :key="index">
 				<img v-lazy="image.url" />
 			</van-swipe-item>
 		</van-swipe>
-		
+
 		<van-cell-group class="item_cell_group" v-if="goods">
 			<van-cell class="item_info">
 				<div>
@@ -21,7 +21,7 @@
 				<div class="item_dispatch">发货地: {{goods.ship_address.city}}</div>
 			</van-cell>
 		</van-cell-group>
-		
+
 		<component
 	 		v-if="goods"
 		 	ref="goodAction"
@@ -32,12 +32,12 @@
 			:goods-info="goods"
 			@skuBuy="doBuyNow"
 			/>
-		
+
 		<div class="item_desc"  v-if="goods">
 			<div class="item_desc_title">商品详情</div>
 			<div class="item_desc_wrap" v-html="goods.desc"></div>
 		</div>
-		
+
 		<van-goods-action>
 			<van-goods-action-mini-btn @click="doContact" icon="wangwang" iconClass="red afterTag" />
 			<van-goods-action-mini-btn @click="toCart" icon="cart" :info="cartInfo"/>
@@ -45,121 +45,121 @@
 			<van-goods-action-big-btn @click="addCart" text="加入购物车" />
 			<van-goods-action-big-btn primary @click="doBuyNow" text="立即购买" />
 		</van-goods-action>
-		
+
 		<van-popup v-model="showContact">
 			<md-kefu mobile="16454193338" />
 		</van-popup>
-		
+
 	</div>
 </template>
 
 <script>
-	import { GOODS_DETAIL } from '@/api/goods';
-	
-	import {
-		Swipe,
-		SwipeItem,
-		GoodsAction,
-		GoodsActionBigBtn,
-		GoodsActionMiniBtn,
-	} from 'vant';
-	
-	import md_kefu from '@/vue/components/md-kefu/';
+import { GOODS_DETAIL } from '@/api/goods';
 
-	export default {
-		props: {
-			itemId: [String, Number]
-		},
+import {
+  Swipe,
+  SwipeItem,
+  GoodsAction,
+  GoodsActionBigBtn,
+  GoodsActionMiniBtn
+} from 'vant';
 
-		data() {
-			const isLogin = !!localStorage.getItem('Authorization');
-			return {
-				isLogin,
-				showContact: false,
-				cartInfo: "5",
-				mobile: "13454193338",
-				selectSku: {
-					selectedNum: 1,
-					selectedSkuComb: {}
-				},
-				addressVal: {
-					id: null,
-					area_name: "",
-					district: "",
-					city: "",
-					province: ""
-				},
-				goods: null
-			}
-		},
+import md_kefu from '@/vue/components/md-kefu/';
 
-		created() {
-			this.initData();
-		},
+export default {
+  props: {
+    itemId: [String, Number]
+  },
 
-		methods: {
-			initData() {
-				this.$reqGet(`${GOODS_DETAIL}`, {
-					expand: "desc,skus,prop_imgs,item_imgs"
-				}).then(res => {
-					this.goods = res.data.data;
-				})
-			},
+  data() {
+    const isLogin = !!localStorage.getItem('Authorization');
+    return {
+      isLogin,
+      showContact: false,
+      cartInfo: '5',
+      mobile: '13454193338',
+      selectSku: {
+        selectedNum: 1,
+        selectedSkuComb: {}
+      },
+      addressVal: {
+        id: null,
+        area_name: '',
+        district: '',
+        city: '',
+        province: ''
+      },
+      goods: null
+    };
+  },
 
-			doBuyNow() {
-				if ((this.goods.has_sku && this.selectSku.sku_id) || !this.goods.has_sku) {
-					this.$router.push({name: 'placeOrderEntity'})
-				} else {
-					let goodAction = this.$refs.goodAction
-					goodAction.showSku = true;
-					goodAction.isSkuBuy = true;
-				}
-			},
-			addCart() {
-				if (this.goods.has_sku && this.selectSku.sku_id) {
-					this.$toast({
-						message: "已添加至购物车",
-						duration: 1500
-					});
-					this.cartInfo = String(parseInt(this.cartInfo) + 1);
-				}else{
-					
-				}
-			},
-			doContact() {
-				this.showContact = true;
-			},
-			toCart() {
-				this.$router.push({
-					name: "cart"
-				})
-			},
-			addCollect() {
-				this.$toast({
-					message: "已添加至我的收藏",
-					duration: 1500
-				});
-			},
-		},
+  created() {
+    this.initData();
+  },
 
-		components: {
-			[md_kefu.name]: md_kefu,
-			[Swipe.name]: Swipe,
-			[SwipeItem.name]: SwipeItem,
-			[GoodsAction.name]: GoodsAction,
-			[GoodsActionBigBtn.name]: GoodsActionBigBtn,
-			[GoodsActionMiniBtn.name]: GoodsActionMiniBtn,
-			["entity-group"]: () =>
-				import ( /* webpackChunkName: "EntityGroup" */ './EntityGroup/index'),
-			["virtual-group"]: () =>
-				import ( /* webpackChunkName: "VirtualGroup" */ './VirtualGroup/index.vue'),
-		},
-	}
+  methods: {
+    initData() {
+      this.$reqGet(`${GOODS_DETAIL}`, {
+        expand: 'desc,skus,prop_imgs,item_imgs'
+      }).then((res) => {
+        this.goods = res.data.data;
+      });
+    },
+
+    doBuyNow() {
+      if ((this.goods.has_sku && this.selectSku.sku_id) || !this.goods.has_sku) {
+        this.$router.push({ name: 'placeOrderEntity' });
+      } else {
+        const goodAction = this.$refs.goodAction;
+        goodAction.showSku = true;
+        goodAction.isSkuBuy = true;
+      }
+    },
+    addCart() {
+      if (this.goods.has_sku && this.selectSku.sku_id) {
+        this.$toast({
+          message: '已添加至购物车',
+          duration: 1500
+        });
+        this.cartInfo = String(parseInt(this.cartInfo) + 1);
+      } else {
+
+      }
+    },
+    doContact() {
+      this.showContact = true;
+    },
+    toCart() {
+      this.$router.push({
+        name: 'cart'
+      });
+    },
+    addCollect() {
+      this.$toast({
+        message: '已添加至我的收藏',
+        duration: 1500
+      });
+    }
+  },
+
+  components: {
+    [md_kefu.name]: md_kefu,
+    [Swipe.name]: Swipe,
+    [SwipeItem.name]: SwipeItem,
+    [GoodsAction.name]: GoodsAction,
+    [GoodsActionBigBtn.name]: GoodsActionBigBtn,
+    [GoodsActionMiniBtn.name]: GoodsActionMiniBtn,
+    'entity-group': () =>
+				import(/* webpackChunkName: "EntityGroup" */ './EntityGroup/index'),
+    'virtual-group': () =>
+				import(/* webpackChunkName: "VirtualGroup" */ './VirtualGroup/index.vue')
+  }
+};
 
 </script>
 
 <style lang="scss" scoped>
-	
+
 	@import "../../../assets/scss/mixin";
 
 	.item_detail {

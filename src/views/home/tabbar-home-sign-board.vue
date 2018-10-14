@@ -8,7 +8,7 @@
 				<span>收藏</span>
 			</div>
 		</div>
-		
+
 		<van-popup v-model="showCollect" position="top" style="background-color: transparent">
 			<img :src="showCollect && collectImg" @click="showCollect = false" width="100%" alt="右上角收藏">
 		</van-popup>
@@ -16,49 +16,48 @@
 </template>
 
 <script>
-	import collectImg from '@/assets/images/index_collect.png'
-	export default {
-		name: "sign-board",
-		props: {
-			boardUrl: {
-				type: String,
-				required: true
-			},
-			storeName: {
-				type: String,
-				required: true
-			},
-		},
-		data(){
-			const clientW = document.body.clientWidth || document.documentElement.clientWidth;
-			const signboardHeight = clientW ? (clientW * 2 / 3) : 250;
-			return {
-				signboardHeight,
-				showCollect: false,
-				collectImg
-			}
-		},
-	}
+import collectImg from '@/assets/images/index_collect.png';
+
+export default {
+  name: 'sign-board',
+  props: {
+    boardUrl: {
+      type: String,
+      required: true
+    },
+    storeName: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    const clientW = document.body.clientWidth || document.documentElement.clientWidth;
+    const signboardHeight = clientW ? (clientW * 2 / 3) : 250;
+    return {
+      signboardHeight,
+      showCollect: false,
+      collectImg
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-	
-	.signboard{
-		position: relative;
-		min-height: 250px;
-	}
-	.store_opacity{
-		position: absolute;
-		bottom: 0;
-		color: #fff;
-		width: 100%;
-		background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,1));
-		padding: 15px 10px;
-		box-sizing: border-box;
-	}
-	
-	.isCollect i {
-		color: $red;
-	}
-	
+.signboard {
+  position: relative;
+  min-height: 250px;
+}
+.store_opacity {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  padding: 15px 10px;
+  box-sizing: border-box;
+}
+
+.isCollect i {
+  color: $red;
+}
 </style>

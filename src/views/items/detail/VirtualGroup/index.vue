@@ -11,7 +11,7 @@
 			</van-cell>
 			<van-cell title="注意事项" @click.native="showPopup = true" isLink />
 		</van-cell-group>
-	
+
 		<van-sku
 			v-model="showSku"
 			:showAddCartBtn="showAddCartBtn"
@@ -22,7 +22,7 @@
 			:disableStepperInput="true"
 			@buy-clicked="buyGoods"
 		/>
-		
+
 		<van-popup v-model="showPopup"  position="bottom" lockOnScroll>
 			<div class="popup_wrap">
 				<van-icon name="clear" class="cancel_popup" @click.native="showPopup = false"></van-icon>
@@ -48,32 +48,32 @@
 
 <script>
 //	import sku from "./sku";
-	import actionMixin from "../mix";
-	
-	export default{
-		name: "virtual-group",
-		props: {
-			mobile: String,
-			skuComb: {
-				type: Object,
-				default: () => ({})
-			},
-			addressVal: {
-				type: Object,
-				default: () => ({})
-			},
-		},
-		mixins: [actionMixin],
-		data(){
-			return {
-//				sku,
-			}
-		},
-		methods:{
-			addressClick(){},
-		},
-	}
-	
+import actionMixin from '../mix';
+
+export default{
+  name: 'virtual-group',
+  props: {
+    mobile: String,
+    skuComb: {
+      type: Object,
+      default: () => ({})
+    },
+    addressVal: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  mixins: [actionMixin],
+  data() {
+    return {
+      //				sku,
+    };
+  },
+  methods: {
+    addressClick() {}
+  }
+};
+
 </script>
 
 
@@ -87,7 +87,7 @@
 		padding: 15px 0 30px 0;
 		text-align: center;
 	}
-	
+
 	.popup_content{
 		height: 150px;
 		box-sizing: border-box;
@@ -108,11 +108,11 @@
 			list-style: decimal;
 		}
 	}
-	
+
 	.store_mobile{
 		display: block;
 	}
-	
+
 	.cancel_popup{
 		position: absolute;
 		right: 15px;

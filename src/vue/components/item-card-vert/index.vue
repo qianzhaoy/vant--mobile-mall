@@ -4,7 +4,7 @@
 			<div v-if="$slots.leftTopIcon" class="leftTopIcon">
 				<slot name="leftTopIcon"></slot>
 			</div>
-			
+
 			<div v-if="$slots.mask" class="item_img_mask">
 				<slot name="mask"></slot>
 			</div>
@@ -22,16 +22,17 @@
 
 
 <script>
-	import item_mix from '@/vue/mixin/item-card';
-	export default {
-		name: "item-card-vert",
-		mixins: [item_mix],
-	}
+import item_mix from '@/vue/mixin/item-card';
+
+export default {
+  name: 'item-card-vert',
+  mixins: [item_mix]
+};
 
 </script>
 
 <style lang="scss" scoped>
-	
+
 	.item_card_V_wrap {
 		display: inline-block;
 		flex: 1;
@@ -39,7 +40,7 @@
 		margin: 0 10px;
 	}
 
-	
+
 	.item_card_image {
 		position: relative;
 		width: 100%;
@@ -99,16 +100,16 @@
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 	}
-	
+
 	.item_card_icon img{
 		max-height: 100%;
 		max-width: 100%;
 	}
-	
+
 	.isHaiTao{
 		background-image: url(http://www-dev.mamaqunaer.com/images/common/icon_menu_bdt.png);
 	}
-	
+
 	.item_card_price{
 		text-align: center;
 		color: $red;

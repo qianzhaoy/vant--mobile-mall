@@ -5,14 +5,14 @@
 </template>
 
 <script>
-	export default{
-		name: "word-tag",
-		methods:{
-			OnClick(){
-				this.$emit('click')
-			}
-		}
-	}
+export default{
+  name: 'word-tag',
+  methods: {
+    OnClick() {
+      this.$emit('click');
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

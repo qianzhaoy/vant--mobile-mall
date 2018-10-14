@@ -38,30 +38,31 @@
 				<div class="text-desc">反面示例</div>
 				<img src="../../../assets/images/id_card_reverse.png" alt="反面" width="50%">
 			</van-col>
-		</van-row>		
+		</van-row>
 	</div>
 </template>
 
 <script>
-	import { Row, Col} from 'vant';
-	export default {
-		name: "id-card-upload",
-		
-		props:{
-			frontUrl: String,
-			reverseUrl: String,
-		},
-		
-		components: {
-			[Row.name]: Row,
-			[Col.name]: Col,
-		}
-	}
+import { Row, Col } from 'vant';
+
+export default {
+  name: 'id-card-upload',
+
+  props: {
+    frontUrl: String,
+    reverseUrl: String
+  },
+
+  components: {
+    [Row.name]: Row,
+    [Col.name]: Col
+  }
+};
 </script>
 
 
 <style lang="scss" scoped>
-	
+
 	.id_card_upload{
 		margin: 10px 0 30px 0;
 		background-color: #fff;
@@ -80,7 +81,7 @@
 			left: 0;
 		}
 	}
-	
+
 	.id_card_row{
 		>div{
 			text-align: center;
@@ -89,7 +90,7 @@
 			margin-bottom: 8px;
 		}
 	}
-	
+
 	.upload_box .upload_wrap{
 		position: relative;
 		border: 1px dashed $gray;

@@ -6,16 +6,16 @@
 
 
 <script>
-	export default {
-		name: 'md-field-group'
-	}
+export default {
+  name: 'md-field-group'
+};
 </script>
 
 <style lang="scss" scoped>
 	.field_group {
 		padding-left:  15px;
 		padding-right: 15px;
-		
+
 		> div{
 			margin-bottom: 15px;
 			&:last-child{

@@ -12,18 +12,18 @@
 </template>
 
 <script>
-	export default {
-		name: 'md-kefu',
-		props: {
-			qcCode: String,
-			mobile: String,
-		}
-	}
+export default {
+  name: 'md-kefu',
+  props: {
+    qcCode: String,
+    mobile: String
+  }
+};
 </script>
 
 
 <style lang="scss" scoped>
-	
+
 	@import "../../../assets/scss/mixin";
 	.contact_popup{
 		white-space: nowrap;

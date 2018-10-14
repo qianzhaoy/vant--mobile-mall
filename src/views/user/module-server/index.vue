@@ -12,16 +12,17 @@
 </template>
 
 <script>
-	import md_kefu from '@/vue/components/md-kefu/';
-	export default {
-		data(){
-			return {
-				showKefu: false,
-			}	
-		},
-		
-		components: {
-			[md_kefu.name]: md_kefu,
-		}
-	}
+import md_kefu from '@/vue/components/md-kefu/';
+
+export default {
+  data() {
+    return {
+      showKefu: false
+    };
+  },
+
+  components: {
+    [md_kefu.name]: md_kefu
+  }
+};
 </script>

@@ -15,9 +15,9 @@
 			<van-cell title="密码设置" to="/user/information/setPassword" isLink />
 			<van-cell title="手机号" to="/user/information/setMobile" :value="mobile" isLink></van-cell>
 		</van-cell-group>
-		
+
 		<van-popup v-model="showSex" position="bottom">
-			<van-picker 
+			<van-picker
 				showToolbar
 				:columns="sexColumns"
 				title="选择性别"
@@ -28,71 +28,69 @@
 </template>
 
 <script>
-	import { Uploader, Picker } from 'vant';
-	import {
-		USER_PROFILE
-	} from '@/api/user';
-	
-	export default {
-		
-		data(){
-			return {
-				sexColumns: [{
-					values: ["保密", "男", "女"],
-					defaultIndex: 0
-				}],
-				showSex: false,
-				avatar: "",
-				nick_name: "",
-				gender: -1,
-				mobile: ""
-			}
-		},
-		
-		computed: {
-			genderText(){
-				const text = ["保密", "男", "女"];
-				return text[this.gender] || '';
-			}
-		},
-		
-		created(){
-			this.getUserInfo();
-		},
-		
-		methods: {
-			avatarAfterRead(file){
-				console.log(file);
-			},
-			onSexConfirm(value, index){
-				this.$reqPut(USER_PROFILE, {
-					gender: index[0]
-				}).then(res => {
-					this.gender = res.data.data.gender;
-					this.showSex = false;
-				})
-			},
-			getUserInfo(){
-				this.$reqGet(USER_PROFILE).then(res => {
-					const data = res.data.data;
-					this.avatar = data.avatar;
-					this.nick_name = data.nick_name;
-					this.gender = data.gender;
-					this.mobile = data.mobile;
-				})
-			},
-		},
-		
-		components: {
-			[Uploader.name]: Uploader,
-			[Picker.name]: Picker,
-		}	
-	}
+import { Uploader, Picker } from 'vant';
+import { USER_PROFILE } from '@/api/user';
+
+export default {
+
+  data() {
+    return {
+      sexColumns: [{
+        values: ['保密', '男', '女'],
+        defaultIndex: 0
+      }],
+      showSex: false,
+      avatar: '',
+      nick_name: '',
+      gender: -1,
+      mobile: ''
+    };
+  },
+
+  computed: {
+    genderText() {
+      const text = ['保密', '男', '女'];
+      return text[this.gender] || '';
+    }
+  },
+
+  created() {
+    this.getUserInfo();
+  },
+
+  methods: {
+    avatarAfterRead(file) {
+      console.log(file);
+    },
+    onSexConfirm(value, index) {
+      this.$reqPut(USER_PROFILE, {
+        gender: index[0]
+      }).then((res) => {
+        this.gender = res.data.data.gender;
+        this.showSex = false;
+      });
+    },
+    getUserInfo() {
+      this.$reqGet(USER_PROFILE).then((res) => {
+        const data = res.data.data;
+        this.avatar = data.avatar;
+        this.nick_name = data.nick_name;
+        this.gender = data.gender;
+        this.mobile = data.mobile;
+      });
+    }
+  },
+
+  components: {
+    [Uploader.name]: Uploader,
+    [Picker.name]: Picker
+  }
+};
 </script>
 
 
 <style lang="scss" scoped>
-	
+
 	.user_information{
 		.user_avatar_upload{
 			position: relative;

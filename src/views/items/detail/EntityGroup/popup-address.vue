@@ -20,72 +20,72 @@
 
 
 <script>
-	import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
-	
-	export default {
-		name: 'popup-address',
-		
-		props: {
-			isShow: Boolean,
-			addressVal: {
-				type: Object,
-				default: () => ({})
-			}
-		},
-		
-		data(){
-			return {
-				address_list: null,
-				address_default: {},
-			}
-		},
-		
-		watch: {
-			isShow(val){
-				val && !this.address_list && this.getAddress();
-			},
-		},
-		
-		created() {
-			//一进页面先拿默认地址，等打开弹窗在请求地址列表
-			this.getAddressDefault();
-		},
-		
-		methods: {
-			getAddress() {
-				if(localStorage.getItem('Authorization')){
-					this.$reqGet(ADDRESS, {}, {
-						hideLoading: true
-					}).then(res => {
-						const data = res.data.data.map(data => {
-							data.isDefault = !!this.address_default && (data.id == this.address_default.id);
-							return data;
-						})
-						this.address_list = data;
-					})
-				}else{
-					this.address_list = [];
-				}
-			},
-			getAddressDefault() {
-				localStorage.getItem('Authorization') &&
+import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
+
+export default {
+  name: 'popup-address',
+
+  props: {
+    isShow: Boolean,
+    addressVal: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
+  data() {
+    return {
+      address_list: null,
+      address_default: {}
+    };
+  },
+
+  watch: {
+    isShow(val) {
+      val && !this.address_list && this.getAddress();
+    }
+  },
+
+  created() {
+    // 一进页面先拿默认地址，等打开弹窗在请求地址列表
+    this.getAddressDefault();
+  },
+
+  methods: {
+    getAddress() {
+      if (localStorage.getItem('Authorization')) {
+        this.$reqGet(ADDRESS, {}, {
+          hideLoading: true
+        }).then((res) => {
+          const data = res.data.data.map((data) => {
+            data.isDefault = !!this.address_default && (data.id == this.address_default.id);
+            return data;
+          });
+          this.address_list = data;
+        });
+      } else {
+        this.address_list = [];
+      }
+    },
+    getAddressDefault() {
+      localStorage.getItem('Authorization') &&
 					this.$reqGet(ADDRESS_DEFAULT, {}, {
-						hideLoading: true
-					}).then(res => {
-						const data = res.data.data;
-						this.$emit("confirm", data);
-						this.address_default = data || {};
-					})
-			},
-			listChoose(li){
-				this.$emit('confirm', li);
-				this.isShow = false;
-			},
-			areaChoose() {
-				this.$emit("area-click", true)
-			},
-		}
-	}
+					  hideLoading: true
+					}).then((res) => {
+					  const data = res.data.data;
+					  this.$emit('confirm', data);
+					  this.address_default = data || {};
+					});
+    },
+    listChoose(li) {
+      this.$emit('confirm', li);
+      this.isShow = false;
+    },
+    areaChoose() {
+      this.$emit('area-click', true);
+    }
+  }
+};
 
 </script>
 <style lang="scss" scoped>
@@ -130,7 +130,7 @@
 			font-size: 18px;
 		}
 	}
-	
+
 	.address_wrap {
 		.popup_header {
 			@include one-border;

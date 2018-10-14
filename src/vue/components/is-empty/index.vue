@@ -10,14 +10,14 @@
 </template>
 
 <script>
-	export default {
-		name: "is-empty",
-	}
+export default {
+  name: 'is-empty'
+};
 </script>
 
 
 <style lang="scss" scoped>
-	
+
 	.is_empty{
 		text-align: center;
 		color: $font-color-gray;

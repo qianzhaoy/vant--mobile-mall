@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import { NoticeBar } from "vant";
+import { NoticeBar } from 'vant';
 
 export default {
-  name: "shop-info-group",
+  name: 'shop-info-group',
   props: {
     address: {
       type: String,
@@ -33,7 +33,7 @@ export default {
     },
     notice: {
       type: String,
-      default: ""
+      default: ''
     },
     location: Object
   },
@@ -44,7 +44,7 @@ export default {
       location.lng
     }&key=ab67b14d58d47912a9feb63ba862450c&destName=${location.name}`;
     return {
-      mapSrc: location ? MAP_PATH : "#"
+      mapSrc: location ? MAP_PATH : '#'
     };
   },
 

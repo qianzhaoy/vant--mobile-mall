@@ -6,9 +6,9 @@
 			:swipe-threshold="5"
 			 @click="handleTabClick"
 		>
-			<van-tab 
+			<van-tab
 				v-for="tab in tabsItem"
-			 	:title="tab.name" 
+			 	:title="tab.name"
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
@@ -20,7 +20,7 @@
 	  		:offset="100"
 		  	@load="loadMore"
 		>
-			<van-panel 
+			<van-panel
 				v-for="(el, i) in items"
 				class="order_list--panel"
 				:key="i"
@@ -51,104 +51,104 @@
 </template>
 
 <script>
-	import { REFUND_LIST } from '@/api/order';
-	
-	import { Tab, Tabs, Panel, Card } from 'vant';
-	import IsEmpty from "@/vue/components/is-empty/";
-	
-	import loadMore from '@/vue/mixin/load-more';
-	import scrollFixed from '@/vue/mixin/scroll-fixed';
-	
-	const STATUS_TEXT = {
-		10: "退款中",
-		50: "退款关闭",
-		60: "退款成功",
-	}
-	
-	export default {
-		name: 'order-list',
+import { REFUND_LIST } from '@/api/order';
 
-		mixins: [loadMore, scrollFixed],
-		
+import { Tab, Tabs, Panel, Card } from 'vant';
+import IsEmpty from '@/vue/components/is-empty/';
 
-		data() {
-			const shop_id = this.$util.getLocationParam("shop_id")
-			return {
-				shop_id,
-				activeIndex: 0,
-				items: [],
-				tabsItem: [{
-						name: "全部",
-						status: 0,
-					},
-					{
-						name: "退款中",
-						status: 10,
-					},
-					{
-						name: "退款成功",
-						status: 60,
-					},
-				],
-			}
-		},
-		
-		watch: {
-			'$route': 'resetInit'
-		},
+import loadMore from '@/vue/mixin/load-more';
+import scrollFixed from '@/vue/mixin/scroll-fixed';
 
-		created() {
-			this.resetInit();
-		},
-		
-		methods: {
-			initData() {
-				const i = this.activeIndex;
-				const status = this.tabsItem[i].status;
-				return this.$reqGet(REFUND_LIST, {
-					'per-page': this.pages.perPage,
-					page: this.pages.currPage,
-					shop_id: this.shop_id,
-					status
-				}, {
-					hideLoading: true
-				}).then(res => {
-					const { items, page } = res.data.data;
-					this.items.push(...items);
-					return page;
-				})
-			},
-			refund_handle(i){
-				const item = this.items[i];
-				if(item.status == 10){
-					this.$dialog.confirm({
-						message: "撤销后将不能再次发起申请，确定要撤销该申请吗？"
-					}).then((res) => {
-						this.$toast("已撤销该退款申请");
-						this.items[i].status = 50;
-					})
-				}else{
-					//跳转退款详情
-				}
-			},
-			handleTabClick(index){
-				if(this.activeIndex != index){
-					this.activeIndex = index;
-					this.resetInit();
-				}
-			},
-			getStatusText(status){
-				return STATUS_TEXT[status] || '';
-			}
-		},
-		components: {
-			[Tab.name]: Tab,
-			[Tabs.name]: Tabs,
-			[Panel.name]: Panel,
-			[Card.name]: Card,
-			[IsEmpty.name]: IsEmpty,
-		}
-	}
+const STATUS_TEXT = {
+  10: '退款中',
+  50: '退款关闭',
+  60: '退款成功'
+};
+
+export default {
+  name: 'order-list',
+
+  mixins: [loadMore, scrollFixed],
+
+
+  data() {
+    const shop_id = this.$util.getLocationParam('shop_id');
+    return {
+      shop_id,
+      activeIndex: 0,
+      items: [],
+      tabsItem: [{
+        name: '全部',
+        status: 0
+      },
+      {
+        name: '退款中',
+        status: 10
+      },
+      {
+        name: '退款成功',
+        status: 60
+      }
+      ]
+    };
+  },
+
+  watch: {
+    $route: 'resetInit'
+  },
+
+  created() {
+    this.resetInit();
+  },
+
+  methods: {
+    initData() {
+      const i = this.activeIndex;
+      const status = this.tabsItem[i].status;
+      return this.$reqGet(REFUND_LIST, {
+        'per-page': this.pages.perPage,
+        page: this.pages.currPage,
+        shop_id: this.shop_id,
+        status
+      }, {
+        hideLoading: true
+      }).then((res) => {
+        const { items, page } = res.data.data;
+        this.items.push(...items);
+        return page;
+      });
+    },
+    refund_handle(i) {
+      const item = this.items[i];
+      if (item.status == 10) {
+        this.$dialog.confirm({
+          message: '撤销后将不能再次发起申请，确定要撤销该申请吗？'
+        }).then((res) => {
+          this.$toast('已撤销该退款申请');
+          this.items[i].status = 50;
+        });
+      } else {
+        // 跳转退款详情
+      }
+    },
+    handleTabClick(index) {
+      if (this.activeIndex != index) {
+        this.activeIndex = index;
+        this.resetInit();
+      }
+    },
+    getStatusText(status) {
+      return STATUS_TEXT[status] || '';
+    }
+  },
+  components: {
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs,
+    [Panel.name]: Panel,
+    [Card.name]: Card,
+    [IsEmpty.name]: IsEmpty
+  }
+};
 
 </script>
 
@@ -162,11 +162,11 @@
 		&--panel{
 			margin-bottom: 10px;
 		}
-		
+
 		&--van-card{
 			background-color: #fafafa;
 		}
-		
+
 		&--total{
 			text-align: right;
 			padding: 10px;

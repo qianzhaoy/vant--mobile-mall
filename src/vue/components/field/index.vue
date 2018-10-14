@@ -2,8 +2,8 @@
 	<div class="md_field" :class="{md_field_hasIcon: !!icon, md_field_isError: isError}">
 		<van-icon v-if="icon" :name="icon" class="md_feld_icon"/>
 		<div class="md_field_control">
-			<input 
-				:type="type" 
+			<input
+				:type="type"
 				v-on="listeners"
 				v-bind="$attrs"
 				:value="value">
@@ -13,48 +13,48 @@
 				<van-icon :name="rightIcon" @click="rightClick" v-show="value" />
 			</slot>
 		</div>
-	</div>	
+	</div>
 </template>
 
 <script>
-	export default {
-		name: 'md-field',
-		
-		props: {
-			value: {},
-			type: {
-				type: String,
-				default: "text"
-			},
-			rightIcon: String,
-			icon: String,
-			isError: Boolean
-		},
-		computed: {
-			listeners() {
+export default {
+  name: 'md-field',
+
+  props: {
+    value: {},
+    type: {
+      type: String,
+      default: 'text'
+    },
+    rightIcon: String,
+    icon: String,
+    isError: Boolean
+  },
+  computed: {
+    listeners() {
 			  return {
-				...this.$listeners,
-				input: this.onInput,
+        ...this.$listeners,
+        input: this.onInput
 			  };
-			}
-		},
-		
-		methods: {
-			onInput(event){
-				this.$emit('input', event.target.value);
-			},
-			rightClick(event){
-				this.$emit('right-click');
-			}
-		},
-	}
+    }
+  },
+
+  methods: {
+    onInput(event) {
+      this.$emit('input', event.target.value);
+    },
+    rightClick(event) {
+      this.$emit('right-click');
+    }
+  }
+};
 
 </script>
 
 
 <style lang="scss" scoped>
-	
-	
+
+
 	.md_field {
 		position: relative;
 		border: 1px solid $border-color;
@@ -87,11 +87,11 @@
 			transform: translate(0, -50%);
 		}
 	}
-	
+
 	.md_field_hasIcon{
 		padding-left: 40px;
 	}
-	
+
 	.md_field_isError{
 		color: $red;
 		background-color: #fcf5f5;

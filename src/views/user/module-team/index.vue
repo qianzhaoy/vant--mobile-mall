@@ -8,7 +8,7 @@
 				</div>
 			</van-cell>
 		</van-cell-group>
-		
+
 		<van-cell-group>
 			<van-cell>
 				<div slot="title" class="user_member">
@@ -31,7 +31,7 @@
 						<div>一级会员</div>
 					</div>
 				</div>
-			</van-cell>	
+			</van-cell>
 			<van-cell>
 				<div slot="title" class="user_member">
 					<div class="user_avatar float-l">
@@ -42,16 +42,16 @@
 						<div>一级会员</div>
 					</div>
 				</div>
-			</van-cell>	
+			</van-cell>
 		</van-cell-group>
-		
+
 	</div>
 </template>
 
 <script>
-	
-	export default {
-	}
+
+export default {
+};
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +69,7 @@
 				max-height: 100%;
 			}
 		}
-		
+
 		.user_info{
 			margin-left: 70px;
 		}

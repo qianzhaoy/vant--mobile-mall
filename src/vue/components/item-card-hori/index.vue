@@ -12,16 +12,16 @@
 				<img v-lazy="goods.pic_url">
 				<div class="item_image_desc">{{goodsStatusToMe}}</div>
 			</div>
-			
+
 			<div class="item_card_info">
 				<div class="item_card_name">
 					<van-tag plain type="danger" v-if="goods.is_haitao">海淘</van-tag>
 					<span v-if="$slots.icon" class="item_card_icon"><slot name="icon"></slot></span>
 					{{goods.name}}
 				</div>
-				
+
 				<div class="item_card_info_desc">{{goods.sell_point}}</div>
-				
+
 				<div class="item_card_footer">
 					<div class="footer_price">
 						<span>{{goods.sales_price | yuan}}</span>
@@ -39,21 +39,22 @@
 
 
 <script>
-	import item_mix from '@/vue/mixin/item-card';
-	export default {
-		name: "item-card-hori",
-		mixins: [item_mix],
-	}
+import item_mix from '@/vue/mixin/item-card';
+
+export default {
+  name: 'item-card-hori',
+  mixins: [item_mix]
+};
 
 </script>
 
 <style lang="scss" scoped>
-	
+
 	.item_card_H_wrap {
 		padding: 15px 10px;
 	}
 
-	
+
 	.item_card_image {
 		position: relative;
 		padding-top: 5px;
@@ -91,7 +92,7 @@
 			overflow: hidden;
 		}
 	}
-	
+
 	.item_card_info{
 		position: relative;
 		margin-left: 110px;
@@ -103,7 +104,7 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
-		
+
 		.item_card_name .item_card_icon {
 			width: 25px;
 			height: 14px;
@@ -111,11 +112,11 @@
 			display: inline-block;
 			background-repeat: no-repeat;
 		}
-		
+
 		.isHaiTao{
 			background-image: url(http://mamaqunaer.oss-cn-shanghai.aliyuncs.com/20171121/xMACDPN2Bz.png);
 		}
-		
+
 		.item_card_info_desc{
 			font-size: 12px;
 			color: $font-color-gray;
@@ -130,26 +131,26 @@
 			max-height: 100%;
 			max-width: 100%;
 		}
-		
+
 		.item_card_footer{
 			position: absolute;
 			bottom: 0;
 			left: 0;
 			right: 0;
 			display: flex;
-			
+
 			.footer_price{
 				color: $red;
 				margin-right: 5px;
 			}
-			
+
 			.footer_price .marketPrice{
 				color: $font-color-gray;
 				font-size: 12px;
 				text-decoration: line-through;
 				margin-left: 5px;
 			}
-			
+
 			.footer_desc{
 				flex: 1;
 				overflow: hidden;
@@ -158,6 +159,6 @@
 			}
 		}
 	}
-	
+
 
 </style>

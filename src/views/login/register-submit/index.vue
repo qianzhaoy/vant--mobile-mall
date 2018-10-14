@@ -10,7 +10,7 @@
 		</md-field>
 		<md-field v-model="password" icon="lock" placeholder="请输入密码"/>
 		<md-field v-model="repeatPassword" icon="lock" placeholder="请再次确认密码"/>
-		
+
 		<div class="register_submit_btn">
 			<van-button type="danger" size="large" @click="registerSubmit">确定</van-button>
 		</div>
@@ -18,58 +18,58 @@
 </template>
 
 <script>
-	import field from '@/vue/components/field/';
-	import fieldGroup from '@/vue/components/field-group/';
-	
-	export default {
-		data(){
-			return {
-				counting: true,
-				code: "",
-				password: "",
-				repeatPassword: "",
-			}	
-		},
-		
-		methods: {
-			registerSubmit(){
-				this.$router.push({name: "registerStatus", params: {status: "success"}})
-			},
-			
-			getCode(){
-				this.counting = true;
-			},
-			countdownend(){
-				this.counting = false;
-			}
-		},
-		
-		components: {
-			[field.name]: field,
-			[fieldGroup.name]: fieldGroup,
-		}
-	}
+import field from '@/vue/components/field/';
+import fieldGroup from '@/vue/components/field-group/';
+
+export default {
+  data() {
+    return {
+      counting: true,
+      code: '',
+      password: '',
+      repeatPassword: ''
+    };
+  },
+
+  methods: {
+    registerSubmit() {
+      this.$router.push({ name: 'registerStatus', params: { status: 'success' } });
+    },
+
+    getCode() {
+      this.counting = true;
+    },
+    countdownend() {
+      this.counting = false;
+    }
+  },
+
+  components: {
+    [field.name]: field,
+    [fieldGroup.name]: fieldGroup
+  }
+};
 </script>
 
 
 <style lang="scss" scoped>
-	
+
 	@import "../../../assets/scss/mixin";
-	
+
 	.register_submit{
 		padding-top: 40px;
 		background-color: #fff;
 	}
-	
+
 	.register_submit_btn{
 		padding-top: 30px;
 	}
-	
+
 	.getCode{
 		@include one-border(left);
 		text-align: center;
 	}
-	
+
 	.time_down{
 		color: $red;
 	}

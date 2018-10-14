@@ -12,9 +12,9 @@
 </template>
 
 <script>
-	export default {
-		name: "user-module",
-	}
+export default {
+  name: 'user-module'
+};
 </script>
 
 
@@ -22,5 +22,5 @@
 	.user_module{
 		background-color: #fff;
 	}
-		
+
 </style>

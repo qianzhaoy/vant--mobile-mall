@@ -23,5 +23,5 @@ export default {
 
   getVisibleWidth(element) {
     return element === window ? element.innerWidth : element.getBoundingClientRect().width;
-  },
+  }
 };

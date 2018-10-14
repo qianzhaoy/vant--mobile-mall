@@ -1,7 +1,7 @@
 <template>
 	<div class="class_tree clearfix">
 		<ul class="class_tree_nav">
-			<li 
+			<li
 				v-for="(item ,index) in list"
 				:key="item.id"
 				:class="{active_nav: navActive == index}"
@@ -24,53 +24,53 @@
 </template>
 
 <script>
-	export default{
-		name: "class-tree",
-		
-		model: {
-			prop: 'activeIndex'
-		},
-		
-		props: {
-			activeIndex: {
-				type: Number,
-				default: 0
-			},
-			list: Array
-		},
-		
-		data(){
-			let navActive = this.activeIndex >= this.list.length ? 0 : this.activeIndex;
-			return {
-				navActive,
-			}
-		},
-		
-		computed: {
-			goods(){
-				const list = this.list,
+export default{
+  name: 'class-tree',
+
+  model: {
+    prop: 'activeIndex'
+  },
+
+  props: {
+    activeIndex: {
+      type: Number,
+      default: 0
+    },
+    list: Array
+  },
+
+  data() {
+    const navActive = this.activeIndex >= this.list.length ? 0 : this.activeIndex;
+    return {
+      navActive
+    };
+  },
+
+  computed: {
+    goods() {
+      const list = this.list,
 					  navActive = this.navActive;
-				return (list && list.length) ? list[navActive].children : [];
-			}
-		},
-		
-		methods: {
-			allClick(){
-				this.$emit("all-click");
-			},
-			navclick(i){
-				this.navActive = i;
-				this.$emit("nav-click", i);
-			},
-			classClick(id){
-				this.$emit("class-click", id);
-			},
-		},
-	}
+      return (list && list.length) ? list[navActive].children : [];
+    }
+  },
+
+  methods: {
+    allClick() {
+      this.$emit('all-click');
+    },
+    navclick(i) {
+      this.navActive = i;
+      this.$emit('nav-click', i);
+    },
+    classClick(id) {
+      this.$emit('class-click', id);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-	
+
 	@import "../../assets/scss/mixin";
 	.class_tree{
 		position: relative;
@@ -132,7 +132,7 @@
 			img{
 				max-width: 100%;
 			}
-			
+
 			.class_tree_item_img{
 				display: inline-block;
 				max-width: 100%;

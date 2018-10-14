@@ -9,9 +9,9 @@
 
 
 <script>
-	export default {
-		name: "login-header"
-	}
+export default {
+  name: 'login-header'
+};
 </script>
 
 <style lang="scss" scoped>

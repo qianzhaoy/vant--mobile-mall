@@ -3,9 +3,9 @@
 </template>
 
 <script>
-	export default {
-		name: "login-footer"
-	}
+export default {
+  name: 'login-footer'
+};
 </script>
 
 

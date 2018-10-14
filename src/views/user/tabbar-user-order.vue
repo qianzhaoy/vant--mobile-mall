@@ -30,34 +30,35 @@
 					<van-icon name="shouhouguanli" />
 				</div>
 				<div>退款售后</div>
-			</van-col>	
+			</van-col>
 		</van-row>
-		
+
 	</div>
 </template>
 
 <script>
-	import { Row, Col } from 'vant'
-	export default {
-		name: "order-group",
-		
-		components: {
-			[Row.name]: Row,
-			[Col.name]: Col,
-		}
-	}
+import { Row, Col } from 'vant';
+
+export default {
+  name: 'order-group',
+
+  components: {
+    [Row.name]: Row,
+    [Col.name]: Col
+  }
+};
 </script>
 
 
 <style scoped lang="scss">
-	
+
 	@import "../../assets/scss/mixin";
 	.order_status{
 		background-color: #fff;
 		text-align: center;
 		padding: 10px 0;
 		font-size: 12px;
-		
+
 		>div{
 			@include one-border;
 			&::after{
@@ -73,7 +74,7 @@
 				border: 0;
 			}
 		}
-		
+
 		.order_status_icon{
 			position: relative;
 			width: 36px;

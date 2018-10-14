@@ -16,22 +16,23 @@
 </template>
 
 <script>
-	import { Row, Col } from 'vant';
-	export default {
-		name: "popup-props",
-		
-		props: {
-			propsStr: {
-				type: Array,
-				default: () => ([])
-			}
-		},
-		
+import { Row, Col } from 'vant';
+
+export default {
+  name: 'popup-props',
+
+  props: {
+    propsStr: {
+      type: Array,
+      default: () => ([])
+    }
+  },
+
  		components: {
-			[Col.name]: Col,
-			[Row.name]: Row,
-		}
-	}
+    [Col.name]: Col,
+    [Row.name]: Row
+  }
+};
 </script>
 
 

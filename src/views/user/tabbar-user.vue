@@ -9,40 +9,40 @@
 </template>
 
 <script>
-	import userHeader from "./tabbar-user-header";
-	import orderGroup from "./tabbar-user-order";
-	import ecouponGroup from "./tabbar-user-ecoupon";
-	import userModule from "./tabbar-user-module";
-	
-	export default {
+import userHeader from './tabbar-user-header';
+import orderGroup from './tabbar-user-order';
+import ecouponGroup from './tabbar-user-ecoupon';
+import userModule from './tabbar-user-module';
 
-		data() {
-			return {
-				isLogin: false,
-			}
-		},
-		
-		activated(){
-			this.getLoginStatus();
-		},
-		
-		methods: {
-			quit(){
-				this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
-				this.$router.push({name: 'login'});
-			},
-			getLoginStatus(){
-				this.isLogin = !!localStorage.getItem('Authorization') && !!localStorage.getItem('user_id');
-			}
-		},
+export default {
 
-		components: {
-			[userHeader.name]: userHeader,
-			[orderGroup.name]: orderGroup,
-			[ecouponGroup.name]: ecouponGroup,
-			[userModule.name]: userModule,
-		}
-	}
+  data() {
+    return {
+      isLogin: false
+    };
+  },
+
+  activated() {
+    this.getLoginStatus();
+  },
+
+  methods: {
+    quit() {
+      this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
+      this.$router.push({ name: 'login' });
+    },
+    getLoginStatus() {
+      this.isLogin = !!localStorage.getItem('Authorization') && !!localStorage.getItem('user_id');
+    }
+  },
+
+  components: {
+    [userHeader.name]: userHeader,
+    [orderGroup.name]: orderGroup,
+    [ecouponGroup.name]: ecouponGroup,
+    [userModule.name]: userModule
+  }
+};
 
 </script>
 
