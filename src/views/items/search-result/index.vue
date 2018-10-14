@@ -72,7 +72,9 @@ export default {
   },
 
   deactivated() {
-    document.getElementById('app').removeEventListener('scroll', this.scrollShowArrow);
+    document
+      .getElementById('app')
+      .removeEventListener('scroll', this.scrollShowArrow);
   },
 
   created() {
@@ -80,22 +82,28 @@ export default {
   },
 
   methods: {
-    initData(loadMore = false) {
-      return this.$reqGet(GOODS_SEARCH, {
-        q: this.searchVal,
-        shop_id: this.shop_id,
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage
-      }, {
-        hideLoading: true
-      }).then((res) => {
+    initData() {
+      return this.$reqGet(
+        GOODS_SEARCH,
+        {
+          q: this.searchVal,
+          shop_id: this.shop_id,
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
       });
     },
     eventListen() {
-      document.getElementById('app').addEventListener('scroll', this.scrollShowArrow);
+      document
+        .getElementById('app')
+        .addEventListener('scroll', this.scrollShowArrow);
     },
     scrollShowArrow() {
       this.showArrow = document.getElementById('app').scrollTop > 120;
@@ -119,38 +127,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
 
-	.fade-enter,
-	.fade-leave-to{
-		opacity: 0;
-	}
+.item_list {
+  background-color: #fff;
+  padding-top: 50px;
+  box-sizing: border-box;
+}
+.fixedTop {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+}
 
-	.fade-enter-active,
-	.fade-leave-active,{
-		transition:  all .5s;
-	}
-
-
-	.item_list{
-		background-color: #fff;
-		padding-top: 50px;
-		box-sizing: border-box;
-	}
-	.fixedTop{
-		position: fixed;
-		width: 100%;
-		top: 0;
-		z-index: 999;
-	}
-
-	.items_loading{
-		margin: 0 auto;
-	}
-	.backTop{
-		position: fixed;
-		right: 20px;
-		bottom: 20px;
-		font-size: 24px;
-	}
+.items_loading {
+  margin: 0 auto;
+}
+.backTop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 24px;
+}
 </style>

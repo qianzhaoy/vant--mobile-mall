@@ -10,9 +10,9 @@ export default {
 
 
 <style scoped>
-	.bottom_positon{
-		position: absolute;
-		bottom: 30px;
-		width: 100%;
-	}
+.bottom_positon {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+}
 </style>

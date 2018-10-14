@@ -15,9 +15,11 @@ const RouterModel = new Router({
   routes: []
 });
 
-
 RouterModel.beforeEach((to, from, next) => {
-  const { Authorization, user_id } = getLocalStorage('Authorization', 'user_id');
+  const { Authorization, user_id } = getLocalStorage(
+    'Authorization',
+    'user_id'
+  );
   if (!Authorization && !user_id) {
     if (to.meta.login) {
       next({ name: 'login', query: { redirect: to.name } });

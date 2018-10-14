@@ -70,25 +70,25 @@ export default {
 
   mixins: [loadMore, scrollFixed],
 
-
   data() {
     const shop_id = this.$util.getLocationParam('shop_id');
     return {
       shop_id,
       activeIndex: 0,
       items: [],
-      tabsItem: [{
-        name: '全部',
-        status: 0
-      },
-      {
-        name: '退款中',
-        status: 10
-      },
-      {
-        name: '退款成功',
-        status: 60
-      }
+      tabsItem: [
+        {
+          name: '全部',
+          status: 0
+        },
+        {
+          name: '退款中',
+          status: 10
+        },
+        {
+          name: '退款成功',
+          status: 60
+        }
       ]
     };
   },
@@ -105,14 +105,18 @@ export default {
     initData() {
       const i = this.activeIndex;
       const status = this.tabsItem[i].status;
-      return this.$reqGet(REFUND_LIST, {
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage,
-        shop_id: this.shop_id,
-        status
-      }, {
-        hideLoading: true
-      }).then((res) => {
+      return this.$reqGet(
+        REFUND_LIST,
+        {
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage,
+          shop_id: this.shop_id,
+          status
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
@@ -121,12 +125,14 @@ export default {
     refund_handle(i) {
       const item = this.items[i];
       if (item.status == 10) {
-        this.$dialog.confirm({
-          message: '撤销后将不能再次发起申请，确定要撤销该申请吗？'
-        }).then((res) => {
-          this.$toast('已撤销该退款申请');
-          this.items[i].status = 50;
-        });
+        this.$dialog
+          .confirm({
+            message: '撤销后将不能再次发起申请，确定要撤销该申请吗？'
+          })
+          .then(() => {
+            this.$toast('已撤销该退款申请');
+            this.items[i].status = 50;
+          });
       } else {
         // 跳转退款详情
       }
@@ -149,28 +155,26 @@ export default {
     [IsEmpty.name]: IsEmpty
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	.order_list {
-		padding-bottom: 0;
+.order_list {
+  padding-bottom: 0;
 
-		&--footer_btn {
-			text-align: right;
-		}
-		&--panel{
-			margin-bottom: 10px;
-		}
+  &--footer_btn {
+    text-align: right;
+  }
+  &--panel {
+    margin-bottom: 10px;
+  }
 
-		&--van-card{
-			background-color: #fafafa;
-		}
+  &--van-card {
+    background-color: #fafafa;
+  }
 
-		&--total{
-			text-align: right;
-			padding: 10px;
-		}
-	}
-
+  &--total {
+    text-align: right;
+    padding: 10px;
+  }
+}
 </style>

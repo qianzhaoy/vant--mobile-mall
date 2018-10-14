@@ -34,25 +34,24 @@ export default {
 
 
 <style lang="scss">
-
-	.daodian {
-		.van-checkbox .van-icon-success{
-			height: 16px;
-			width: 16px;
-			font-size: $font-size-small;
-			&::before{
-				line-height: 16px;
-			}
-		}
-		.van-checkbox__input{
-			height: 16px;
-		}
-		.van-checkbox__label{
-			margin-left: 0;
-		}
-		.shop_address{
-			padding-left: 25px;
-			box-sizing: border-box;
-		}
-	}
+.daodian {
+  .van-checkbox .van-icon-success {
+    height: 16px;
+    width: 16px;
+    font-size: $font-size-small;
+    &::before {
+      line-height: 16px;
+    }
+  }
+  .van-checkbox__input {
+    height: 16px;
+  }
+  .van-checkbox__label {
+    margin-left: 0;
+  }
+  .shop_address {
+    padding-left: 25px;
+    box-sizing: border-box;
+  }
+}
 </style>

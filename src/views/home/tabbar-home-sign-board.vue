@@ -31,8 +31,9 @@ export default {
     }
   },
   data() {
-    const clientW = document.body.clientWidth || document.documentElement.clientWidth;
-    const signboardHeight = clientW ? (clientW * 2 / 3) : 250;
+    const clientW =
+      document.body.clientWidth || document.documentElement.clientWidth;
+    const signboardHeight = clientW ? (clientW * 2) / 3 : 250;
     return {
       signboardHeight,
       showCollect: false,

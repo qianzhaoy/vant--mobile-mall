@@ -21,7 +21,9 @@ export default {
     },
     selectSkuData(data) {
       if (data.selectedSkuComb) {
-        data.selectedSkuComb.sku_str = data.selectedSkuComb.props_str_arr.map(str => str.match(/[^:]*:([^:]*)/)[1]).join(',');
+        data.selectedSkuComb.sku_str = data.selectedSkuComb.props_str_arr
+          .map(str => str.match(/[^:]*:([^:]*)/)[1])
+          .join(',');
       } else {
         data.selectedSkuComb = {};
       }

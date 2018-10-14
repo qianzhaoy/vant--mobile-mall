@@ -22,7 +22,6 @@ import field from '@/vue/components/field/';
 import fieldGroup from '@/vue/components/field-group/';
 
 export default {
-
   data() {
     return {
       mobile: ''
@@ -43,20 +42,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+div.register_view {
+  background-color: #fff;
+  padding-top: 30px;
+}
 
-	div.register_view{
-		background-color: #fff;
-		padding-top: 30px;
-	}
+div.register_submit {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
 
-	div.register_submit{
-		padding-top: 30px;
-		padding-bottom: 20px;
-	}
-
-	.register_footer{
-		text-align: right;
-		color: $font-color-gray;
-	}
+.register_footer {
+  text-align: right;
+  color: $font-color-gray;
+}
 </style>
-

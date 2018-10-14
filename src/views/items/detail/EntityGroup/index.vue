@@ -42,12 +42,13 @@
 </template>
 
 <script>
-const popupArea = () => import(/* webpackChunkName: "popup-area" */ './popup-area');
+const popupArea = () =>
+  import(/* webpackChunkName: "popup-area" */ './popup-area');
 import popupAddress from './popup-address';
 import popupProps from './popup-props';
 import actionMixin from '../mix';
-import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
-import { POST_FEE } from '@/api/shop';
+// import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
+// import { POST_FEE } from '@/api/shop';
 
 export default {
   name: 'entity-group',
@@ -88,9 +89,10 @@ export default {
   computed: {
     props_str() {
       if (this.goodsInfo.props_str) {
-        return this.goodsInfo.props_str.split(';')
-          .filter(str => (str != ''))
-          .map(str => (str.split(':')));
+        return this.goodsInfo.props_str
+          .split(';')
+          .filter(str => str != '')
+          .map(str => str.split(':'));
       }
       return [];
     },
@@ -131,7 +133,7 @@ export default {
       };
     },
     setSkuList(skus) {
-      skus.forEach((sku) => {
+      skus.forEach(sku => {
         sku.props.split(';').forEach((str, i) => {
           sku[`s${i + 1}`] = str.match(/[^:]*:([^:]*)/)[1];
         });
@@ -145,13 +147,13 @@ export default {
     },
     setSkuTree(skus, prop_imgs) {
       const skulist = [];
-      skus.forEach((el) => {
-        const propImg = prop_imgs.find(img => (img.props == el.props));
-        el.props_str_arr = el.props_str.split(';').filter(str => (str != ''));
-        el.props_arr = el.props.split(';').filter(str => (str != ''));
+      skus.forEach(el => {
+        const propImg = prop_imgs.find(img => img.props == el.props);
+        el.props_str_arr = el.props_str.split(';').filter(str => str != '');
+        el.props_arr = el.props.split(';').filter(str => str != '');
         el.imgUrl = propImg ? propImg.url : '';
       });
-      skus.forEach((el) => {
+      skus.forEach(el => {
         el.props_str_arr.forEach((sku, i) => {
           const prop = el.props_arr[i];
           // 大规格
@@ -165,20 +167,23 @@ export default {
             skulist[i] = {
               k_id,
               k: pName,
-              v: [{
-                id: vid,
-                name: vName,
-                imgUrl: el.imgUrl
-              }],
+              v: [
+                {
+                  id: vid,
+                  name: vName,
+                  imgUrl: el.imgUrl
+                }
+              ],
               k_s: `s${i + 1}`
             };
           } else {
             const isPass = skulist[i].v.some(val => val.id == vid);
-            !isPass && skulist[i].v.push({
-              id: vid,
-              name: vName,
-              imgUrl: el.imgUrl
-            });
+            !isPass &&
+              skulist[i].v.push({
+                id: vid,
+                name: vName,
+                imgUrl: el.imgUrl
+              });
           }
         });
       });
@@ -192,9 +197,7 @@ export default {
     [popupProps.name]: popupProps
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-
 </style>

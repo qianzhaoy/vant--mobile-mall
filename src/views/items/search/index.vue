@@ -42,7 +42,10 @@ export default {
     },
     toSearchResult(word) {
       this.keyword = word.trim();
-      this.$router.push({ name: 'search-result', query: { keyword: word.trim() } });
+      this.$router.push({
+        name: 'search-result',
+        query: { keyword: word.trim() }
+      });
     },
     pushHistoryTolocal(keyword) {
       const wordHistory = this.wordHistory;
@@ -57,12 +60,14 @@ export default {
       return listWord ? listWord.split('|') : [];
     },
     clearHistory() {
-      this.$dialog.confirm({
-				  message: '是否清空历史记录'
-      }).then(() => {
-        window.localStorage.setItem('keyword', '');
-        this.wordHistory = [];
-      });
+      this.$dialog
+        .confirm({
+          message: '是否清空历史记录'
+        })
+        .then(() => {
+          window.localStorage.setItem('keyword', '');
+          this.wordHistory = [];
+        });
     },
     disabledSubmit() {
       return false;
@@ -80,22 +85,20 @@ export default {
 
 
 <style lang="scss" scoped>
+.item_search {
+  background-color: #fff;
+}
+.item_search_content {
+  padding: 15px 10px 0;
+}
+.item_search_text {
+  font-size: $font-size-normal;
+  color: $font-color-gray;
+  margin-bottom: 20px;
+}
 
-
-	.item_search{
-		background-color: #fff;
-	}
-	.item_search_content{
-		padding: 15px 10px 0;
-	}
-	.item_search_text{
-		font-size: $font-size-normal;
-		color: $font-color-gray;
-		margin-bottom: 20px;
-	}
-
-	.item_search_history > span{
-		margin-right: 10px;
-		margin-bottom: 10px;
-	}
+.item_search_history > span {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 </style>

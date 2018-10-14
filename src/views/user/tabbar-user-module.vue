@@ -19,8 +19,7 @@ export default {
 
 
 <style scoped lang="scss">
-	.user_module{
-		background-color: #fff;
-	}
-
+.user_module {
+  background-color: #fff;
+}
 </style>

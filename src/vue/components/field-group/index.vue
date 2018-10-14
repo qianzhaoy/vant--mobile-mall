@@ -12,15 +12,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.field_group {
-		padding-left:  15px;
-		padding-right: 15px;
+.field_group {
+  padding-left: 15px;
+  padding-right: 15px;
 
-		> div{
-			margin-bottom: 15px;
-			&:last-child{
-				margin-bottom: 0;
-			}
-		}
-	}
+  > div {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
 </style>

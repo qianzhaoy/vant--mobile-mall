@@ -6,9 +6,11 @@ import spinner from '@/core/components/spinner';
 
 export default (chunkPath, loading = true) => {
   const AsyncHandler = () => ({
-    component: new Promise((resolve) => {
+    component: new Promise(resolve => {
       setTimeout(() => {
-        resolve(import(/* webpackChunkName: "[request]" */ `@/views/${chunkPath}`));
+        resolve(
+          import(/* webpackChunkName: "[request]" */ `@/views/${chunkPath}`)
+        );
       }, 1000);
     }),
     loading: loading ? spinner : null,

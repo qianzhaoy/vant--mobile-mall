@@ -104,30 +104,30 @@ export default {
       shop_id,
       activeIndex,
       items: [],
-      tabsItem: [{
-        name: '全部',
-        status: 0
-      },
-      {
-        name: '待付款',
-        status: 10
-      },
-      {
-        name: '待发货',
-        status: 20
-      },
-      {
-        name: '待收货',
-        status: 30
-      },
-      {
-        name: '已完成',
-        status: 40
-      }
+      tabsItem: [
+        {
+          name: '全部',
+          status: 0
+        },
+        {
+          name: '待付款',
+          status: 10
+        },
+        {
+          name: '待发货',
+          status: 20
+        },
+        {
+          name: '待收货',
+          status: 30
+        },
+        {
+          name: '已完成',
+          status: 40
+        }
       ]
     };
   },
-
 
   watch: {
     $route: 'resetInit'
@@ -141,27 +141,29 @@ export default {
     initData() {
       const i = this.active;
       const status = this.tabsItem[i].status;
-      return this.$reqGet(ORDER_LIST, {
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage,
-        shop_id: this.shop_id,
-        status
-      }, {
-        hideLoading: true
-      }).then((res) => {
+      return this.$reqGet(
+        ORDER_LIST,
+        {
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage,
+          shop_id: this.shop_id,
+          status
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
       });
     },
     async delOrder(i) {
-      const id = this.items[i].id;
       await this.$dialog.confirm({ message: '确定要删除该订单吗?' });
       this.items.splice(i, 1);
       this.$toast('已删除该订单');
     },
     async cancelOrder(i) {
-      const id = this.items[i].id;
       await this.$dialog.confirm({ message: '确定要取消该订单吗?' });
       if (this.activeIndex == 0) {
         this.items[i].status = 60;
@@ -171,13 +173,13 @@ export default {
       this.$toast('已取消该订单');
     },
     async receiptOrder(i) {
-      const id = this.items[i].id;
-      await this.$dialog.confirm({ message: '请确认收到货物, 确认收货后无法撤销!' });
+      await this.$dialog.confirm({
+        message: '请确认收到货物, 确认收货后无法撤销!'
+      });
       this.items[i].status = 40;
       this.$toast('已确认收货');
     },
     reminderOrder(i) {
-      const id = this.items[i].id;
       this.items[i].is_can_reminder = false;
       this.$toast('已提醒卖家发货, 请耐心等待哦~');
     },
@@ -186,7 +188,10 @@ export default {
       this.$router.push({ name: 'payment', params: { order_id: id } });
     },
     handleTabClick(index) {
-      this.$router.replace({ name: 'user-order-list', params: { active: index } });
+      this.$router.replace({
+        name: 'user-order-list',
+        params: { active: index }
+      });
     },
     getStatusText(status) {
       return STATUS_TEXT[status] || '';
@@ -215,27 +220,25 @@ export default {
     status70
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	.order_list {
-		padding-bottom: 0;
-		&--footer_btn {
-			text-align: right;
-		}
-		&--panel{
-			margin-bottom: 10px;
-		}
+.order_list {
+  padding-bottom: 0;
+  &--footer_btn {
+    text-align: right;
+  }
+  &--panel {
+    margin-bottom: 10px;
+  }
 
-		&--van-card{
-			background-color: #fafafa;
-		}
+  &--van-card {
+    background-color: #fafafa;
+  }
 
-		&--total{
-			text-align: right;
-			padding: 10px;
-		}
-	}
-
+  &--total {
+    text-align: right;
+    padding: 10px;
+  }
+}
 </style>

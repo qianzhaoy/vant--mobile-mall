@@ -15,7 +15,6 @@ import ecouponGroup from './tabbar-user-ecoupon';
 import userModule from './tabbar-user-module';
 
 export default {
-
   data() {
     return {
       isLogin: false
@@ -28,11 +27,19 @@ export default {
 
   methods: {
     quit() {
-      this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
+      this.$util.removeLocalStorage(
+        'Authorization',
+        'user_id',
+        'avatar',
+        'background_image',
+        'nick_name'
+      );
       this.$router.push({ name: 'login' });
     },
     getLoginStatus() {
-      this.isLogin = !!localStorage.getItem('Authorization') && !!localStorage.getItem('user_id');
+      this.isLogin =
+        !!localStorage.getItem('Authorization') &&
+        !!localStorage.getItem('user_id');
     }
   },
 
@@ -43,19 +50,17 @@ export default {
     [userModule.name]: userModule
   }
 };
-
 </script>
 
 
 <style scoped lang="scss">
-	.tabbar-user {
-		>div {
-			margin-bottom: 10px;
-		}
-		&__quit {
-				border: 0;
-				border-radius: 0;
-		}
-	}
-
+.tabbar-user {
+  > div {
+    margin-bottom: 10px;
+  }
+  &__quit {
+    border: 0;
+    border-radius: 0;
+  }
+}
 </style>

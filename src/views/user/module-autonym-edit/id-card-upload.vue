@@ -62,55 +62,54 @@ export default {
 
 
 <style lang="scss" scoped>
+.id_card_upload {
+  margin: 10px 0 30px 0;
+  background-color: #fff;
+  padding: 15px 10px;
+  > div {
+    margin-bottom: 15px;
+  }
+}
+.upload_hint {
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.6;
+  i {
+    position: absolute;
+    top: 2px;
+    left: 0;
+  }
+}
 
-	.id_card_upload{
-		margin: 10px 0 30px 0;
-		background-color: #fff;
-		padding: 15px 10px;
-		>div{
-			margin-bottom: 15px;
-		}
-	}
-	.upload_hint{
-		position: relative;
-		padding-left: 20px;
-		line-height: 1.6;
-		i{
-			position: absolute;
-			top: 2px;
-			left: 0;
-		}
-	}
+.id_card_row {
+  > div {
+    text-align: center;
+  }
+  .text-desc {
+    margin-bottom: 8px;
+  }
+}
 
-	.id_card_row{
-		>div{
-			text-align: center;
-		}
-		.text-desc{
-			margin-bottom: 8px;
-		}
-	}
-
-	.upload_box .upload_wrap{
-		position: relative;
-		border: 1px dashed $gray;
-		min-height: 100px;
-		box-sizing: border-box;
-		padding: 5px;
-		img{
-			max-width: 100%;
-			display: block;
-		}
-		.add_btn{
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			font-size: 20px;
-			color: $gray;
-			transform: translate(-50%, -50%);
-			i{
-				font-size: 24px;
-			}
-		}
-	}
+.upload_box .upload_wrap {
+  position: relative;
+  border: 1px dashed $gray;
+  min-height: 100px;
+  box-sizing: border-box;
+  padding: 5px;
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  .add_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+    color: $gray;
+    transform: translate(-50%, -50%);
+    i {
+      font-size: 24px;
+    }
+  }
+}
 </style>

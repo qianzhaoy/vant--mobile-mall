@@ -20,38 +20,39 @@ export default {
   data() {
     return {
       active: 0,
-      tabbar: [{
-        name: '精选',
-        path: '/',
-        pathName: 'home',
-        icon: 'compass-full',
-        dot: false,
-        info: ''
-      },
-      {
-        name: '分类',
-        path: '/items',
-        pathName: 'class',
-        icon: 'class-full',
-        dot: false,
-        info: ''
-      },
-      {
-        name: '购物车',
-        path: '/order',
-        pathName: 'cart',
-        icon: 'cart-full',
-        dot: false,
-        info: ''
-      },
-      {
-        name: '我的',
-        path: '/user',
-        pathName: 'user',
-        icon: 'wode',
-        dot: false,
-        info: ''
-      }
+      tabbar: [
+        {
+          name: '精选',
+          path: '/',
+          pathName: 'home',
+          icon: 'compass-full',
+          dot: false,
+          info: ''
+        },
+        {
+          name: '分类',
+          path: '/items',
+          pathName: 'class',
+          icon: 'class-full',
+          dot: false,
+          info: ''
+        },
+        {
+          name: '购物车',
+          path: '/order',
+          pathName: 'cart',
+          icon: 'cart-full',
+          dot: false,
+          info: ''
+        },
+        {
+          name: '我的',
+          path: '/user',
+          pathName: 'user',
+          icon: 'wode',
+          dot: false,
+          info: ''
+        }
       ]
     };
   },
@@ -80,9 +81,8 @@ export default {
   },
 
   components: {
-			 [Tabbar.name]: Tabbar,
-			 [TabbarItem.name]: TabbarItem
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem
   }
 };
-
 </script>

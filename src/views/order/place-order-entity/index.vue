@@ -19,7 +19,6 @@ import bottomGoodsInfo from './bottom-goods-info';
 import { SubmitBar } from 'vant';
 
 export default {
-
   data() {
     return {
       isSubmit: false,
@@ -44,8 +43,7 @@ export default {
 
 
 <style lang="scss" scoped>
-
-	.place_order_entity{
-		padding-bottom: 70px;
-	}
+.place_order_entity {
+  padding-bottom: 70px;
+}
 </style>

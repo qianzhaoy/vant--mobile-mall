@@ -25,7 +25,6 @@ import field from '@/vue/components/field/';
 import fieldGroup from '@/vue/components/field-group/';
 
 export default {
-
   data() {
     return {
       isErrow: true,
@@ -35,8 +34,7 @@ export default {
   },
 
   methods: {
-    submitCode() {
-    }
+    submitCode() {}
   },
 
   components: {
@@ -47,16 +45,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+div.foget_view {
+  background-color: #fff;
+  padding-top: 30px;
+}
 
-	div.foget_view{
-		background-color: #fff;
-		padding-top: 30px;
-	}
-
-	div.foget_submit{
-		padding-top: 30px;
-		padding-bottom: 20px;
-	}
-
+div.foget_submit {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
 </style>
-

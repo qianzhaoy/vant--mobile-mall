@@ -39,14 +39,9 @@
 </template>
 
 <script>
-import {
-  Panel,
-  SubmitBar,
-  Card
-} from 'vant';
+import { Panel, SubmitBar, Card } from 'vant';
 
 export default {
-
   data() {
     return {
       showNotice: false,
@@ -59,7 +54,8 @@ export default {
         price: 690,
         status: 1,
         num: 3,
-        thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
+        thumb:
+          'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
       }
     };
   },
@@ -77,35 +73,33 @@ export default {
     [SubmitBar.name]: SubmitBar
   }
 };
-
 </script>
 
 <style scoped lang="scss">
+.panel_content {
+  position: relative;
+  padding: 10px 15px;
+  .panel_notice {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
 
-	.panel_content {
-		position: relative;
-		padding: 10px 15px;
-		.panel_notice {
-			position: absolute;
-			top: 15px;
-			right: 15px;
-		}
-
-		ol{
-			padding-left: 12px;
-			padding-top: 10px;
-			list-style: decimal;
-			color: $font-color-gray;
-			overflow: hidden;
-			li{
-				margin-bottom: 10px;
-				font-size: $font-size-small;
-				&:last-child{
-					margin: 0;
-				}
-			}
-		}
-	}
+  ol {
+    padding-left: 12px;
+    padding-top: 10px;
+    list-style: decimal;
+    color: $font-color-gray;
+    overflow: hidden;
+    li {
+      margin-bottom: 10px;
+      font-size: $font-size-small;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
 
 /*
 	.slide-enter,.slide-leave-to{
@@ -116,5 +110,4 @@ export default {
 		transition: all 1s;
 	}
 */
-
 </style>

@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { USER_PROFILE } from '@/api/user';
 import avatar_default from '../../assets/images/avatar_default.png';
 import bg_default from '../../assets/images/user_head_bg.png';
 
@@ -37,7 +36,11 @@ export default {
 
   methods: {
     getUserInfo() {
-      const infoData = this.$util.getLocalStorage('nick_name', 'background_image', 'avatar');
+      const infoData = this.$util.getLocalStorage(
+        'nick_name',
+        'background_image',
+        'avatar'
+      );
       this.nick_name = infoData.nick_name || '昵称';
       this.avatar = infoData.avatar || avatar_default;
       this.background_image = infoData.background_image || bg_default;
@@ -46,37 +49,36 @@ export default {
       this.$router.push({ name: 'user-information' });
     },
     toLogin() {
-      !this.isLogin && this.$router.push({ name: 'login', query: { redirect: 'user' } });
+      !this.isLogin &&
+        this.$router.push({ name: 'login', query: { redirect: 'user' } });
     }
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	.user_header {
-		position: relative;
-		background-repeat: no-repeat;
-		background-size: cover;
-		height: 130px;
-		box-sizing: border-box;
-		text-align: center;
-		color: #fff;
-		padding-top: 30px;
-	}
+.user_header {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 130px;
+  box-sizing: border-box;
+  text-align: center;
+  color: #fff;
+  padding-top: 30px;
+}
 
-	i.user_set {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		font-size: 24px;
-	}
-	.user_avatar{
-		margin-bottom: 10px;
-		img{
-			border: 0;
-			border-radius: 50%;
-		}
-	}
-
+i.user_set {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+.user_avatar {
+  margin-bottom: 10px;
+  img {
+    border: 0;
+    border-radius: 50%;
+  }
+}
 </style>

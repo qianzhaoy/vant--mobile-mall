@@ -9,4 +9,3 @@ defaultOptions.methods = {
 };
 
 export default Vuelidation;
-

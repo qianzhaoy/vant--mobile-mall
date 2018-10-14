@@ -1,10 +1,7 @@
 <template>
-
+  <div>set mobile</div>
 </template>
 
-
 <script>
-export default {
-
-};
+export default {};
 </script>

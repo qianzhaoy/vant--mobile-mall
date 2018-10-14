@@ -9,9 +9,12 @@ export default {
   mounted() {
     const vm = this;
 
-    vm.$el.addEventListener('scroll', vm.$util.debounce(() => {
-      vm.scrollTop = vm.$el.scrollTop;
-    }, 50));
+    vm.$el.addEventListener(
+      'scroll',
+      vm.$util.debounce(() => {
+        vm.scrollTop = vm.$el.scrollTop;
+      }, 50)
+    );
   },
 
   activated() {

@@ -102,26 +102,27 @@ export default {
       shop_id,
       activeIndex,
       items: [],
-      tabsItem: [{
-        name: '全部',
-        status: 0
-      },
-      {
-        name: '待付款',
-        status: 10
-      },
-      {
-        name: '待使用',
-        status: 100
-      },
-      {
-        name: '已使用',
-        status: 110
-      },
-      {
-        name: '退款成功',
-        status: 120
-      }
+      tabsItem: [
+        {
+          name: '全部',
+          status: 0
+        },
+        {
+          name: '待付款',
+          status: 10
+        },
+        {
+          name: '待使用',
+          status: 100
+        },
+        {
+          name: '已使用',
+          status: 110
+        },
+        {
+          name: '退款成功',
+          status: 120
+        }
       ]
     };
   },
@@ -138,14 +139,18 @@ export default {
     initData() {
       const i = this.status;
       const status = this.tabsItem[i].status;
-      return this.$reqGet(ELE_COUPON_LIST, {
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage,
-        shop_id: this.shop_id,
-        status
-      }, {
-        hideLoading: true
-      }).then((res) => {
+      return this.$reqGet(
+        ELE_COUPON_LIST,
+        {
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage,
+          shop_id: this.shop_id,
+          status
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
@@ -158,17 +163,22 @@ export default {
       });
     },
     async cancelOrder(i) {
-      const id = this.items[i].id;
-      this.$dialog.confirm({ message: '确定要取消该订单吗?' }).then(() => {
-        this.items.splice(i, 1);
-        this.$toast('已取消该订单');
-      }).catch(() => {});
+      this.$dialog
+        .confirm({ message: '确定要取消该订单吗?' })
+        .then(() => {
+          this.items.splice(i, 1);
+          this.$toast('已取消该订单');
+        })
+        .catch(() => {});
     },
     toPay(id) {
       this.$router.push({ name: 'payment', params: { order_id: id } });
     },
     handleTabClick(index) {
-      this.$router.replace({ name: 'user-order-ele-list', params: { status: index } });
+      this.$router.replace({
+        name: 'user-order-ele-list',
+        params: { status: index }
+      });
     },
     getStatusText(status) {
       return STATUS_TEXT[status] || '';
@@ -189,31 +199,29 @@ export default {
     status120
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	.order_list {
-		padding-bottom: 0;
-		height: 100%;
-		box-sizing: border-box;
-		overflow-x: hidden;
-		overflow-y: scroll;
-		&--footer_btn {
-			text-align: right;
-		}
-		&--panel{
-			margin-bottom: 10px;
-		}
+.order_list {
+  padding-bottom: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &--footer_btn {
+    text-align: right;
+  }
+  &--panel {
+    margin-bottom: 10px;
+  }
 
-		&--van-card{
-			background-color: #fafafa;
-		}
+  &--van-card {
+    background-color: #fafafa;
+  }
 
-		&--total{
-			text-align: right;
-			padding: 10px;
-		}
-	}
-
+  &--total {
+    text-align: right;
+    padding: 10px;
+  }
+}
 </style>

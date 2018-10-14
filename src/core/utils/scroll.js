@@ -18,10 +18,14 @@ export default {
   },
 
   getVisibleHeight(element) {
-    return element === window ? element.innerHeight : element.getBoundingClientRect().height;
+    return element === window
+      ? element.innerHeight
+      : element.getBoundingClientRect().height;
   },
 
   getVisibleWidth(element) {
-    return element === window ? element.innerWidth : element.getBoundingClientRect().width;
+    return element === window
+      ? element.innerWidth
+      : element.getBoundingClientRect().width;
   }
 };

@@ -1,8 +1,9 @@
-export const idCard = val => /^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(val);
+export const idCard = val =>
+  /^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(val);
 
 export const mobile = val => /^1[0-9]{10}$/.test(val);
 
-export const address = (val) => {
+export const address = val => {
   const value = val.trim();
   return value.length >= 5 && value.length <= 100;
 };

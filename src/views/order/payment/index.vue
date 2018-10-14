@@ -34,10 +34,7 @@
 </template>
 
 <script>
-import {
-  Radio,
-  RadioGroup
-} from 'vant';
+import { Radio, RadioGroup } from 'vant';
 
 export default {
   name: 'payment',
@@ -65,32 +62,30 @@ export default {
     [RadioGroup.name]: RadioGroup
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	.payment_group {
-		margin-bottom: 10px;
-	}
+.payment_group {
+  margin-bottom: 10px;
+}
 
-	.time_down {
-		background-color: #fffeec;
-		padding: 10px 15px;
-	}
+.time_down {
+  background-color: #fffeec;
+  padding: 10px 15px;
+}
 
-	.pay_submit {
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-	}
+.pay_submit {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 
-	.pay_way_group img {
-		vertical-align: middle;
-	}
+.pay_way_group img {
+  vertical-align: middle;
+}
 
-	.pay_way_title {
-		padding: 15px;
-		background-color: #fff;
-	}
-
+.pay_way_title {
+  padding: 15px;
+  background-color: #fff;
+}
 </style>

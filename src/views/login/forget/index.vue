@@ -29,7 +29,6 @@ import field from '@/vue/components/field/';
 import fieldGroup from '@/vue/components/field-group/';
 
 export default {
-
   data() {
     return {
       counting: false,
@@ -58,27 +57,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../assets/scss/mixin';
 
-	@import "../../../assets/scss/mixin";
+div.foget_view {
+  background-color: #fff;
+  padding-top: 30px;
+}
 
-	div.foget_view{
-		background-color: #fff;
-		padding-top: 30px;
-	}
+div.foget_submit {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
 
-	div.foget_submit{
-		padding-top: 30px;
-		padding-bottom: 20px;
-	}
+.getCode {
+  @include one-border(left);
+  text-align: center;
+}
 
-	.getCode{
-		@include one-border(left);
-		text-align: center;
-	}
-
-	.time_down{
-		color: $red;
-	}
-
+.time_down {
+  color: $red;
+}
 </style>
-

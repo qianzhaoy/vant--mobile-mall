@@ -46,15 +46,20 @@ export default {
   data() {
     return {
       default_address: 1,
-      addressList: [{
-        id: 1
-      }, {
-        id: 2
-      }, {
-        id: 3
-      }, {
-        id: 4
-      }]
+      addressList: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        },
+        {
+          id: 3
+        },
+        {
+          id: 4
+        }
+      ]
     };
   },
 
@@ -77,15 +82,15 @@ export default {
 
 
 <style lang="scss" scoped>
-	.addressGroup{
-		margin-bottom: 10px;
-		&:last-child{
-			margin-bottom: 0;
-		}
-	}
+.addressGroup {
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
 
-	.bottom_btn{
-		position: fixed;
-		bottom: 0;
-	}
+.bottom_btn {
+  position: fixed;
+  bottom: 0;
+}
 </style>

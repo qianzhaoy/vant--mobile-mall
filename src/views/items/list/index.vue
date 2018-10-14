@@ -103,19 +103,23 @@ export default {
       ],
       sortVal: '',
       is_haitao: 0,
-      filterItem: [{
-        name: '全部',
-        filterType: 2,
-        isActive: true
-      }, {
-        name: '店铺商品',
-        filterType: 0,
-        isActive: false
-      }, {
-        name: '海淘商品',
-        filterType: 1,
-        isActive: false
-      }],
+      filterItem: [
+        {
+          name: '全部',
+          filterType: 2,
+          isActive: true
+        },
+        {
+          name: '店铺商品',
+          filterType: 0,
+          isActive: false
+        },
+        {
+          name: '海淘商品',
+          filterType: 1,
+          isActive: false
+        }
+      ],
       isHaitao: 2,
       searchVal: '',
       filterItemShow: false,
@@ -124,7 +128,7 @@ export default {
   },
 
   watch: {
-    itemClass(val) {
+    itemClass() {
       this.scrollTop = 0;
       this.resetInit();
     }
@@ -145,18 +149,22 @@ export default {
   },
 
   methods: {
-    initData(loadMore = false) {
-      return this.$reqGet(GOODS_SEARCH, {
-        q: this.searchVal,
-        shop_id: this.shop_id,
-        cid: this.itemClass,
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage,
-        sort: this.sortVal,
-        is_haitao: this.isHaitao
-      }, {
-        hideLoading: true
-      }).then((res) => {
+    initData() {
+      return this.$reqGet(
+        GOODS_SEARCH,
+        {
+          q: this.searchVal,
+          shop_id: this.shop_id,
+          cid: this.itemClass,
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage,
+          sort: this.sortVal,
+          is_haitao: this.isHaitao
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
@@ -214,47 +222,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
 
-	.fade-enter,
-	.fade-leave-to{
-		opacity: 0;
-	}
+.item_list {
+  background-color: #fff;
+  padding-bottom: 0;
+}
+.fixedTop {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+}
 
-	.fade-enter-active,
-	.fade-leave-active,{
-		transition:  all .5s;
-	}
-
-
-	.item_list{
-		background-color: #fff;
-		padding-bottom: 0;
-	}
-	.fixedTop{
-		position: fixed;
-		width: 100%;
-		top: 0;
-		z-index: 999;
-	}
-
-	.items_loading{
-		margin: 0 auto;
-	}
-	.filterItem{
-		width: 40%;
-		height: 100%;
-		li{
-			padding: 10px;
-			&.filter_active{
-				color: $red;
-			}
-		}
-	}
-	.backTop{
-		position: fixed;
-		right: 20px;
-		bottom: 20px;
-		font-size: 24px;
-	}
+.items_loading {
+  margin: 0 auto;
+}
+.filterItem {
+  width: 40%;
+  height: 100%;
+  li {
+    padding: 10px;
+    &.filter_active {
+      color: $red;
+    }
+  }
+}
+.backTop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 24px;
+}
 </style>

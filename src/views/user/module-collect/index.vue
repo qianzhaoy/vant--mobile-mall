@@ -55,7 +55,6 @@ import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 export default {
-
   mixins: [loadMore, scrollFixed],
 
   data() {
@@ -73,20 +72,23 @@ export default {
 
   methods: {
     initData() {
-      return this.$reqGet(GOODS_COLLECT_LIST, {
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage,
-        shop_id: this.shop_id
-      }, {
-        hideLoading: true
-      }).then((res) => {
+      return this.$reqGet(
+        GOODS_COLLECT_LIST,
+        {
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage,
+          shop_id: this.shop_id
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.items.push(...items);
         return page;
       });
     },
     cancelCollect(event, i) {
-      const item_id = this.items[i].item_id;
       this.$dialog.confirm({ message: '是否取消收藏该商品' }).then(() => {
         this.items.splice(i, 1);
       });
@@ -97,10 +99,11 @@ export default {
     itemClick(i) {
       const item_id = this.items[i].item_id;
       const status = this.items[i].goods_status;
-      status && this.$router.push({
-        name: 'detail',
-        params: { itemId: item_id }
-      });
+      status &&
+        this.$router.push({
+          name: 'detail',
+          params: { itemId: item_id }
+        });
       !status && this.$toast('该商品已失效');
     }
   },
@@ -112,20 +115,17 @@ export default {
     [IsEmpty.name]: IsEmpty
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-
-	.clear_invalid {
-		width: 120px;
-		color: $font-color-gray;
-		border: 1px solid $font-color-gray;
-		margin: 0 auto;
-		text-align: center;
-		padding: 5px 3px;
-		margin-top: 20px;
-		border-radius: 3px;
-	}
-
+.clear_invalid {
+  width: 120px;
+  color: $font-color-gray;
+  border: 1px solid $font-color-gray;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px 3px;
+  margin-top: 20px;
+  border-radius: 3px;
+}
 </style>

@@ -41,7 +41,7 @@ function doBindEvent() {
   this.offset = Number(offset) || OFFSET;
   this.el.addEventListener('scroll', this.scrollEventListener);
 
-//	this.scrollEventListener();
+  //	this.scrollEventListener();
 }
 
 // 处理滚动函数
@@ -63,11 +63,12 @@ function handleScrollEvent() {
   // 判断是否到了最左边
   const isLeftOver = targetScrollLeft < this.offset;
 
-  this.cb && this.cb({
-    target: element,
-    isRightOver,
-    isLeftOver
-  });
+  this.cb &&
+    this.cb({
+      target: element,
+      isRightOver,
+      isLeftOver
+    });
 
   //	// 判断是否到了顶
   //	let needLoadMoreToUpper =  targetScrollTop < this.offset;

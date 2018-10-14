@@ -16,7 +16,6 @@
 
 <script>
 import { USER_PROFILE } from '@/api/user';
-import valid from '@/api/user';
 
 export default {
   data() {
@@ -47,12 +46,14 @@ export default {
     },
     saveNick() {
       if (this.mixValid()) {
-        this.$reqPut(USER_PROFILE, { nick_name: this.nickName }).then((res) => {
-          localStorage.setItem('nick_name', res.data.data.nick_name);
-						 return this.$dialog.alert({ message: '保存成功' });
-        }).then(() => {
-          this.$router.go(-1);
-        });
+        this.$reqPut(USER_PROFILE, { nick_name: this.nickName })
+          .then(res => {
+            localStorage.setItem('nick_name', res.data.data.nick_name);
+            return this.$dialog.alert({ message: '保存成功' });
+          })
+          .then(() => {
+            this.$router.go(-1);
+          });
       }
     }
   }
@@ -61,7 +62,7 @@ export default {
 
 
 <style scoped>
-	.bottom_btn{
-		padding: 30px 15px 0 15px;
-	}
+.bottom_btn {
+  padding: 30px 15px 0 15px;
+}
 </style>

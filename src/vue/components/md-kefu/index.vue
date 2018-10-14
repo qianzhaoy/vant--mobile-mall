@@ -23,41 +23,40 @@ export default {
 
 
 <style lang="scss" scoped>
-
-	@import "../../../assets/scss/mixin";
-	.contact_popup{
-		white-space: nowrap;
-		background-color: $bg-color;
-		text-align: center;
-		border-radius: 5px;
-		.contact_box{
-			padding: 20px 30px;
-			>div:first-child{
-				margin-bottom: 20px;
-			}
-		}
-		.contact_top{
-			@include one-border;
-			&::after{
-				border-bottom-color: #999;
-			}
-		}
-		.contact_btn{
-			border: 1px solid $red;
-			width: 80%;
-			margin: 0 auto;
-			color: #fff;
-			background-color: $red;
-			padding: 5px 0;
-			border-radius: 3px;
-			a{
-				color: #fff;
-				display: block;
-			}
-		}
-		img{
-			max-width: 100%;
-			max-height: 100%;
-		}
-	}
+@import '../../../assets/scss/mixin';
+.contact_popup {
+  white-space: nowrap;
+  background-color: $bg-color;
+  text-align: center;
+  border-radius: 5px;
+  .contact_box {
+    padding: 20px 30px;
+    > div:first-child {
+      margin-bottom: 20px;
+    }
+  }
+  .contact_top {
+    @include one-border;
+    &::after {
+      border-bottom-color: #999;
+    }
+  }
+  .contact_btn {
+    border: 1px solid $red;
+    width: 80%;
+    margin: 0 auto;
+    color: #fff;
+    background-color: $red;
+    padding: 5px 0;
+    border-radius: 3px;
+    a {
+      color: #fff;
+      display: block;
+    }
+  }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 </style>

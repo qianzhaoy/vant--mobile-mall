@@ -50,7 +50,7 @@
 //	import sku from "./sku";
 import actionMixin from '../mix';
 
-export default{
+export default {
   name: 'virtual-group',
   props: {
     mobile: String,
@@ -73,50 +73,49 @@ export default{
     addressClick() {}
   }
 };
-
 </script>
 
 
 <style lang="scss" scoped>
-	.popup_wrap{
-		position: relative;
-		padding-bottom: 30px;
-		box-sizing: border-box;
-	}
-	.popup_header{
-		padding: 15px 0 30px 0;
-		text-align: center;
-	}
+.popup_wrap {
+  position: relative;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+.popup_header {
+  padding: 15px 0 30px 0;
+  text-align: center;
+}
 
-	.popup_content{
-		height: 150px;
-		box-sizing: border-box;
-		overflow-x: hidden;
-		overflow-y: scroll;
-		padding: 0 10px;
-		line-height: 30px;
-		&::-webkit-scrollbar{
-			background-color: #fff;
-			width: 5px;
-		}
-		&::-webkit-scrollbar-thumb{
-			border-radius: 3px;
-			background-color: #bebebe;
-		}
-		ol{
-			padding-left: 15px;
-			list-style: decimal;
-		}
-	}
+.popup_content {
+  height: 150px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0 10px;
+  line-height: 30px;
+  &::-webkit-scrollbar {
+    background-color: #fff;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #bebebe;
+  }
+  ol {
+    padding-left: 15px;
+    list-style: decimal;
+  }
+}
 
-	.store_mobile{
-		display: block;
-	}
+.store_mobile {
+  display: block;
+}
 
-	.cancel_popup{
-		position: absolute;
-		right: 15px;
-		top: 15px;
-		font-size: 18px;
-	}
+.cancel_popup {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 18px;
+}
 </style>

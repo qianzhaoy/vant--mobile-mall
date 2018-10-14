@@ -15,15 +15,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.store_header{
-		text-align: center;
-		padding: 30px 0;
-		.store_avatar img{
-			border-radius: 50%;
-		}
-		.store_name{
-			padding-top: 5px;
-			font-size: 16px;
-		}
-	}
+.store_header {
+  text-align: center;
+  padding: 30px 0;
+  .store_avatar img {
+    border-radius: 50%;
+  }
+  .store_name {
+    padding-top: 5px;
+    font-size: 16px;
+  }
+}
 </style>

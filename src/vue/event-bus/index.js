@@ -8,7 +8,7 @@ export default {
           };
         },
         created() {
-          this.$on('item_list', (val) => {
+          this.$on('item_list', val => {
             const isArr = Array.isArray(val);
             if (isArr) {
               this.item_list = val;

@@ -38,49 +38,44 @@ export default {
   activated() {
     this.isSuccess = this.status === 'success';
   }
-
 };
-
 </script>
 
 
 <style lang="scss" scopd>
+.payment_status {
+  padding-top: 30px;
+  box-sizing: border-box;
+  background-color: #fff;
+  text-align: center;
+}
 
+.status_top {
+  margin-bottom: 15px;
+  i {
+    margin-bottom: 5px;
+  }
+  > div {
+    font-size: 18px;
+  }
+}
 
-	.payment_status {
-		padding-top: 30px;
-		box-sizing: border-box;
-		background-color: #fff;
-		text-align: center;
-	}
+.status_text {
+  color: $font-color-gray;
+  margin-bottom: 50px;
+}
 
-	.status_top{
-		margin-bottom: 15px;
-		i{
-			margin-bottom: 5px;
-		}
-		>div{
-			font-size: 18px;
-		}
-	}
+.status_icon {
+  font-size: 80px;
+}
 
-	.status_text{
-		color: $font-color-gray;
-		margin-bottom: 50px;
-	}
+i.success_icon {
+  @extend .status_icon;
+  color: #06bf04;
+}
 
-	.status_icon {
-		font-size: 80px;
-	}
-
-	i.success_icon {
-		@extend .status_icon;
-		color: #06bf04
-	}
-
-	i.fail_icon {
-		@extend .status_icon;
-		color: #f44
-	}
-
+i.fail_icon {
+  @extend .status_icon;
+  color: #f44;
+}
 </style>

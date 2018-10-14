@@ -17,13 +17,12 @@ export default {
 
 
 <style lang="scss" scoped>
-
-	.is_empty{
-		text-align: center;
-		color: $font-color-gray;
-		padding-top: 100px;
-		>div{
-			margin-bottom: 20px;
-		}
-	}
+.is_empty {
+  text-align: center;
+  color: $font-color-gray;
+  padding-top: 100px;
+  > div {
+    margin-bottom: 20px;
+  }
+}
 </style>

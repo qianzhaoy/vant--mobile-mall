@@ -33,7 +33,10 @@ export default {
 
   methods: {
     registerSubmit() {
-      this.$router.push({ name: 'registerStatus', params: { status: 'success' } });
+      this.$router.push({
+        name: 'registerStatus',
+        params: { status: 'success' }
+      });
     },
 
     getCode() {
@@ -53,24 +56,23 @@ export default {
 
 
 <style lang="scss" scoped>
+@import '../../../assets/scss/mixin';
 
-	@import "../../../assets/scss/mixin";
+.register_submit {
+  padding-top: 40px;
+  background-color: #fff;
+}
 
-	.register_submit{
-		padding-top: 40px;
-		background-color: #fff;
-	}
+.register_submit_btn {
+  padding-top: 30px;
+}
 
-	.register_submit_btn{
-		padding-top: 30px;
-	}
+.getCode {
+  @include one-border(left);
+  text-align: center;
+}
 
-	.getCode{
-		@include one-border(left);
-		text-align: center;
-	}
-
-	.time_down{
-		color: $red;
-	}
+.time_down {
+  color: $red;
+}
 </style>

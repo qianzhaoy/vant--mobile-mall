@@ -40,10 +40,7 @@ import field from '@/vue/components/field/';
 import fieldGroup from '@/vue/components/field-group/';
 import md_kefu from '@/vue/components/md-kefu/';
 
-import {
-  USER_LOGIN,
-  USER_PROFILE
-} from '@/api/user';
+import { USER_LOGIN, USER_PROFILE } from '@/api/user';
 
 export default {
   name: 'login-request',
@@ -65,25 +62,28 @@ export default {
     loginSubmit() {
       const loginData = this.getLoginData();
       this.isLogining = true;
-      this.$reqGet(USER_LOGIN).then((res) => {
-        console.log(res);
-        this.$util.setLocalStorage({
-          Authorization: res.data.data.access_token
-        });
+      this.$reqGet(USER_LOGIN, loginData)
+        .then(res => {
+          console.log(res);
+          this.$util.setLocalStorage({
+            Authorization: res.data.data.access_token
+          });
 
-        return this.$reqGet(USER_PROFILE);
-      }).then((res) => {
-        this.isLogining = false;
-        const localData = this.getLocalData(res.data.data);
-        const redirect = this.$route.query.redirect || 'home';
-        this.$util.setLocalStorage(localData);
-        this.$router.replace({
-          name: redirect,
-          query: this.$route.query
+          return this.$reqGet(USER_PROFILE);
+        })
+        .then(res => {
+          this.isLogining = false;
+          const localData = this.getLocalData(res.data.data);
+          const redirect = this.$route.query.redirect || 'home';
+          this.$util.setLocalStorage(localData);
+          this.$router.replace({
+            name: redirect,
+            query: this.$route.query
+          });
+        })
+        .catch(() => {
+          this.isLogining = false;
         });
-      }).catch((err) => {
-        this.isLogining = false;
-      });
     },
     getLoginData() {
       const password = this.password;
@@ -97,9 +97,11 @@ export default {
       const emailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
       const mobileReg = /^1[0-9]{10}$/;
       let accountType = '';
-      accountType = mobileReg.test(account) ? 'mobile' :
-        emailReg.test(account) ? 'email' :
-          'username';
+      accountType = mobileReg.test(account)
+        ? 'mobile'
+        : emailReg.test(account)
+          ? 'email'
+          : 'username';
       return accountType;
     },
     getLocalData(data) {
@@ -119,27 +121,24 @@ export default {
     [md_kefu.name]: md_kefu
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-
-	@import "../../assets/scss/mixin";
-	.register {
-		padding-top: 40px;
-		color: $font-color-gray;
-		a {
-			color: $font-color-gray;
-		}
-		>div {
-			width: 50%;
-			box-sizing: border-box;
-			padding: 0 20px;
-		}
-		.connect {
-			@include one-border(right);
-			text-align: right;
-		}
-	}
-
+@import '../../assets/scss/mixin';
+.register {
+  padding-top: 40px;
+  color: $font-color-gray;
+  a {
+    color: $font-color-gray;
+  }
+  > div {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+  .connect {
+    @include one-border(right);
+    text-align: right;
+  }
+}
 </style>

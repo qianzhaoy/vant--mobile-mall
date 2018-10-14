@@ -44,9 +44,8 @@ import ItemCardVert from '../item-card-vert/';
 import ItemCardHori from '../item-card-hori/';
 import { Cell, CellGroup, Icon } from 'vant';
 import scrollArrow from '../_directive/scrollMore';
-import util from '@/assets/js/util';
 
-export default{
+export default {
   name: 'item-group',
   props: {
     setting: {
@@ -59,7 +58,8 @@ export default{
     }
   },
   data() {
-    const clientW = document.body.clientWidth || document.documentElement.clientWidth,
+    const clientW =
+        document.body.clientWidth || document.documentElement.clientWidth,
       col = this.col,
       itemW = Math.floor(clientW / col),
       itemsLen = this.setting.item_len;
@@ -91,62 +91,62 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+.items_group {
+  background-color: #fff;
+}
+.group_title {
+  font-weight: 700;
+}
 
-	.items_group{
-		background-color: #fff;
-	}
-	.group_title{
-		font-weight: 700;
-	}
+.group_title_desc {
+  font-size: 12px;
+  color: $font-color-gray;
+}
+.group_banner img {
+  max-height: 200px;
+  display: block;
+}
 
-	.group_title_desc{
-		font-size: 12px;
-		color: $font-color-gray;
-	}
-	.group_banner img{
-		max-height: 200px;
-		display: block;
-	}
+.item_scroll_box {
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+}
+.item_scroll {
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.item_scroll_wrap {
+  display: flex;
+}
 
-	.item_scroll_box{
-		position: relative;
-		width: 100%;
-		padding: 10px 0;
-	}
-	.item_scroll{
-		width: 100%;
-		overflow-y: hidden;
-		overflow-x: scroll;
-	}
-	.item_scroll_wrap{
-		display: flex
-	}
+.items_arrow {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 18px;
+}
 
-	.items_arrow{
-		position: absolute;
-		top: 50%;
-		transform: translate(0, -50%);
-		font-size: 18px;
-	}
+.left_arrow {
+  left: 0;
+}
 
-	.left_arrow{
-		left: 0;
-	}
+.right_arrow {
+  right: 0;
+}
 
-	.right_arrow {
-		right: 0;
-	}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s;
+}
 
-	.fade-enter,.fade-leave-to{
-		opacity: 0;
-	}
-	.fade-enter-active,
-	.fade-leave-active{
-		transition: all .3s;
-	}
-
-	.fade-enter-to,.fade-leave{
-		opacity: 1;
-	}
-
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+}
 </style>

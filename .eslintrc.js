@@ -3,21 +3,11 @@ module.exports = {
   env: {
     node: true
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb'
-  ],
+  extends: ['plugin:vue/essential', '@vue/prettier'],
   rules: {
-    'no-param-reassign': 'off',
-    'linebreak-style': 'off',
-    'no-multi-assign': 'off',
-    'import/no-unresolved': 0,
-    'import/extensions': 'off',
-    'import/first': 'off',
-    'import/no-extraneous-dependencies': 'off',
     camelcase: 'off',
-    'comma-dangle': ['error', 'never'],
-    indent: ['error', 2],
+    quotes: ['error', 'single'],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   },

@@ -49,29 +49,27 @@
 </template>
 
 <script>
-
-export default {
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
-	.user_team{
-		background-color: #fff;
-	}
-	.user_member{
-		.user_avatar{
-			height: 55px;
-			width: 55px;
-			border-radius: 50%;
-			overflow: hidden;
-			img{
-				max-width: 100%;
-				max-height: 100%;
-			}
-		}
+.user_team {
+  background-color: #fff;
+}
+.user_member {
+  .user_avatar {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
 
-		.user_info{
-			margin-left: 70px;
-		}
-	}
+  .user_info {
+    margin-left: 70px;
+  }
+}
 </style>

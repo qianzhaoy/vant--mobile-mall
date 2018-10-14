@@ -31,7 +31,7 @@
 				:setting="group.setting"
 			>
 				<component
-					v-for="(item, i) in group.items"
+					v-for="item in group.items"
 					:goods="item"
 					:key="item.id"
 					:is="getStyle(group.setting.style)"
@@ -89,16 +89,27 @@ export default {
   computed: {
     location() {
       const shopInfo = this.shopInfo;
-      const local = { name: shopInfo.shop_name, lat: shopInfo.lat, lng: shopInfo.lng };
-      return (local.lat && local.lng) ? local : null;
+      const local = {
+        name: shopInfo.shop_name,
+        lat: shopInfo.lat,
+        lng: shopInfo.lng
+      };
+      return local.lat && local.lng ? local : null;
     }
   },
 
   created() {
     const shop_id = window.sessionStorage.getItem('id');
-    shop_id && this.getShopInfo('avatar', 'shop_name', 'address', 'notice', 'contact').then((res) => {
-      this.shopInfo = res;
-    });
+    shop_id &&
+      this.getShopInfo(
+        'avatar',
+        'shop_name',
+        'address',
+        'notice',
+        'contact'
+      ).then(res => {
+        this.shopInfo = res;
+      });
     this.initViews();
   },
 
@@ -108,10 +119,13 @@ export default {
         shop_id: this.shop_id,
         'per-page': this.pages.perPage,
         page: 1
-      }).then((res) => {
+      }).then(res => {
         const { shop_info, page } = res.data.data;
         const {
-          mx_goods, shop_recommend, activity_seckill, goods
+          mx_goods,
+          shop_recommend,
+          activity_seckill,
+          goods
         } = this.decorate(res.data.data);
         this.shopInfo = shop_info;
         this.itemGroup.mx_goods = mx_goods;
@@ -123,13 +137,17 @@ export default {
     },
 
     initData() {
-      return this.$reqGet(ALL_GOODS, {
-        shop_id: this.shop_id,
-        'per-page': this.pages.perPage,
-        page: this.pages.currPage
-      }, {
-        hideLoading: true
-      }).then((res) => {
+      return this.$reqGet(
+        ALL_GOODS,
+        {
+          shop_id: this.shop_id,
+          'per-page': this.pages.perPage,
+          page: this.pages.currPage
+        },
+        {
+          hideLoading: true
+        }
+      ).then(res => {
         const { items, page } = res.data.data;
         this.itemGroup.goods && this.itemGroup.goods.items.push(...items);
         return page;
@@ -159,9 +177,7 @@ export default {
       return style ? 'item-card-vert' : 'item-card-hori';
     },
 
-    decorate({
-      mx_goods, shop_recommend, activity_seckill, goods
-    }) {
+    decorate({ mx_goods, shop_recommend, activity_seckill, goods }) {
       if (mx_goods) {
         mx_goods.setting.icon = 'n4';
         mx_goods.setting.title_desc = '分享得金豆';
@@ -182,12 +198,17 @@ export default {
         goods.setting.item_len = goods.items.length;
       }
       return {
-        mx_goods, shop_recommend, activity_seckill, goods
+        mx_goods,
+        shop_recommend,
+        activity_seckill,
+        goods
       };
     },
 
     lootAll(item) {
-      return typeof item.as_status !== 'undefined' && item.sold_num == item.total;
+      return (
+        typeof item.as_status !== 'undefined' && item.sold_num == item.total
+      );
     },
 
     mxStatus(as_status) {

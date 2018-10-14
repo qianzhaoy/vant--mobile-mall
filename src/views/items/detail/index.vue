@@ -101,13 +101,16 @@ export default {
     initData() {
       this.$reqGet(`${GOODS_DETAIL}`, {
         expand: 'desc,skus,prop_imgs,item_imgs'
-      }).then((res) => {
+      }).then(res => {
         this.goods = res.data.data;
       });
     },
 
     doBuyNow() {
-      if ((this.goods.has_sku && this.selectSku.sku_id) || !this.goods.has_sku) {
+      if (
+        (this.goods.has_sku && this.selectSku.sku_id) ||
+        !this.goods.has_sku
+      ) {
         this.$router.push({ name: 'placeOrderEntity' });
       } else {
         const goodAction = this.$refs.goodAction;
@@ -122,8 +125,6 @@ export default {
           duration: 1500
         });
         this.cartInfo = String(parseInt(this.cartInfo) + 1);
-      } else {
-
       }
     },
     doContact() {
@@ -150,75 +151,72 @@ export default {
     [GoodsActionBigBtn.name]: GoodsActionBigBtn,
     [GoodsActionMiniBtn.name]: GoodsActionMiniBtn,
     'entity-group': () =>
-				import(/* webpackChunkName: "EntityGroup" */ './EntityGroup/index'),
+      import(/* webpackChunkName: "EntityGroup" */ './EntityGroup/index'),
     'virtual-group': () =>
-				import(/* webpackChunkName: "VirtualGroup" */ './VirtualGroup/index.vue')
+      import(/* webpackChunkName: "VirtualGroup" */ './VirtualGroup/index.vue')
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
+@import '../../../assets/scss/mixin';
 
-	@import "../../../assets/scss/mixin";
+.item_detail {
+  img {
+    max-width: 100%;
+  }
+}
 
-	.item_detail {
-		img {
-			max-width: 100%;
-		}
-	}
+.item_cell_group {
+  margin-bottom: 15px;
+}
 
-	.item_cell_group {
-		margin-bottom: 15px;
-	}
+.item_price {
+  font-size: 20px;
+  color: $red;
+  margin-right: 10px;
+}
 
-	.item_price {
-		font-size: 20px;
-		color: $red;
-		margin-right: 10px;
-	}
+.item_market_price {
+  color: $font-color-gray;
+  text-decoration: line-through;
+  font-size: $font-size-small;
+}
 
-	.item_market_price {
-		color: $font-color-gray;
-		text-decoration: line-through;
-		font-size: $font-size-small;
-	}
+.item-title {
+  line-height: 1.4;
+}
 
-	.item-title {
-		line-height: 1.4;
-	}
+.item_dispatch {
+  font-size: $font-size-small;
+  color: $font-color-gray;
+}
 
-	.item_dispatch {
-		font-size: $font-size-small;
-		color: $font-color-gray;
-	}
+.item_intro {
+  line-height: 18px;
+  margin: 5px 0;
+  font-size: $font-size-small;
+  color: $font-color-gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
 
-	.item_intro {
-		line-height: 18px;
-		margin: 5px 0;
-		font-size: $font-size-small;
-		color: $font-color-gray;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-	}
+.item_desc {
+  background-color: #fff;
+  p {
+    padding: 0 10px;
+  }
+  img {
+    max-width: 100%;
+  }
+}
 
-	.item_desc {
-		background-color: #fff;
-		p {
-			padding: 0 10px;
-		}
-		img {
-			max-width: 100%;
-		}
-	}
-
-	.item_desc_title {
-		@include one-border;
-		padding: 10px 0;
-		text-align: center;
-	}
-
+.item_desc_title {
+  @include one-border;
+  padding: 10px 0;
+  text-align: center;
+}
 </style>

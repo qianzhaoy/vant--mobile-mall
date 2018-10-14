@@ -1,5 +1,7 @@
-const tab_home = () => import(/* webpackChunkName: "tabbar-home" */ '@/views/home/tabbar-home.vue');
-const Tabbar = () => import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
+const tab_home = () =>
+  import(/* webpackChunkName: "tabbar-home" */ '@/views/home/tabbar-home.vue');
+const Tabbar = () =>
+  import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
 
 export default [
   {
@@ -12,7 +14,8 @@ export default [
     meta: {
       keepAlive: true
     }
-  }, {
+  },
+  {
     path: '*',
     redirect: {
       name: 'home'

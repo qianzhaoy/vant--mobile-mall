@@ -6,7 +6,7 @@
 		</div>
 
     <van-checkbox-group class="card-goods" v-model="checkedGoods">
-     	<div v-for="(item, i) in goods" class="card-goods__item">
+     	<div v-for="(item, i) in goods" :key="i" class="card-goods__item">
 				<van-checkbox
 					:key="item.id"
 					:name="item.id"
@@ -56,13 +56,7 @@
 </template>
 
 <script>
-import {
-  Checkbox,
-  CheckboxGroup,
-  Card,
-  SubmitBar,
-  Stepper
-} from 'vant';
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant';
 
 import isEmpty from '@/vue/components/is-empty/';
 
@@ -73,31 +67,38 @@ export default {
       checkedAll: false,
       isSubmit: false,
       checkedGoods: [],
-      goods: [{
-        id: '1',
-        title: '进口香蕉',
-        desc: '约250g，2根',
-        price: 200,
-        status: 0,
-        num: 1,
-        thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/2f9a36046449dafb8608e99990b3c205.jpeg'
-      }, {
-        id: '2',
-        title: '陕西蜜梨',
-        desc: '约600g',
-        price: 690,
-        status: 1,
-        num: 3,
-        thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
-      }, {
-        id: '3',
-        title: '美国伽力果',
-        desc: '约680g/3个',
-        price: 2680,
-        status: 1,
-        num: 1,
-        thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
-      }]
+      goods: [
+        {
+          id: '1',
+          title: '进口香蕉',
+          desc: '约250g，2根',
+          price: 200,
+          status: 0,
+          num: 1,
+          thumb:
+            'https://img.yzcdn.cn/public_files/2017/10/24/2f9a36046449dafb8608e99990b3c205.jpeg'
+        },
+        {
+          id: '2',
+          title: '陕西蜜梨',
+          desc: '约600g',
+          price: 690,
+          status: 1,
+          num: 3,
+          thumb:
+            'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
+        },
+        {
+          id: '3',
+          title: '美国伽力果',
+          desc: '约680g/3个',
+          price: 2680,
+          status: 1,
+          num: 1,
+          thumb:
+            'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
+        }
+      ]
     };
   },
 
@@ -113,19 +114,33 @@ export default {
       return this.isEditor ? '删除' : `结算${count ? `(${count})` : ''}`;
     },
     totalPrice() {
-      return this.goods.reduce((total, item) => total + (this.checkedGoods.indexOf(item.id) !== -1 ? item.price * item.num : 0), 0);
+      return this.goods.reduce(
+        (total, item) =>
+          total +
+          (this.checkedGoods.indexOf(item.id) !== -1
+            ? item.price * item.num
+            : 0),
+        0
+      );
     }
   },
 
   methods: {
     cartSubmit() {
       if (this.isEditor) {
-        this.$dialog.confirm({ message: '确定删除所选商品吗?', cancelButtonText: '再想想' }).then(() => {
-          this.goods = this.goods.filter(goods => (this.checkedGoods.indexOf(goods.id) == -1));
-          this.checkedGoods = [];
-          this.checkedAll = false;
-          this.isEditor = !this.goods.length;
-        });
+        this.$dialog
+          .confirm({
+            message: '确定删除所选商品吗?',
+            cancelButtonText: '再想想'
+          })
+          .then(() => {
+            this.goods = this.goods.filter(
+              goods => this.checkedGoods.indexOf(goods.id) == -1
+            );
+            this.checkedGoods = [];
+            this.checkedAll = false;
+            this.isEditor = !this.goods.length;
+          });
       } else {
         this.isSubmit = true;
         this.$router.push({ name: 'placeOrderEntity' });
@@ -135,15 +150,19 @@ export default {
       return (price / 100).toFixed(2);
     },
     setCheckAll(val) {
-      this.checkedGoods = val ? this.goods.filter(goods => !!goods.status).map(goods => goods.id) : [];
+      this.checkedGoods = val
+        ? this.goods.filter(goods => !!goods.status).map(goods => goods.id)
+        : [];
     },
     deleteCart(i) {
-      this.$dialog.confirm({ message: '确定删除所选商品吗', cancelButtonText: '再想想' }).then(() => {
-        const goodsId = this.goods.splice(i, 1)[0].id;
-        this.$nextTick(() => {
-          this.deleteNext(goodsId);
+      this.$dialog
+        .confirm({ message: '确定删除所选商品吗', cancelButtonText: '再想想' })
+        .then(() => {
+          const goodsId = this.goods.splice(i, 1)[0].id;
+          this.$nextTick(() => {
+            this.deleteNext(goodsId);
+          });
         });
-      });
     },
     deleteNext(goodsId) {
       this.isEditor = !!this.goods.length;
@@ -155,9 +174,14 @@ export default {
       });
     },
     clearInvalid() {
-      this.$dialog.confirm({ message: '确定清除所有失效商品吗?', cancelButtonText: '再想想' }).then(() => {
-        this.goods = this.goods.filter(goods => goods.status);
-      });
+      this.$dialog
+        .confirm({
+          message: '确定清除所有失效商品吗?',
+          cancelButtonText: '再想想'
+        })
+        .then(() => {
+          this.goods = this.goods.filter(goods => goods.status);
+        });
     }
   },
 
@@ -170,56 +194,53 @@ export default {
     [CheckboxGroup.name]: CheckboxGroup
   }
 };
-
 </script>
 
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixin';
 
-	@import "../../assets/scss/mixin";
+.tab-cart {
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
 
-	.tab-cart{
-		padding-bottom: 50px;
-		box-sizing: border-box;
-	}
+.editor_head {
+  @include one-border;
+  text-align: right;
+  padding: 10px;
+  font-size: $font-size-normal;
+  background-color: #fff;
+}
 
-	.editor_head{
-		@include one-border;
-		text-align: right;
-		padding: 10px;
-		font-size: $font-size-normal;
-		background-color: #fff;
-	}
+.card-goods {
+  background-color: $bg-color;
+  .card-goods__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  .cart_delete {
+    line-height: 100px;
+    padding: 0 10px;
+    color: #fff;
+    background-color: $red;
+  }
+  .card-goods__footer {
+    font-size: $font-size-normal;
+    color: $font-color-gray;
+  }
+}
 
-	.card-goods {
-		background-color: $bg-color;
-		.card-goods__item {
-			display: flex;
-			align-items: center;
-			margin-bottom: 10px;
-			background-color: #fff;
-		}
-		.cart_delete{
-			line-height: 100px;
-			padding: 0 10px;
-			color: #fff;
-			background-color: $red;
-		}
-		.card-goods__footer{
-			font-size: $font-size-normal;
-			color: $font-color-gray;
-		}
-	}
-
-	.clear_invalid{
-		width: 120px;
-		color: $font-color-gray;
-		border: 1px solid $font-color-gray;
-		margin: 0 auto;
-		text-align: center;
-		padding: 5px 3px;
-		margin-top: 20px;
-		border-radius: 3px;
-	}
-
+.clear_invalid {
+  width: 120px;
+  color: $font-color-gray;
+  border: 1px solid $font-color-gray;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px 3px;
+  margin-top: 20px;
+  border-radius: 3px;
+}
 </style>

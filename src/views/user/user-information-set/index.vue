@@ -32,13 +32,14 @@ import { Uploader, Picker } from 'vant';
 import { USER_PROFILE } from '@/api/user';
 
 export default {
-
   data() {
     return {
-      sexColumns: [{
-        values: ['保密', '男', '女'],
-        defaultIndex: 0
-      }],
+      sexColumns: [
+        {
+          values: ['保密', '男', '女'],
+          defaultIndex: 0
+        }
+      ],
       showSex: false,
       avatar: '',
       nick_name: '',
@@ -65,13 +66,13 @@ export default {
     onSexConfirm(value, index) {
       this.$reqPut(USER_PROFILE, {
         gender: index[0]
-      }).then((res) => {
+      }).then(res => {
         this.gender = res.data.data.gender;
         this.showSex = false;
       });
     },
     getUserInfo() {
-      this.$reqGet(USER_PROFILE).then((res) => {
+      this.$reqGet(USER_PROFILE).then(res => {
         const data = res.data.data;
         this.avatar = data.avatar;
         this.nick_name = data.nick_name;
@@ -90,25 +91,24 @@ export default {
 
 
 <style lang="scss" scoped>
-
-	.user_information{
-		.user_avatar_upload{
-			position: relative;
-			width: 50px;
-			height: 50px;
-			border: 1px solid $border-color;
-			img{
-				max-width: 100%;
-				max-height: 100%;
-			}
-			i{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				font-size: 20px;
-				color: $border-color;
-			}
-		}
-	}
+.user_information {
+  .user_avatar_upload {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 1px solid $border-color;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      color: $border-color;
+    }
+  }
+}
 </style>

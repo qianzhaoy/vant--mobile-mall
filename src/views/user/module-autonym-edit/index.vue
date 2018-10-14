@@ -40,7 +40,6 @@ import idCardUpload from './id-card-upload';
 import { idCard } from '@/assets/js/regexp';
 
 export default {
-
   data() {
     return {
       field: {
@@ -57,7 +56,7 @@ export default {
   methods: {
     save() {
       const keys = Object.keys(this.field);
-      const isValid = keys.every((key) => {
+      const isValid = keys.every(key => {
         const message = this.getErrorMessageByKey(key);
         if (message) {
           this.$toast.fail({ message, duration: 1000 });
@@ -69,7 +68,8 @@ export default {
       }
     },
     checkUserName() {
-      this.nameErr = this.field.username == '' || this.field.username.length > 5;
+      this.nameErr =
+        this.field.username == '' || this.field.username.length > 5;
     },
     checkIdCard() {
       this.idCardErr = !idCard(this.field.idCard);
@@ -78,14 +78,14 @@ export default {
     getErrorMessageByKey(key) {
       const val = this.field[key];
       switch (key) {
-      case 'username':
-        return val ? val.length < 5 ? '' : '名字太长了' : '请输入名字';
-      case 'idCard':
-        return val ? idCard(val) ? '' : '请输入正确身份证' : '请输入身份证';
-      case 'frontUrl':
-        return val ? '' : '请上传正面照片';
-      case 'reverseUrl':
-        return val ? '' : '请上传背面照片';
+        case 'username':
+          return val ? (val.length < 5 ? '' : '名字太长了') : '请输入名字';
+        case 'idCard':
+          return val ? (idCard(val) ? '' : '请输入正确身份证') : '请输入身份证';
+        case 'frontUrl':
+          return val ? '' : '请上传正面照片';
+        case 'reverseUrl':
+          return val ? '' : '请上传背面照片';
       }
     }
   },
@@ -94,21 +94,19 @@ export default {
     [idCardUpload.name]: idCardUpload
   }
 };
-
 </script>
 
 
 <style lang="scss" scoped>
-	.save_div {
-		padding: 0 20px;
-	}
+.save_div {
+  padding: 0 20px;
+}
 
-	ul.text-desc {
-		padding: 20px;
-		list-style: inside;
-		li {
-			margin-bottom: 15px;
-		}
-	}
-
+ul.text-desc {
+  padding: 20px;
+  list-style: inside;
+  li {
+    margin-bottom: 15px;
+  }
+}
 </style>

@@ -37,17 +37,20 @@ export default {
   methods: {
     initData() {
       const shop_id = this.$util.getLocationParam('shop_id');
-      this.$reqGet(`${GOODS_CATEGORY}/${shop_id}`).then((res) => {
+      this.$reqGet(`${GOODS_CATEGORY}/${shop_id}`).then(res => {
         const data = this.removeNoChild(res.data.data);
         this.list = data;
         this.isEmpty = !data || !data.length;
       });
     },
     removeNoChild(data) {
-      return data.filter(item => (item.children && item.children.length));
+      return data.filter(item => item.children && item.children.length);
     },
     toItemList(id = '') {
-      this.$router.push({ name: 'list', query: { keyword: '', itemClass: id } });
+      this.$router.push({
+        name: 'list',
+        query: { keyword: '', itemClass: id }
+      });
     }
   },
   components: {
@@ -60,21 +63,21 @@ export default {
 
 
 <style scoped>
-	.tab_class{
-		background-color: #fff;
-		height: 100%;
-	}
+.tab_class {
+  background-color: #fff;
+  height: 100%;
+}
 
-	.tal_class_searchBox{
-		position: relative;
-	}
+.tal_class_searchBox {
+  position: relative;
+}
 
-	.tal_class_searchMask{
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 9;
-	}
+.tal_class_searchMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
 </style>

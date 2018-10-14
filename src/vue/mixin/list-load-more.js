@@ -14,7 +14,7 @@ export default {
   },
 
   methods: {
-    async resetInit(params) {
+    async resetInit() {
       this.resetData();
 
       const page = await this.initData();
@@ -46,7 +46,7 @@ export default {
       this.pages.pageCount = pageCount;
     },
     setPages(page = {}) {
-      this.isEmpty = (page.totalCount === 0);
+      this.isEmpty = page.totalCount === 0;
       if (page.totalCount <= this.pages.perPage) {
         // 不满一页
         this.isFinished();

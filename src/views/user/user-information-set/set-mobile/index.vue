@@ -40,7 +40,7 @@
 
 
 <script>
-import { USER_CHANGE_MOBILE, USER_SENDCODE } from '@/api/user';
+import { USER_SENDCODE } from '@/api/user';
 
 export default {
   data: () => ({
@@ -68,7 +68,7 @@ export default {
         this.$reqPost(USER_SENDCODE, {
           mobile: this.new_mobile,
           operation: 'changeMobile'
-        }).then((res) => {
+        }).then(() => {
           this.$toast.success('发送成功');
           this.counting = true;
         });
@@ -91,26 +91,25 @@ export default {
     }
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../../assets/scss/var";
-	@import "../../../../assets/scss/mixin";
-	.bottom_btn{
-		padding: 30px 15px 0 15px;
-	}
+@import '../../../../assets/scss/var';
+@import '../../../../assets/scss/mixin';
+.bottom_btn {
+  padding: 30px 15px 0 15px;
+}
 
-	.verifi_code{
-		@include one-border;
-		padding-left: 10px;
-		&::after{
-			border-bottom: 0;
-			border-left: 1px solid $border-color;
-		}
+.verifi_code {
+  @include one-border;
+  padding-left: 10px;
+  &::after {
+    border-bottom: 0;
+    border-left: 1px solid $border-color;
+  }
 
-		&_counting{
-			color: $font-color-gray;
-		}
-	}
+  &_counting {
+    color: $font-color-gray;
+  }
+}
 </style>

@@ -79,10 +79,19 @@ export default {
         this.$reqPut(USER_MODIFY_PASSWORD, {
           old_password: this.password,
           new_password: this.new_password
-        }).then(res => this.$dialog.alert({ message: '保存成功, 请重新登录.' })).then(() => this.$reqGet(USER_LOGOUT)).then(() => {
-          this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
-          this.$router.replace({ name: 'login' });
-        });
+        })
+          .then(() => this.$dialog.alert({ message: '保存成功, 请重新登录.' }))
+          .then(() => this.$reqGet(USER_LOGOUT))
+          .then(() => {
+            this.$util.removeLocalStorage(
+              'Authorization',
+              'user_id',
+              'avatar',
+              'background_image',
+              'nick_name'
+            );
+            this.$router.replace({ name: 'login' });
+          });
       }
     },
     passwordValid() {
@@ -94,11 +103,10 @@ export default {
     }
   }
 };
-
 </script>
 
 <style scoped>
-	.bottom_btn{
-		padding: 30px 15px 0 15px;
-	}
+.bottom_btn {
+  padding: 30px 15px 0 15px;
+}
 </style>
