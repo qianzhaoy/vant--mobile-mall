@@ -1,17 +1,11 @@
-const login = () =>
-  import(/* webpackChunkName: "login" */ '@/views/login/login');
-const registerGetCode = () =>
-  import(/* webpackChunkName: "register-getCode" */ '@/views/login/register-getCode/');
-const registerSubmit = () =>
-  import(/* webpackChunkName: "register-submit" */ '@/views/login/register-submit/');
-const registerStatus = () =>
-  import(/* webpackChunkName: "register-status" */ '@/views/login/register-status/');
-const forget = () =>
-  import(/* webpackChunkName: "forget" */ '@/views/login/forget/');
-const forgetReset = () =>
-  import(/* webpackChunkName: "forget-reset" */ '@/views/login/forget-reset/');
-const forgetStatus = () =>
-  import(/* webpackChunkName: "forget-status" */ '@/views/login/forget-status/');
+import asyncLoader from 'core/async-loader';
+const login = asyncLoader('login/login');
+const registerGetCode = asyncLoader('login/register-getCode');
+const registerSubmit = asyncLoader('login/register-submit');
+const registerStatus = asyncLoader('login/register-status');
+const forget = asyncLoader('login/forget');
+const forgetReset = asyncLoader('login/forget-reset');
+const forgetStatus = asyncLoader('login/forget-status');
 
 export default [
   {

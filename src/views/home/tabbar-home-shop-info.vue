@@ -4,7 +4,7 @@
       <van-notice-bar
         :text="notice"
         background="white"
-        leftIcon="./static/img/trumpet.png"
+        :leftIcon="trumpet"
         style="padding-left: 0"
       />
     </van-cell>
@@ -19,6 +19,7 @@
 
 <script>
 import { NoticeBar } from 'vant';
+import trumpet from '@/assets/images/trumpet.png';
 
 export default {
   name: 'shop-info-group',
@@ -44,6 +45,7 @@ export default {
       location.lng
     }&key=ab67b14d58d47912a9feb63ba862450c&destName=${location.name}`;
     return {
+      trumpet,
       mapSrc: location ? MAP_PATH : '#'
     };
   },

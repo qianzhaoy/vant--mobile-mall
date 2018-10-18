@@ -1,5 +1,5 @@
 <template>
-	<div class="text-desc text-center bottom_positon">技术支持: 妈妈去哪儿</div>
+	<div class="text-desc text-center bottom_positon">技术支持: xxxxxx</div>
 </template>
 
 <script>

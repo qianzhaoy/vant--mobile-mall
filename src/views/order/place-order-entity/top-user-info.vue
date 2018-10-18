@@ -2,12 +2,8 @@
 	<van-cell-group>
 		<van-cell icon="dingwei" isLink title="张三  13512124547" label="浙江省 杭州市 西湖区 创新创业园" />
 
-		<van-cell class="daodian" >
-			<van-checkbox v-model="isDaoDian" slot="icon" label="浙江省 杭州市 西湖区 创新创业园">
-				<span class="van-cell__text">到店自提</span>
-				<span class="text-desc">可免邮费哦~</span>
-			</van-checkbox>
-			<div class="text-desc shop_address" slot="title">门店地址: 浙江省 杭州市 西湖区 创新创业园</div>
+		<van-cell class="daodian" title="到店自提" label="浙江省 杭州市 西湖区 创新创业园">
+			<van-checkbox v-model="isDaoDian" slot="icon"></van-checkbox>
 		</van-cell>
 
 		<van-cell icon="id-card" title="张三" label="330327********1574" isLink />

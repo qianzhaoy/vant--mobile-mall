@@ -1,13 +1,4 @@
-const tab_class = () =>
-  import(/* webpackChunkName: "tabbar-class" */ '@/views/items/tabbar-class.vue');
-const ItemSearch = () =>
-  import(/* webpackChunkName: "item-search" */ '@/views/items/search/');
-const ItemSearchResult = () =>
-  import(/* webpackChunkName: "item-search" */ '@/views/items/search-result/');
-const ItemList = () =>
-  import(/* webpackChunkName: "item-list" */ '@/views/items/list/');
-const ItemDetail = () =>
-  import(/* webpackChunkName: "item-detail" */ '@/views/items/detail/');
+import asyncLoader from 'core/async-loader';
 
 const Tabbar = () =>
   import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
@@ -19,7 +10,10 @@ export default [
     meta: {
       keepAlive: true
     },
-    components: { default: tab_class, tabbar: Tabbar }
+    components: {
+      default: asyncLoader('items/tabbar-class'),
+      tabbar: Tabbar
+    }
   },
   {
     path: '/items/search',
@@ -27,7 +21,7 @@ export default [
     meta: {
       keepAlive: true
     },
-    component: ItemSearch
+    component: asyncLoader('items/search')
   },
   {
     path: '/items/search/result',
@@ -35,14 +29,14 @@ export default [
     meta: {
       keepAlive: true
     },
-    component: ItemSearchResult,
+    component: asyncLoader('items/search-result'),
     props: route => route.query
   },
   {
     path: '/items/detail/:itemId',
     name: 'detail',
     props: true,
-    component: ItemDetail
+    component: asyncLoader('items/detail')
   },
   {
     path: '/items/list',
@@ -50,7 +44,7 @@ export default [
     meta: {
       keepAlive: true
     },
-    component: ItemList,
+    component: asyncLoader('items/list'),
     props: route => ({
       itemClass: +route.query.itemClass
     })

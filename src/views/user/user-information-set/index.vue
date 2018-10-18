@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Uploader, Picker } from 'vant';
+import { Uploader, Picker, Popup } from 'vant';
 import { USER_PROFILE } from '@/api/user';
 
 export default {
@@ -84,7 +84,8 @@ export default {
 
   components: {
     [Uploader.name]: Uploader,
-    [Picker.name]: Picker
+    [Picker.name]: Picker,
+    [Popup.name]: Popup
   }
 };
 </script>

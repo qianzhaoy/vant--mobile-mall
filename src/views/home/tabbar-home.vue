@@ -53,6 +53,7 @@
 
 <script>
 import { HOME_module, ALL_GOODS } from '@/api/shop';
+import getLocationParam from 'core/utils/location-param';
 
 import mx_be_to from '@/assets/images/mx_be_to.png';
 import mx_start from '@/assets/images/mx_start.png';
@@ -66,11 +67,13 @@ import ItemCardHori from '@/vue/components/item-card-hori/';
 import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
+import { List } from 'vant';
+
 export default {
   mixins: [loadMore, scrollFixed],
 
   data() {
-    const shop_id = this.$util.getLocationParam('shop_id');
+    const shop_id = getLocationParam('shop_id');
     return {
       shop_id,
       shopInfo: null,
@@ -99,17 +102,6 @@ export default {
   },
 
   created() {
-    const shop_id = window.sessionStorage.getItem('id');
-    shop_id &&
-      this.getShopInfo(
-        'avatar',
-        'shop_name',
-        'address',
-        'notice',
-        'contact'
-      ).then(res => {
-        this.shopInfo = res;
-      });
     this.initViews();
   },
 
@@ -217,6 +209,7 @@ export default {
   },
 
   components: {
+    [List.name]: List,
     [SignBoard.name]: SignBoard,
     [ShopInfoGroup.name]: ShopInfoGroup,
     [ItemGroup.name]: ItemGroup,

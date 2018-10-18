@@ -15,7 +15,6 @@
 				@right-click="visiblePass = !visiblePass" />
 
 			<div class="clearfix">
-				<div class="float-l red">可用妈妈去哪儿账号登录</div>
 				<div class="float-r"><router-link to="/login/forget">忘记密码</router-link></div>
 			</div>
 
@@ -41,6 +40,9 @@ import fieldGroup from '@/vue/components/field-group/';
 import md_kefu from '@/vue/components/md-kefu/';
 
 import { USER_LOGIN, USER_PROFILE } from '@/api/user';
+import { setLocalStorage } from 'core/utils/local-storage';
+
+import { Popup } from 'vant';
 
 export default {
   name: 'login-request',
@@ -64,8 +66,7 @@ export default {
       this.isLogining = true;
       this.$reqGet(USER_LOGIN, loginData)
         .then(res => {
-          console.log(res);
-          this.$util.setLocalStorage({
+          setLocalStorage({
             Authorization: res.data.data.access_token
           });
 
@@ -75,7 +76,7 @@ export default {
           this.isLogining = false;
           const localData = this.getLocalData(res.data.data);
           const redirect = this.$route.query.redirect || 'home';
-          this.$util.setLocalStorage(localData);
+          setLocalStorage(localData);
           this.$router.replace({
             name: redirect,
             query: this.$route.query
@@ -118,7 +119,8 @@ export default {
   components: {
     [field.name]: field,
     [fieldGroup.name]: fieldGroup,
-    [md_kefu.name]: md_kefu
+    [md_kefu.name]: md_kefu,
+    [Popup.name]: Popup
   }
 };
 </script>

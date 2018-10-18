@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant';
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Tag } from 'vant';
 
 import isEmpty from '@/vue/components/is-empty/';
 
@@ -187,6 +187,7 @@ export default {
 
   components: {
     [Card.name]: Card,
+    [Tag.name]: Tag,
     [Stepper.name]: Stepper,
     [isEmpty.name]: isEmpty,
     [Checkbox.name]: Checkbox,

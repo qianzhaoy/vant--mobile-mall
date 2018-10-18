@@ -32,6 +32,9 @@
 
 <script>
 import { USER_MODIFY_PASSWORD, USER_LOGOUT } from '@/api/user';
+import { removeLocalStorage } from 'core/utils/local-storage';
+
+import { Field } from 'vant';
 
 export default {
   data: () => ({
@@ -83,7 +86,7 @@ export default {
           .then(() => this.$dialog.alert({ message: '保存成功, 请重新登录.' }))
           .then(() => this.$reqGet(USER_LOGOUT))
           .then(() => {
-            this.$util.removeLocalStorage(
+            removeLocalStorage(
               'Authorization',
               'user_id',
               'avatar',
@@ -101,6 +104,10 @@ export default {
       }
       return true;
     }
+  },
+
+  components: {
+    [Field.name]: Field
   }
 };
 </script>

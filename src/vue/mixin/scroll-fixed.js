@@ -1,4 +1,5 @@
 // 滚动条记录， 适用于 keep-alive 组件
+import { debounce } from 'lodash';
 export default {
   data() {
     return {
@@ -11,7 +12,7 @@ export default {
 
     vm.$el.addEventListener(
       'scroll',
-      vm.$util.debounce(() => {
+      debounce(() => {
         vm.scrollTop = vm.$el.scrollTop;
       }, 50)
     );

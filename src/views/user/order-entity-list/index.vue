@@ -14,11 +14,11 @@
 		</van-tabs>
 
 		<van-list
-		  	v-model="loading"
-		  	:finished="finished"
+      v-model="loading"
+      :finished="finished"
 			:immediate-check="false"
-	  		:offset="100"
-		  	@load="loadMore"
+      :offset="100"
+      @load="loadMore"
 		>
 			<van-panel
 				v-for="(el, i) in items"
@@ -60,7 +60,7 @@
 <script>
 import { ORDER_LIST } from '@/api/order';
 
-import { Tab, Tabs, Panel, Card } from 'vant';
+import { Tab, Tabs, Panel, Card, List } from 'vant';
 import IsEmpty from '@/vue/components/is-empty/';
 import status10 from './handle-status-10';
 import status20 from './handle-status-20';
@@ -99,9 +99,8 @@ export default {
 
   data() {
     const activeIndex = this.active;
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: 1,
       activeIndex,
       items: [],
       tabsItem: [
@@ -209,6 +208,7 @@ export default {
     [Tabs.name]: Tabs,
     [Panel.name]: Panel,
     [Card.name]: Card,
+    [List.name]: List,
     [IsEmpty.name]: IsEmpty,
     status10,
     status20,

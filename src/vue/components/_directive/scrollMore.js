@@ -1,5 +1,5 @@
-import { debounce } from '@/assets/js/util';
-import scroll from '@/assets/js/scroll';
+import { debounce } from 'lodash';
+import scroll from 'core/utils/scroll';
 
 const CONTEXT = '$scrollArrow';
 const OFFSET = 30;

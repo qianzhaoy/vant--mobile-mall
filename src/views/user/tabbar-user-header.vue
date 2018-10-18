@@ -11,6 +11,7 @@
 <script>
 import avatar_default from '../../assets/images/avatar_default.png';
 import bg_default from '../../assets/images/user_head_bg.png';
+import { getLocalStorage } from 'core/utils/local-storage';
 
 export default {
   name: 'user-header',
@@ -36,7 +37,7 @@ export default {
 
   methods: {
     getUserInfo() {
-      const infoData = this.$util.getLocalStorage(
+      const infoData = getLocalStorage(
         'nick_name',
         'background_image',
         'avatar'

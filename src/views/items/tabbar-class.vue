@@ -18,6 +18,7 @@
 <script>
 import { GOODS_CATEGORY } from '@/api/goods';
 
+import getLocationParam from 'core/utils/location-param';
 import { Search } from 'vant';
 import classTree from './tabbar-class-tree';
 import IsEmpty from '@/vue/components/is-empty/';
@@ -36,7 +37,7 @@ export default {
 
   methods: {
     initData() {
-      const shop_id = this.$util.getLocationParam('shop_id');
+      const shop_id = getLocationParam('shop_id');
       this.$reqGet(`${GOODS_CATEGORY}/${shop_id}`).then(res => {
         const data = this.removeNoChild(res.data.data);
         this.list = data;

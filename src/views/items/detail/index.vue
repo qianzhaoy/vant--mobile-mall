@@ -61,7 +61,8 @@ import {
   SwipeItem,
   GoodsAction,
   GoodsActionBigBtn,
-  GoodsActionMiniBtn
+  GoodsActionMiniBtn,
+  Popup
 } from 'vant';
 
 import md_kefu from '@/vue/components/md-kefu/';
@@ -145,6 +146,7 @@ export default {
 
   components: {
     [md_kefu.name]: md_kefu,
+    [Popup.name]: Popup,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [GoodsAction.name]: GoodsAction,
@@ -159,8 +161,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/scss/mixin';
-
 .item_detail {
   img {
     max-width: 100%;

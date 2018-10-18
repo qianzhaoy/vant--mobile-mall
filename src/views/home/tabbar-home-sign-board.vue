@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { Popup } from 'vant';
 import collectImg from '@/assets/images/index_collect.png';
 
 export default {
@@ -39,6 +40,10 @@ export default {
       showCollect: false,
       collectImg
     };
+  },
+
+  components: {
+    [Popup.name]: Popup
   }
 };
 </script>

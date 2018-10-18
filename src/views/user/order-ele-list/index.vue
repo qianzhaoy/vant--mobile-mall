@@ -60,7 +60,7 @@
 <script>
 import { ELE_COUPON_LIST } from '@/api/order';
 
-import { Tab, Tabs, Panel, Card } from 'vant';
+import { Tab, Tabs, Panel, Card, List } from 'vant';
 import IsEmpty from '@/vue/components/is-empty/';
 import status10 from './handle-status-10';
 import status40 from './handle-status-40';
@@ -70,7 +70,7 @@ import status100 from './handle-status-100';
 import status110 from './handle-status-110';
 import status120 from './handle-status-120';
 
-import loadMore from '@/vue/mixin/load-more';
+import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 const STATUS_TEXT = {
@@ -97,9 +97,8 @@ export default {
 
   data() {
     const activeIndex = this.status;
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: 1,
       activeIndex,
       items: [],
       tabsItem: [
@@ -189,6 +188,7 @@ export default {
     [Tabs.name]: Tabs,
     [Panel.name]: Panel,
     [Card.name]: Card,
+    [List.name]: List,
     [IsEmpty.name]: IsEmpty,
     status10,
     status40,

@@ -23,7 +23,6 @@ export default {
 
 
 <style lang="scss" scoped>
-@import '../../../assets/scss/mixin';
 .contact_popup {
   white-space: nowrap;
   background-color: $bg-color;

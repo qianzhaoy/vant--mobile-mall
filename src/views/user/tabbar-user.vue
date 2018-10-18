@@ -14,6 +14,8 @@ import orderGroup from './tabbar-user-order';
 import ecouponGroup from './tabbar-user-ecoupon';
 import userModule from './tabbar-user-module';
 
+import { removeLocalStorage } from 'core/utils/local-storage';
+
 export default {
   data() {
     return {
@@ -27,7 +29,7 @@ export default {
 
   methods: {
     quit() {
-      this.$util.removeLocalStorage(
+      removeLocalStorage(
         'Authorization',
         'user_id',
         'avatar',

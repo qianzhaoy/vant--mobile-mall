@@ -72,6 +72,7 @@ import ItemGroup from '@/vue/components/item-group/';
 import IsEmpty from '@/vue/components/is-empty/';
 import ItemCardHori from '@/vue/components/item-card-hori/';
 import { Search, Tab, Tabs } from 'vant';
+import { throttle } from 'lodash';
 
 import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
@@ -92,9 +93,8 @@ export default {
   mixins: [loadMore, scrollFixed],
 
   data() {
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: 1,
       tabsItem: [
         { name: '默认', sort: '' },
         { name: '销量', sort: 'sold_quantity' },
@@ -145,7 +145,7 @@ export default {
 
   created() {
     this.resetInit();
-    this.scrollShowArrow = this.$util.throttle(this.scrollShowArrow, 100);
+    this.scrollShowArrow = throttle(this.scrollShowArrow, 100);
   },
 
   methods: {

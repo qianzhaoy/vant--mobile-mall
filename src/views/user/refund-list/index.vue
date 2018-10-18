@@ -71,9 +71,8 @@ export default {
   mixins: [loadMore, scrollFixed],
 
   data() {
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: 1,
       activeIndex: 0,
       items: [],
       tabsItem: [

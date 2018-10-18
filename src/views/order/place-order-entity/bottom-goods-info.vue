@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { Card } from 'vant';
+import { Card, Field } from 'vant';
 
 export default {
   name: 'bottom-goods-info',
@@ -68,7 +68,8 @@ export default {
   },
 
   components: {
-    [Card.name]: Card
+    [Card.name]: Card,
+    [Field.name]: Field
   }
 };
 </script>

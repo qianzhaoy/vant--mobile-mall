@@ -37,7 +37,7 @@
 
 <script>
 import idCardUpload from './id-card-upload';
-import { idCard } from '@/assets/js/regexp';
+import { idCard } from 'core/regexp';
 
 export default {
   data() {

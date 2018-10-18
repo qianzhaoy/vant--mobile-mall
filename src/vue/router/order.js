@@ -1,13 +1,9 @@
-const tab_cart = () =>
-  import(/* webpackChunkName: "tabbar-cart" */ '@/views/order/tabbar-cart.vue');
-const PlaceOrderEntity = () =>
-  import(/* webpackChunkName: "placerder-entity" */ '@/views/order/place-order-entity/');
-const PlaceOrderVirtual = () =>
-  import(/* webpackChunkName: "placeOrder-virtual" */ '@/views/order/place-order-virtual/');
-const Payment = () =>
-  import(/* webpackChunkName: "payment" */ '@/views/order/payment/');
-const PaymentStatus = () =>
-  import(/* webpackChunkName: "payment-status" */ '@/views/order/payment-status/');
+import asyncLoader from 'core/async-loader';
+const tab_cart = asyncLoader('order/tabbar-cart');
+const PlaceOrderEntity = asyncLoader('order/place-order-entity');
+const PlaceOrderVirtual = asyncLoader('order/place-order-virtual');
+const Payment = asyncLoader('order/payment');
+const PaymentStatus = asyncLoader('order/payment-status');
 
 const Tabbar = () =>
   import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');

@@ -32,10 +32,10 @@ module.exports = {
         name: entrypoint => `runtime~${entrypoint.name}`
       },
       splitChunks: {
-        minChunks: 1,
+        minChunks: 2,
         minSize: 10000,
-        maxAsyncRequests: 20,
-        maxInitialRequests: 10,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 20,
         name: false
       }
     }

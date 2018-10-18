@@ -1,14 +1,13 @@
-const tab_home = () =>
-  import(/* webpackChunkName: "tabbar-home" */ '@/views/home/tabbar-home.vue');
 const Tabbar = () =>
   import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
+import asyncLoader from 'core/async-loader';
 
 export default [
   {
     path: '/',
     name: 'home',
     components: {
-      default: tab_home,
+      default: asyncLoader('home/tabbar-home'),
       tabbar: Tabbar
     },
     meta: {

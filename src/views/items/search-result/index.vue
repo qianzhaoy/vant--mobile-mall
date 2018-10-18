@@ -40,9 +40,10 @@ import { GOODS_SEARCH } from '@/api/goods';
 import ItemGroup from '@/vue/components/item-group/';
 import IsEmpty from '@/vue/components/is-empty/';
 import ItemCardHori from '@/vue/components/item-card-hori/';
-import { Search, Loading } from 'vant';
+import { Search, List } from 'vant';
+import { throttle } from 'lodash';
 
-import loadMore from '@/vue/mixin/load-more';
+import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 export default {
@@ -57,9 +58,8 @@ export default {
   mixins: [loadMore, scrollFixed],
 
   data() {
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: '',
       searchVal: '',
       showArrow: false
     };
@@ -78,7 +78,8 @@ export default {
   },
 
   created() {
-    this.scrollShowArrow = this.$util.throttle(this.scrollShowArrow, 100);
+    this.initData();
+    this.scrollShowArrow = throttle(this.scrollShowArrow, 100);
   },
 
   methods: {
@@ -120,7 +121,7 @@ export default {
     [ItemGroup.name]: ItemGroup,
     [ItemCardHori.name]: ItemCardHori,
     [Search.name]: Search,
-    [Loading.name]: Loading,
+    [List.name]: List,
     [IsEmpty.name]: IsEmpty
   }
 };

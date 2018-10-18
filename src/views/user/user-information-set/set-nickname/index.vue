@@ -16,6 +16,7 @@
 
 <script>
 import { USER_PROFILE } from '@/api/user';
+import { Field } from 'vant';
 
 export default {
   data() {
@@ -56,6 +57,10 @@ export default {
           });
       }
     }
+  },
+
+  components: {
+    [Field.name]: Field
   }
 };
 </script>

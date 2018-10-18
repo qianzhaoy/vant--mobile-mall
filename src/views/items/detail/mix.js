@@ -1,4 +1,4 @@
-import { Sku } from 'vant';
+import { Sku, Popup } from 'vant';
 
 export default {
   props: {
@@ -35,6 +35,7 @@ export default {
     }
   },
   components: {
-    [Sku.name]: Sku
+    [Sku.name]: Sku,
+    [Popup.name]: Popup
   }
 };

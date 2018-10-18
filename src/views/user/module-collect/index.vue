@@ -49,7 +49,7 @@ import { GOODS_COLLECT_LIST } from '@/api/user';
 import ItemGroup from '@/vue/components/item-group/';
 import ItemCardHori from '@/vue/components/item-card-hori/';
 import IsEmpty from '@/vue/components/is-empty/';
-import { Search } from 'vant';
+import { Search, List } from 'vant';
 
 import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
@@ -58,9 +58,8 @@ export default {
   mixins: [loadMore, scrollFixed],
 
   data() {
-    const shop_id = this.$util.getLocationParam('shop_id');
     return {
-      shop_id,
+      shop_id: 1,
       items: [],
       searchVal: ''
     };
@@ -112,7 +111,8 @@ export default {
     [ItemGroup.name]: ItemGroup,
     [ItemCardHori.name]: ItemCardHori,
     [Search.name]: Search,
-    [IsEmpty.name]: IsEmpty
+    [IsEmpty.name]: IsEmpty,
+    [List.name]: List
   }
 };
 </script>

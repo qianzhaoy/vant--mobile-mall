@@ -4,7 +4,7 @@
 			<van-cell>
 				<slot v-if="$slots.title_right" name="title_right"></slot>
 				<template slot="icon">
-					<van-icon v-if="setting.icon" :style="{color: setting.title_color}" :name="setting.icon"/>
+					<van-icon class="van-cell__left-icon" v-if="setting.icon" :style="{color: setting.title_color}" :name="setting.icon"/>
 				</template>
 				<template slot="title">
 					<span class="group_title" :style="{color: setting.title_color}">{{setting.title}}</span>

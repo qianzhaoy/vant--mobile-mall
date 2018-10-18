@@ -42,6 +42,8 @@
 <script>
 import { USER_SENDCODE } from '@/api/user';
 
+import { Field } from 'vant';
+
 export default {
   data: () => ({
     password: '',
@@ -89,6 +91,10 @@ export default {
     saveMobile() {
       console.log('保存手机号');
     }
+  },
+
+  components: {
+    [Field.name]: Field
   }
 };
 </script>

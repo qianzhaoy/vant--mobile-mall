@@ -5,12 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "mock": "json-server ./mock/db.json"
   },
   "dependencies": {
     "@xkeshi/vue-countdown": "^1.0.1",
     "axios": "^0.18.0",
+    "babel-plugin-lodash": "^3.3.4",
     "dayjs": "^1.7.7",
+    "lodash": "^4.17.11",
     "vant": "^1.3.7",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
