@@ -1,9 +1,9 @@
 <template>
 	<div class="item_detail">
 
-		<van-swipe :autoplay="3000" v-if="goods">
-			<van-swipe-item v-for="(image, index) in goods.item_imgs" :key="index">
-				<img v-lazy="image.url" />
+		<van-swipe :autoplay="3000">
+			<van-swipe-item v-for="(image, index) in itemImgs" :key="index">
+				<img v-lazy="image.url" width="100%"/>
 			</van-swipe-item>
 		</van-swipe>
 
@@ -92,6 +92,12 @@ export default {
       },
       goods: null
     };
+  },
+
+  computed: {
+    itemImgs() {
+      return this.goods ? this.goods.item_imgs : [];
+    }
   },
 
   created() {
