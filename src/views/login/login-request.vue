@@ -4,12 +4,14 @@
 			<md-field
 				v-model="account"
 				icon="username"
+        placeholder="随便输"
 				right-icon="clear-full"
 				@right-click="clearText" />
 
 			<md-field
 				v-model="password"
 				icon="lock"
+        placeholder="随便输"
 				:type="visiblePass ? 'text' : 'password'"
 				:right-icon="visiblePass ? 'eye-open' : 'eye-close'"
 				@right-click="visiblePass = !visiblePass" />

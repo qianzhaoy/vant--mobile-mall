@@ -1,7 +1,7 @@
 export const getLocalStorage = (...args) => {
   const storage = {};
   args.forEach(arg => {
-    storage[arg] = window.localStorage.getItem(arg) || '';
+    storage[arg] = window.localStorage.getItem(arg) || null;
   });
   return storage;
 };

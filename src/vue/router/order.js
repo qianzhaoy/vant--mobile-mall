@@ -12,6 +12,9 @@ export default [
   {
     path: '/order',
     name: 'cart',
+    meta: {
+      login: true
+    },
     components: { default: tab_cart, tabbar: Tabbar }
   },
   {

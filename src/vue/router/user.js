@@ -39,27 +39,42 @@ export default [
   {
     path: '/user/collect',
     name: 'collect',
+    meta: {
+      login: true
+    },
     component: UserCollect
   },
   {
     path: '/user/team',
     name: 'team',
+    meta: {
+      login: true
+    },
     component: UserTeam
   },
   {
     path: '/user/invitation',
     name: 'invitation',
+    meta: {
+      login: true
+    },
     component: UserInvitation
   },
   {
     path: '/user/address',
     name: 'address',
+    meta: {
+      login: true
+    },
     component: UserAddress
   },
   {
     path: '/user/address/edit/:addressId',
     name: 'address-edit',
     props: true,
+    meta: {
+      login: true
+    },
     component: UserAddressEdit
   },
   {
