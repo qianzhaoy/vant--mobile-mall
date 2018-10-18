@@ -1,5 +1,5 @@
 /**
- * @param  { string } chunkPath pages 文件夹下的页面路径
+ * @param  { string } chunkPath views 文件夹下的页面路径
  * @return { component } 匿名组件
  */
 import spinner from '@/vue/components/spinner';
