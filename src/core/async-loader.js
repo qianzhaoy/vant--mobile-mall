@@ -1,6 +1,6 @@
 /**
  * @param  { string } chunkPath views 文件夹下的页面路径
- * @return { component } 匿名组件
+ * @return { function } 返回 promise<component> 的匿名函数
  */
 import spinner from '@/vue/components/spinner';
 
