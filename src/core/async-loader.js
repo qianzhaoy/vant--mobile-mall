@@ -2,9 +2,10 @@
  * @param  { string } chunkPath views 文件夹下的页面路径
  * @return { function } 返回 promise<component> 的匿名函数
  */
+// 使用这个会导致组件内部的 router 导航守卫无法使用, 慎用
 import spinner from '@/vue/components/spinner';
 
-export default (chunkPath, loading = true) => {
+export default chunkPath => {
   const AsyncHandler = () => ({
     component: new Promise(resolve => {
       setTimeout(() => {
@@ -13,7 +14,7 @@ export default (chunkPath, loading = true) => {
         );
       }, 1000);
     }),
-    loading: loading ? spinner : null,
+    loading: spinner,
     error: {
       render(h) {
         return h('div', {}, ['异步组件加载失败']);
@@ -23,16 +24,9 @@ export default (chunkPath, loading = true) => {
   });
   return () =>
     Promise.resolve({
-      data() {
-        return {
-          component: null
-        };
-      },
-      created() {
-        this.component = AsyncHandler;
-      },
-      render(h) {
-        return h(this.component, { props: this.$attrs });
+      functional: true,
+      render(h, { data, children }) {
+        return h(AsyncHandler, data, children);
       }
     });
 };
