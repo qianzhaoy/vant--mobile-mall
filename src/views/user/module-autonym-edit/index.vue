@@ -72,7 +72,7 @@ export default {
         this.field.username == '' || this.field.username.length > 5;
     },
     checkIdCard() {
-      this.idCardErr = !idCard(this.field.idCard);
+      this.idCardErr = !idCard.test(this.field.idCard);
     },
 
     getErrorMessageByKey(key) {

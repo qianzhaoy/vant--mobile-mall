@@ -14,11 +14,11 @@
 		</van-tabs>
 
 		<van-list
-		  	v-model="loading"
-		  	:finished="finished"
+		  v-model="loading"
+		  :finished="finished"
 			:immediate-check="false"
-	  		:offset="100"
-		  	@load="loadMore"
+	  	:offset="100"
+		  @load="loadMore"
 		>
 			<van-panel
 				v-for="(el, i) in items"

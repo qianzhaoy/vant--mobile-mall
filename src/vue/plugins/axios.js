@@ -72,19 +72,9 @@ const deleteMethod = (url, config = {}) =>
 
 export default {
   install(Vue) {
-    Object.defineProperties(Vue.prototype, {
-      $reqGet: {
-        value: get
-      },
-      $reqPost: {
-        value: post
-      },
-      $reqPut: {
-        value: put
-      },
-      $reqDel: {
-        value: deleteMethod
-      }
-    });
+    Vue.prototype.$reqGet = get;
+    Vue.prototype.$reqPost = post;
+    Vue.prototype.$reqPut = put;
+    Vue.prototype.$reqDel = deleteMethod;
   }
 };
