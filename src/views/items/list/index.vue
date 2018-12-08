@@ -71,7 +71,7 @@ import { GOODS_SEARCH } from '@/api/goods';
 import ItemGroup from '@/vue/components/item-group/';
 import IsEmpty from '@/vue/components/is-empty/';
 import ItemCardHori from '@/vue/components/item-card-hori/';
-import { Search, Tab, Tabs } from 'vant';
+import { Search, Tab, Tabs, Popup } from 'vant';
 import { throttle } from 'lodash';
 
 import loadMore from '@/vue/mixin/list-load-more';
@@ -216,6 +216,7 @@ export default {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Search.name]: Search,
+    [Popup.name]: Popup,
     [IsEmpty.name]: IsEmpty
   }
 };

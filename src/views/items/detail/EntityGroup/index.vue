@@ -34,6 +34,7 @@
 			<popup-address
 				:is-show="addressPopup"
 				:addressVal="addressVal"
+        :default-id="defaultId"
 				@confirm="emitAddressVal"
 				@area-click="areaClick"
 			/>
@@ -47,7 +48,7 @@ const popupArea = () =>
 import popupAddress from './popup-address';
 import popupProps from './popup-props';
 import actionMixin from '../mix';
-// import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
+import { ADDRESS_DEFAULT } from '@/api/user';
 // import { POST_FEE } from '@/api/shop';
 
 export default {
@@ -82,7 +83,8 @@ export default {
       skus: {
         sku,
         goods_info
-      }
+      },
+      defaultId: -1
     };
   },
 
@@ -101,6 +103,10 @@ export default {
     }
   },
 
+  created() {
+    this.getAddressDefault();
+  },
+
   methods: {
     areaClick() {
       this.areaPopup = true;
@@ -115,6 +121,14 @@ export default {
         picture: pic_url,
         price: sales_price
       };
+    },
+    getAddressDefault() {
+      localStorage.getItem('Authorization') &&
+        this.$reqGet(ADDRESS_DEFAULT).then(res => {
+          const data = res.data.data;
+          this.defaultId = data.id;
+          this.emitAddressVal(data);
+        });
     },
     skuAdapter(skus = [], prop_imgs = []) {
       const tree = this.setSkuTree(skus, prop_imgs);

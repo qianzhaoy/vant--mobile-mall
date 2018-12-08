@@ -1,9 +1,9 @@
 <template>
 	<div class="popup_wrap address_wrap">
-		<van-icon name="clear" class="cancel_popup" @click.native="$parent.value = false"></van-icon>
+		<van-icon name="clear" class="cancel_popup" @click.native="hide"></van-icon>
 		<div class="popup_header">配送至</div>
 		<div class="popup_content">
-			<van-loading v-if="!address_list" class="address_popup_load" type="circle" color="black" />
+			<van-loading v-if="!addressReady" class="address_popup_load" type="circle" color="black" />
 			<div v-for="(li, i) in address_list" :key="i" @click="listChoose(li)">
 				<van-tag plain type="danger" style="margin-right: 5px;" v-if="li.isDefault">默认</van-tag>
 				{{li.area_name + li.address}}
@@ -20,13 +20,16 @@
 
 
 <script>
-import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
+import { ADDRESS } from '@/api/user';
+
+import { Tag } from 'vant';
 
 export default {
   name: 'popup-address',
 
   props: {
     isShow: Boolean,
+    defaultId: [Number, String],
     addressVal: {
       type: Object,
       default: () => ({})
@@ -35,64 +38,52 @@ export default {
 
   data() {
     return {
-      address_list: null,
+      addressReady: false,
+      address_list: [],
       address_default: {}
     };
   },
 
   watch: {
     isShow(val) {
-      val && !this.address_list && this.getAddress();
+      val && !this.address_list.length && this.getAddress();
     }
   },
 
   created() {
-    // 一进页面先拿默认地址，等打开弹窗在请求地址列表
-    this.getAddressDefault();
+    !this.address_list.length && this.getAddress();
   },
 
   methods: {
+    hide() {
+      this.$parent.$emit('input', false);
+    },
     getAddress() {
       if (localStorage.getItem('Authorization')) {
-        this.$reqGet(
-          ADDRESS,
-          {},
-          {
-            hideLoading: true
-          }
-        ).then(res => {
+        this.$reqGet(ADDRESS).then(res => {
           const data = res.data.data.map(data => {
-            data.isDefault =
-              !!this.address_default && data.id == this.address_default.id;
+            data.isDefault = data.id == this.defaultId;
             return data;
           });
           this.address_list = data;
+          this.addressReady = true;
         });
       } else {
         this.address_list = [];
+        this.addressReady = true;
       }
-    },
-    getAddressDefault() {
-      localStorage.getItem('Authorization') &&
-        this.$reqGet(
-          ADDRESS_DEFAULT,
-          {},
-          {
-            hideLoading: true
-          }
-        ).then(res => {
-          const data = res.data.data;
-          this.$emit('confirm', data);
-          this.address_default = data || {};
-        });
     },
     listChoose(li) {
       this.$emit('confirm', li);
-      this.isShow = false;
+      this.hide();
     },
     areaChoose() {
       this.$emit('area-click', true);
     }
+  },
+
+  components: {
+    [Tag.name]: Tag
   }
 };
 </script>
