@@ -6,72 +6,63 @@ export default {
         currPage: 1,
         pageCount: 1
       },
-      disabled: true,
-      isLoading: true,
-      noMore: false,
-      isEmpty: false,
-      eventFlag: false,
-      items: []
+      loading: false,
+      finished: false,
+      isEmpty: false
     };
   },
+
   methods: {
     async resetInit() {
-      this.items = [];
-      this.pages = {
-        perPage: 8,
-        currPage: 1,
-        pageCount: 1
-      };
-      this.disabled = true;
-      this.isLoading = true;
-      this.noMore = false;
-      this.isEmpty = false;
-      this.eventFlag = false;
+      this.resetData();
+
       const page = await this.initData();
       this.$nextTick(() => {
         this.setPages(page);
       });
     },
+    isFinished() {
+      this.finished = true;
+      this.loading = false;
+    },
     async loadMore() {
       console.log('loadmore');
       const vm = this;
       if (vm.pages.pageCount < vm.pages.currPage) {
-        vm.isNoMore();
+        vm.$toast({
+          message: '没有更多了~',
+          position: 'top'
+        });
+        vm.isFinished();
       } else {
-        vm.toggle(true);
         const page = await vm.initData(true);
-        this.nextPage(page.pageCount);
+        vm.setPages(page);
       }
-    },
-    isNoMore() {
-      this.noMore = true;
-      this.disabled = true;
-      this.isLoading = false;
-      setTimeout(() => {
-        this.noMore = false;
-      }, 1500);
-    },
-    toggle(isMore, isLoading) {
-      if (typeof isLoading === 'undefined') {
-        isLoading = isMore;
-      }
-      this.disabled = !!isMore;
-      this.isLoading = !!isLoading;
+      vm.loading = false;
     },
     nextPage(pageCount = 1) {
       this.pages.currPage += 1;
       this.pages.pageCount = pageCount;
-      this.toggle(false, true);
     },
     setPages(page = {}) {
       this.isEmpty = page.totalCount === 0;
       if (page.totalCount <= this.pages.perPage) {
         // 不满一页
-        this.toggle(true, false);
+        this.isFinished();
       } else {
         // 下一页
         this.nextPage(page.pageCount);
       }
+    },
+    resetData() {
+      this.pages = {
+        perPage: 8,
+        currPage: 1,
+        pageCount: 1
+      };
+      this.loading = true;
+      this.finished = false;
+      this.isEmpty = false;
     }
   }
 };

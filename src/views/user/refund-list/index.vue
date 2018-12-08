@@ -12,14 +12,12 @@
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
-
-		<van-list
-		  	v-model="loading"
-		  	:finished="finished"
-			:immediate-check="false"
-	  		:offset="100"
-		  	@load="loadMore"
-		>
+    <InfinityScroll 
+      ref="infinity"
+      :beforeRequest="beforeRequest" 
+      :apiUrl="listApi" 
+      @onLoad="onLoad"
+    >
 			<van-panel
 				v-for="(el, i) in items"
 				class="order_list--panel"
@@ -45,18 +43,18 @@
 					<van-button size="small" @click="refund_handle(i)">{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
 				</div>
 			</van-panel>
-		</van-list>
-		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
+    </InfinityScroll>
+		<!-- <is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty> -->
 	</div>
 </template>
 
 <script>
 import { REFUND_LIST } from '@/api/order';
 
-import { Tab, Tabs, Panel, Card } from 'vant';
+import { Tab, Tabs, Panel, Card, List } from 'vant';
 import IsEmpty from '@/vue/components/is-empty/';
+import InfinityScroll from '@/vue/components/infinity-scroll';
 
-import loadMore from '@/vue/mixin/load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 const STATUS_TEXT = {
@@ -68,10 +66,11 @@ const STATUS_TEXT = {
 export default {
   name: 'order-list',
 
-  mixins: [loadMore, scrollFixed],
+  mixins: [scrollFixed],
 
   data() {
     return {
+      listApi: REFUND_LIST,
       shop_id: 1,
       activeIndex: 0,
       items: [],
@@ -92,34 +91,23 @@ export default {
     };
   },
 
-  watch: {
-    $route: 'resetInit'
-  },
-
-  created() {
-    this.resetInit();
-  },
-
   methods: {
-    initData() {
+    resetInit() {
+      this.$refs.infinity.resetInit();
+    },
+    onLoad(items) {
+      this.items.push(...items);
+    },
+    beforeRequest() {
       const i = this.activeIndex;
       const status = this.tabsItem[i].status;
-      return this.$reqGet(
-        REFUND_LIST,
-        {
-          'per-page': this.pages.perPage,
-          page: this.pages.currPage,
-          shop_id: this.shop_id,
-          status
-        },
-        {
-          hideLoading: true
+      const { shop_id } = this;
+      return {
+        params: {
+          status,
+          shop_id
         }
-      ).then(res => {
-        const { items, page } = res.data.data;
-        this.items.push(...items);
-        return page;
-      });
+      };
     },
     refund_handle(i) {
       const item = this.items[i];
@@ -151,7 +139,9 @@ export default {
     [Tabs.name]: Tabs,
     [Panel.name]: Panel,
     [Card.name]: Card,
-    [IsEmpty.name]: IsEmpty
+    [List.name]: List,
+    [IsEmpty.name]: IsEmpty,
+    InfinityScroll
   }
 };
 </script>

@@ -2,7 +2,7 @@
 	<div class="order_list">
 		<van-tabs
 			sticky
-			:active="activeIndex"
+			v-model="activeIndex"
 			:swipe-threshold="5"
 			 @click="handleTabClick"
 		>
@@ -89,14 +89,14 @@ export default {
   mixins: [loadMore, scrollFixed],
 
   props: {
-    status: {
+    active: {
       type: [String, Number],
       default: 0
     }
   },
 
   data() {
-    const activeIndex = this.status;
+    const activeIndex = this.active;
     return {
       shop_id: 1,
       activeIndex,
@@ -136,7 +136,7 @@ export default {
 
   methods: {
     initData() {
-      const i = this.status;
+      const i = this.active;
       const status = this.tabsItem[i].status;
       return this.$reqGet(
         ELE_COUPON_LIST,

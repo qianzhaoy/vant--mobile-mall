@@ -2,7 +2,7 @@
 	<div class="order_list">
 		<van-tabs
 			sticky
-			:active="activeIndex"
+			v-model="activeIndex"
 			:swipe-threshold="5"
 			@click="handleTabClick"
 		>
@@ -12,7 +12,6 @@
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
-
 		<van-list
       v-model="loading"
       :finished="finished"
