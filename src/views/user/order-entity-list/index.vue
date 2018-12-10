@@ -50,8 +50,6 @@
 			</van-panel>
 		</InfinityScroll>
 
-		<is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
-
 	</div>
 </template>
 
@@ -59,7 +57,6 @@
 import { ORDER_LIST } from '@/api/order';
 
 import { Tab, Tabs, Panel, Card, List } from 'vant';
-import IsEmpty from '@/vue/components/is-empty/';
 import status10 from './handle-status-10';
 import status20 from './handle-status-20';
 import status25 from './handle-status-25';
@@ -204,7 +201,6 @@ export default {
     [Panel.name]: Panel,
     [Card.name]: Card,
     [List.name]: List,
-    [IsEmpty.name]: IsEmpty,
     status10,
     status20,
     status25,
