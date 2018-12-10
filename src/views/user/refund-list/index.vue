@@ -1,44 +1,51 @@
 <template>
   <div class="order_list">
-    <van-tabs sticky :active="activeIndex" :swipe-threshold="5" @click="handleTabClick">
-      <van-tab v-for="(tab, tabIndex) in tabsItem" :title="tab.name" :key="tab.type">
-        <div style="height: 100vh; overflow: scroll">
-          <InfinityScroll
-            ref="infinity"
-            :beforeRequest="beforeRequest"
-            :apiUrl="listApi"
-            @onLoad="onLoad(tabIndex, $event)"
+    <van-tabs 
+      sticky 
+      :active="activeIndex" 
+      :swipe-threshold="5"
+      @click="handleTabClick"
+    >
+      <van-tab
+        v-for="(tab, tabIndex) in tabsItem" 
+        :title="tab.name" 
+        :key="tab.type"
+      >
+        <InfinityScroll
+          class="full-page scroll-wrap"
+          :beforeRequest="beforeRequest"
+          :apiUrl="listApi"
+          @onLoad="onLoad(tabIndex, $event)"
+        >
+          <van-panel
+            v-for="(el, i) in tab.items"
+            class="order_list--panel"
+            :key="i"
+            :title="'订单编号: ' + el.id"
+            :status="getStatusText(el.status)"
           >
-            <van-panel
-              v-for="(el, i) in tab.items"
-              class="order_list--panel"
-              :key="i"
-              :title="'订单编号: ' + el.id"
-              :status="getStatusText(el.status)"
-            >
-              <div>
-                <van-card
-                  class="order_list--van-card"
-                  :key="i"
-                  :title="el.orderItem.item_name"
-                  :desc="el.orderItem.sku_props_str"
-                  :num="el.orderItem.quantity"
-                  :price="(el.orderItem.price / 100).toFixed(2)"
-                  :thumb="el.orderItem.pic_url"
-                />
-                <div
-                  class="order_list--total"
-                >合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）</div>
-              </div>
-              <div slot="footer" style="text-align: right;">
-                <van-button
-                  size="small"
-                  @click="refund_handle(i)"
-                >{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
-              </div>
-            </van-panel>
-          </InfinityScroll>
-        </div>
+            <div>
+              <van-card
+                class="order_list--van-card"
+                :key="i"
+                :title="el.orderItem.item_name"
+                :desc="el.orderItem.sku_props_str"
+                :num="el.orderItem.quantity"
+                :price="(el.orderItem.price / 100).toFixed(2)"
+                :thumb="el.orderItem.pic_url"
+              />
+              <div
+                class="order_list--total"
+              >合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）</div>
+            </div>
+            <div slot="footer" style="text-align: right;">
+              <van-button
+                size="small"
+                @click="refund_handle(i)"
+              >{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
+            </div>
+          </van-panel>
+        </InfinityScroll>
       </van-tab>
     </van-tabs>
   </div>

@@ -1,48 +1,51 @@
 <template>
   <div class="order_list">
-    <van-tabs sticky v-model="activeIndex" :swipe-threshold="5" @click="handleTabClick">
+    <van-tabs 
+      sticky
+      v-model="activeIndex" 
+      :swipe-threshold="5" 
+      click="handleTabClick"
+    >
       <van-tab 
         v-for="(tab, tabIndex) in tabsItem" 
         :title="tab.name" 
         :key="tab.type"
       >
-        <div style="height: 100vh; overflow: scroll">
-          <InfinityScroll
-            ref="infinity"
-            :beforeRequest="beforeRequest"
-            :apiUrl="listApi"
-            @onLoad="onLoad(tabIndex, $event)"
+        <InfinityScroll
+          class="full-page scroll-wrap"
+          :beforeRequest="beforeRequest"
+          :apiUrl="listApi"
+          @onLoad="onLoad(tabIndex, $event)"
+        >
+          <van-panel
+            v-for="(el, i) in tab.items"
+            class="order_list--panel"
+            :key="i"
+            :title="'订单编号: ' + el.id"
+            :status="getStatusText(el.status)"
           >
-            <van-panel
-              v-for="(el, i) in tab.items"
-              class="order_list--panel"
-              :key="i"
-              :title="'订单编号: ' + el.id"
-              :status="getStatusText(el.status)"
-            >
-              <div>
-                <van-card
-                  v-for="(goods, goodsI) in el.orderItems"
-                  class="order_list--van-card"
-                  :key="goodsI"
-                  :title="goods.item_name"
-                  :desc="goods.sku_props_str"
-                  :num="goods.quantity"
-                  :price="(goods.price / 100).toFixed(2)"
-                  :thumb="goods.pic_url"
-                  @click.native="toOrderDetail(i)"
-                />
-                <div class="order_list--total">合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）</div>
-              </div>
-              <component
-                slot="footer"
-                :is="'status' + el.status"
-                :reminder="el.is_can_reminder"
-                @handle="actionHandle($event, i)"
+            <div>
+              <van-card
+                v-for="(goods, goodsI) in el.orderItems"
+                class="order_list--van-card"
+                :key="goodsI"
+                :title="goods.item_name"
+                :desc="goods.sku_props_str"
+                :num="goods.quantity"
+                :price="(goods.price / 100).toFixed(2)"
+                :thumb="goods.pic_url"
+                @click.native="toOrderDetail(i)"
               />
-            </van-panel>
-          </InfinityScroll>
-        </div>
+              <div class="order_list--total">合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）</div>
+            </div>
+            <component
+              slot="footer"
+              :is="'status' + el.status"
+              :reminder="el.is_can_reminder"
+              @handle="actionHandle($event, i)"
+            />
+          </van-panel>
+        </InfinityScroll>
       </van-tab>
     </van-tabs>
   </div>
