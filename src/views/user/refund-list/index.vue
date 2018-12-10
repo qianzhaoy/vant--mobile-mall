@@ -44,7 +44,6 @@
 				</div>
 			</van-panel>
     </InfinityScroll>
-		<!-- <is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty> -->
 	</div>
 </template>
 
@@ -52,9 +51,7 @@
 import { REFUND_LIST } from '@/api/order';
 
 import { Tab, Tabs, Panel, Card, List } from 'vant';
-import IsEmpty from '@/vue/components/is-empty/';
 import InfinityScroll from '@/vue/components/infinity-scroll';
-
 import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 const STATUS_TEXT = {
@@ -93,6 +90,7 @@ export default {
 
   methods: {
     resetInit() {
+      this.items = [];
       this.$refs.infinity.resetInit();
     },
     onLoad(items) {
@@ -140,7 +138,6 @@ export default {
     [Panel.name]: Panel,
     [Card.name]: Card,
     [List.name]: List,
-    [IsEmpty.name]: IsEmpty,
     InfinityScroll
   }
 };

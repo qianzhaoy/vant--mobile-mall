@@ -16,13 +16,14 @@
 <script>
 import { List } from 'vant';
 import { get } from 'lodash';
-import IsEmpty from '@/vue/components/is-empty/';
+import IsEmpty from '@/vue/components/is-empty';
 import loadMore from '@/vue/mixin/load-more';
 
 const DEFAULT_CONFIG = {
   params: {},
   headers: {}
 };
+
 export default {
   name: 'infinity-scroll',
 
@@ -71,10 +72,8 @@ export default {
       return page;
     },
     sleep(time) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, time);
+      return new Promise(resolve => {
+        setTimeout(resolve, time);
       });
     }
   },

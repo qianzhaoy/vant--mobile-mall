@@ -12,12 +12,11 @@
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
-		<van-list
-      v-model="loading"
-      :finished="finished"
-			:immediate-check="false"
-      :offset="100"
-      @load="loadMore"
+		<InfinityScroll
+      ref="infinity"
+      :beforeRequest="beforeRequest" 
+      :apiUrl="listApi" 
+      @onLoad="onLoad"
 		>
 			<van-panel
 				v-for="(el, i) in items"
@@ -49,7 +48,7 @@
 					@handle="actionHandle($event, i)"
 				/>
 			</van-panel>
-		</van-list>
+		</InfinityScroll>
 
 		<is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
 
@@ -72,6 +71,7 @@ import status70 from './handle-status-70';
 
 import loadMore from '@/vue/mixin/list-load-more';
 import scrollFixed from '@/vue/mixin/scroll-fixed';
+import InfinityScroll from '@/vue/components/infinity-scroll';
 
 const STATUS_TEXT = {
   10: '待付款',
@@ -99,6 +99,7 @@ export default {
   data() {
     const activeIndex = this.active;
     return {
+      listApi: ORDER_LIST,
       shop_id: 1,
       activeIndex,
       items: [],
@@ -131,30 +132,24 @@ export default {
     $route: 'resetInit'
   },
 
-  created() {
-    this.resetInit();
-  },
-
   methods: {
-    initData() {
-      const i = this.active;
+    resetInit() {
+      this.items = [];
+      this.$refs.infinity.resetInit();
+    },
+    onLoad(items) {
+      this.items.push(...items);
+    },
+    beforeRequest() {
+      const i = this.activeIndex;
       const status = this.tabsItem[i].status;
-      return this.$reqGet(
-        ORDER_LIST,
-        {
-          'per-page': this.pages.perPage,
-          page: this.pages.currPage,
-          shop_id: this.shop_id,
-          status
-        },
-        {
-          hideLoading: true
+      const { shop_id } = this;
+      return {
+        params: {
+          status,
+          shop_id
         }
-      ).then(res => {
-        const { items, page } = res.data.data;
-        this.items.push(...items);
-        return page;
-      });
+      };
     },
     async delOrder(i) {
       await this.$dialog.confirm({ message: '确定要删除该订单吗?' });
@@ -203,6 +198,7 @@ export default {
     }
   },
   components: {
+    InfinityScroll,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Panel.name]: Panel,

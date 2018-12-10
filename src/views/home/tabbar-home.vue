@@ -129,17 +129,11 @@ export default {
     },
 
     initData() {
-      return this.$reqGet(
-        ALL_GOODS,
-        {
-          shop_id: this.shop_id,
-          'per-page': this.pages.perPage,
-          page: this.pages.currPage
-        },
-        {
-          hideLoading: true
-        }
-      ).then(res => {
+      return this.$reqGet(ALL_GOODS, {
+        shop_id: this.shop_id,
+        'per-page': this.pages.perPage,
+        page: this.pages.currPage
+      }).then(res => {
         const { items, page } = res.data.data;
         this.itemGroup.goods && this.itemGroup.goods.items.push(...items);
         return page;
