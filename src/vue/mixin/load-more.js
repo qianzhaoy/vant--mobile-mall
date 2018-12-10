@@ -15,7 +15,6 @@ export default {
   methods: {
     async resetInit() {
       this.resetData();
-
       const page = await this.initData();
       this.$nextTick(() => {
         this.setPages(page);
@@ -43,6 +42,7 @@ export default {
     nextPage(pageCount = 1) {
       this.pages.currPage += 1;
       this.pages.pageCount = pageCount;
+      this.loading = false;
     },
     setPages(page = {}) {
       this.isEmpty = page.totalCount === 0;

@@ -1,50 +1,47 @@
 <template>
-	<div class="order_list">
-		<van-tabs
-			sticky
-			:active="activeIndex"
-			:swipe-threshold="5"
-			 @click="handleTabClick"
-		>
-			<van-tab
-				v-for="tab in tabsItem"
-			 	:title="tab.name"
-				:key="tab.type">
-			</van-tab>
-		</van-tabs>
-    <InfinityScroll 
-      ref="infinity"
-      :beforeRequest="beforeRequest" 
-      :apiUrl="listApi" 
-      @onLoad="onLoad"
-    >
-			<van-panel
-				v-for="(el, i) in items"
-				class="order_list--panel"
-				:key="i"
-				:title="'订单编号: ' + el.id"
-				:status="getStatusText(el.status)"
-			>
-				<div>
-					<van-card
-						class="order_list--van-card"
-						:key="i"
-						:title="el.orderItem.item_name"
-						:desc="el.orderItem.sku_props_str"
-						:num="el.orderItem.quantity"
-						:price="(el.orderItem.price / 100).toFixed(2)"
-						:thumb="el.orderItem.pic_url"
-					/>
-					<div class="order_list--total">
-						合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）
-					</div>
-				</div>
-				<div slot="footer" style="text-align: right;">
-					<van-button size="small" @click="refund_handle(i)">{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
-				</div>
-			</van-panel>
-    </InfinityScroll>
-	</div>
+  <div class="order_list">
+    <van-tabs sticky :active="activeIndex" :swipe-threshold="5" @click="handleTabClick">
+      <van-tab v-for="(tab, tabIndex) in tabsItem" :title="tab.name" :key="tab.type">
+        <div style="height: 100vh; overflow: scroll">
+          <InfinityScroll
+            ref="infinity"
+            :beforeRequest="beforeRequest"
+            :apiUrl="listApi"
+            @onLoad="onLoad(tabIndex, $event)"
+          >
+            <van-panel
+              v-for="(el, i) in tab.items"
+              class="order_list--panel"
+              :key="i"
+              :title="'订单编号: ' + el.id"
+              :status="getStatusText(el.status)"
+            >
+              <div>
+                <van-card
+                  class="order_list--van-card"
+                  :key="i"
+                  :title="el.orderItem.item_name"
+                  :desc="el.orderItem.sku_props_str"
+                  :num="el.orderItem.quantity"
+                  :price="(el.orderItem.price / 100).toFixed(2)"
+                  :thumb="el.orderItem.pic_url"
+                />
+                <div
+                  class="order_list--total"
+                >合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）</div>
+              </div>
+              <div slot="footer" style="text-align: right;">
+                <van-button
+                  size="small"
+                  @click="refund_handle(i)"
+                >{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
+              </div>
+            </van-panel>
+          </InfinityScroll>
+        </div>
+      </van-tab>
+    </van-tabs>
+  </div>
 </template>
 
 <script>
@@ -52,7 +49,6 @@ import { REFUND_LIST } from '@/api/order';
 
 import { Tab, Tabs, Panel, Card, List } from 'vant';
 import InfinityScroll from '@/vue/components/infinity-scroll';
-import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 const STATUS_TEXT = {
   10: '退款中',
@@ -63,8 +59,6 @@ const STATUS_TEXT = {
 export default {
   name: 'order-list',
 
-  mixins: [scrollFixed],
-
   data() {
     return {
       listApi: REFUND_LIST,
@@ -74,27 +68,26 @@ export default {
       tabsItem: [
         {
           name: '全部',
-          status: 0
+          status: 0,
+          items: []
         },
         {
           name: '退款中',
-          status: 10
+          status: 10,
+          items: []
         },
         {
           name: '退款成功',
-          status: 60
+          status: 60,
+          items: []
         }
       ]
     };
   },
 
   methods: {
-    resetInit() {
-      this.items = [];
-      this.$refs.infinity.resetInit();
-    },
-    onLoad(items) {
-      this.items.push(...items);
+    onLoad(i, items) {
+      this.tabsItem[i].items.push(...items);
     },
     beforeRequest() {
       const i = this.activeIndex;
@@ -125,7 +118,6 @@ export default {
     handleTabClick(index) {
       if (this.activeIndex != index) {
         this.activeIndex = index;
-        this.resetInit();
       }
     },
     getStatusText(status) {

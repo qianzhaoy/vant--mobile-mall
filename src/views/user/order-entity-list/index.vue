@@ -1,56 +1,51 @@
 <template>
-	<div class="order_list">
-		<van-tabs
-			sticky
-			v-model="activeIndex"
-			:swipe-threshold="5"
-			@click="handleTabClick"
-		>
-			<van-tab
-				v-for="tab in tabsItem"
-			 	:title="tab.name"
-				:key="tab.type">
-			</van-tab>
-		</van-tabs>
-		<InfinityScroll
-      ref="infinity"
-      :beforeRequest="beforeRequest" 
-      :apiUrl="listApi" 
-      @onLoad="onLoad"
-		>
-			<van-panel
-				v-for="(el, i) in items"
-				class="order_list--panel"
-				:key="i"
-				:title="'订单编号: ' + el.id"
-				:status="getStatusText(el.status)"
-			>
-				<div>
-					<van-card
-						v-for="(goods, goodsI) in el.orderItems"
-						class="order_list--van-card"
-						:key="goodsI"
-						:title="goods.item_name"
-						:desc="goods.sku_props_str"
-						:num="goods.quantity"
-						:price="(goods.price / 100).toFixed(2)"
-						:thumb="goods.pic_url"
-						@click.native="toOrderDetail(i)"
-					/>
-					<div class="order_list--total">
-						合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）
-					</div>
-				</div>
-				<component
-					slot="footer"
-					:is="'status' + el.status"
-					:reminder="el.is_can_reminder"
-					@handle="actionHandle($event, i)"
-				/>
-			</van-panel>
-		</InfinityScroll>
-
-	</div>
+  <div class="order_list">
+    <van-tabs sticky v-model="activeIndex" :swipe-threshold="5" @click="handleTabClick">
+      <van-tab 
+        v-for="(tab, tabIndex) in tabsItem" 
+        :title="tab.name" 
+        :key="tab.type"
+      >
+        <div style="height: 100vh; overflow: scroll">
+          <InfinityScroll
+            ref="infinity"
+            :beforeRequest="beforeRequest"
+            :apiUrl="listApi"
+            @onLoad="onLoad(tabIndex, $event)"
+          >
+            <van-panel
+              v-for="(el, i) in tab.items"
+              class="order_list--panel"
+              :key="i"
+              :title="'订单编号: ' + el.id"
+              :status="getStatusText(el.status)"
+            >
+              <div>
+                <van-card
+                  v-for="(goods, goodsI) in el.orderItems"
+                  class="order_list--van-card"
+                  :key="goodsI"
+                  :title="goods.item_name"
+                  :desc="goods.sku_props_str"
+                  :num="goods.quantity"
+                  :price="(goods.price / 100).toFixed(2)"
+                  :thumb="goods.pic_url"
+                  @click.native="toOrderDetail(i)"
+                />
+                <div class="order_list--total">合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）</div>
+              </div>
+              <component
+                slot="footer"
+                :is="'status' + el.status"
+                :reminder="el.is_can_reminder"
+                @handle="actionHandle($event, i)"
+              />
+            </van-panel>
+          </InfinityScroll>
+        </div>
+      </van-tab>
+    </van-tabs>
+  </div>
 </template>
 
 <script>
@@ -66,8 +61,6 @@ import status50 from './handle-status-50';
 import status60 from './handle-status-60';
 import status70 from './handle-status-70';
 
-import loadMore from '@/vue/mixin/list-load-more';
-import scrollFixed from '@/vue/mixin/scroll-fixed';
 import InfinityScroll from '@/vue/components/infinity-scroll';
 
 const STATUS_TEXT = {
@@ -84,8 +77,6 @@ const STATUS_TEXT = {
 export default {
   name: 'order-list',
 
-  mixins: [loadMore, scrollFixed],
-
   props: {
     active: {
       type: [String, Number],
@@ -99,43 +90,39 @@ export default {
       listApi: ORDER_LIST,
       shop_id: 1,
       activeIndex,
-      items: [],
       tabsItem: [
         {
           name: '全部',
-          status: 0
+          status: 0,
+          items: []
         },
         {
           name: '待付款',
-          status: 10
+          status: 10,
+          items: []
         },
         {
           name: '待发货',
-          status: 20
+          status: 20,
+          items: []
         },
         {
           name: '待收货',
-          status: 30
+          status: 30,
+          items: []
         },
         {
           name: '已完成',
-          status: 40
+          status: 40,
+          items: []
         }
       ]
     };
   },
 
-  watch: {
-    $route: 'resetInit'
-  },
-
   methods: {
-    resetInit() {
-      this.items = [];
-      this.$refs.infinity.resetInit();
-    },
-    onLoad(items) {
-      this.items.push(...items);
+    onLoad(i, items) {
+      this.tabsItem[i].items.push(...items);
     },
     beforeRequest() {
       const i = this.activeIndex;
