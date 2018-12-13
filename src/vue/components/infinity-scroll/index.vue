@@ -8,8 +8,9 @@
     v-on="$listeners"
     :immediate-check="false"
   >
-    <is-empty v-if="isEmpty">{{emptyText || '抱歉,没有更多了'}}</is-empty>
+    <is-empty v-if="isEmpty">{{ emptyText }}</is-empty>
     <slot v-else></slot>
+    <div v-if='finished' class="text-center nomore">{{ onMoreText }}</div>
   </van-list>
 </template>
 
@@ -42,7 +43,14 @@ export default {
       type: String,
       default: 'data.page'
     },
-    emptyText: String,
+    emptyText: {
+      type: String,
+      default: '抱歉,找不到结果~'
+    },
+    onMoreText: {
+      type: String,
+      default: '没有更多了~'
+    },
     perPage: Number,
     beforeRequest: Function
   },
@@ -57,10 +65,11 @@ export default {
     },
     async initData() {
       const { params = {}, headers = {} } = this.beforeInitData();
+      const prePage = this.perPage || this.pages.perPage;
       const res = await this.$reqGet(
         this.apiUrl,
         {
-          'per-page': this.pages.perPage,
+          'per-page': prePage,
           page: this.pages.currPage,
           ...params
         },
@@ -85,3 +94,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.nomore {
+  padding: 10px 0;
+  color: $font-color-gray;
+}
+</style>

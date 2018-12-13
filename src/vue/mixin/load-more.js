@@ -26,18 +26,16 @@ export default {
     },
     async loadMore() {
       console.log('loadmore');
-      const vm = this;
-      if (vm.pages.pageCount < vm.pages.currPage) {
-        vm.$toast({
-          message: '没有更多了~',
-          position: 'top'
-        });
-        vm.isFinished();
+      const {
+        pages: { pageCount, currPage }
+      } = this;
+      const finish = pageCount < currPage;
+      if (finish) {
+        this.isFinished();
       } else {
-        const page = await vm.initData(true);
-        vm.setPages(page);
+        this.setPages(await this.initData(true));
       }
-      vm.loading = false;
+      this.loading = false;
     },
     nextPage(pageCount = 1) {
       this.pages.currPage += 1;
