@@ -41,9 +41,6 @@ export default [
   {
     path: '/items/list',
     name: 'list',
-    meta: {
-      keepAlive: true
-    },
     component: asyncLoader('items/list'),
     props: route => ({
       itemClass: +route.query.itemClass

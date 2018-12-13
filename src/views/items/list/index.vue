@@ -1,20 +1,37 @@
 <template>
-	<div class="item_list">
+	<div class="item_list over-hide">
 
 		<form action="/search">
 			<van-search
-			placeholder="请输入商品名称"
-			v-model="searchVal"
-			@search="resetInit"
-			showAction />
+        placeholder="请输入商品名称"
+        v-model="searchVal"
+        showAction 
+      />
 		</form>
 
-		<van-tabs @click="handleTabClick" @disabled="handleTabClick">
+		<van-tabs v-model="tabActive" @disabled="toggleFilterModal(true)">
 			<van-tab
-				v-for="tab in tabsItem"
+				v-for="(tab, tabIndex)  in tabsItem"
 			 	:title="tab.name"
 				:key="tab.type"
-				:disabled="tab.sort === false">
+				:disabled="tab.sort === false"
+      >
+        <InfinityScroll
+          :ref="'tabScrolls' + tabIndex"
+          class="full-page scroll-wrap fix-height"
+          :beforeRequest="beforeRequest"
+          :apiUrl="listApi"
+          @onLoad="onLoad(tabIndex, $event)"
+        >
+          <item-group>
+            <item-card-hori
+              v-for="(item, i) in tab.items"
+              :key="i"
+              :goods="item"
+              @click="itemClick(item.id)"
+            />
+          </item-group>
+        </InfinityScroll>
 			</van-tab>
 		</van-tabs>
 
@@ -28,54 +45,33 @@
 					v-for="(li, i) in filterItem"
 					:key="i"
 					@click="filterMethod(i)"
-					:class="{filter_active: li.isActive}">
+					:class="{filter_active: li.isActive}"
+        >
 						{{li.name}}
 					<van-icon name="success" v-show="li.isActive" class="float-r" />
 				</li>
 			</ul>
 		</van-popup>
 
-		<van-list
-		  	v-model="loading"
-		  	:finished="finished"
-			:immediate-check="false"
-	  		:offset="100"
-		  	@load="loadMore"
-		>
-			<item-group>
-				<item-card-hori
-					v-for="(item, i) in items"
-					:key="i"
-					:goods="item"
-					@click="itemClick(item.id)"
-				 />
-			</item-group>
-		</van-list>
-
-		<is-empty v-if="isEmpty">抱歉,没有找到符合条件商品</is-empty>
-
-		<transition name="fade">
+		<!-- <transition name="fade">
 			<van-icon
 				name="arrowupcircle"
 				class="backTop"
 				@click.native="backTop"
 				v-show="showArrow"
 			/>
-		</transition>
+		</transition> -->
 	</div>
 </template>
 
 <script>
 import { GOODS_SEARCH } from '@/api/goods';
 
-import ItemGroup from '@/vue/components/item-group/';
-import IsEmpty from '@/vue/components/is-empty/';
+import ItemGroup from '@/vue/components/item-group';
 import ItemCardHori from '@/vue/components/item-card-hori/';
 import { Search, Tab, Tabs, Popup } from 'vant';
-import { throttle } from 'lodash';
-
-import loadMore from '@/vue/mixin/list-load-more';
-import scrollFixed from '@/vue/mixin/scroll-fixed';
+// import { throttle } from 'lodash';
+import InfinityScroll from '@/vue/components/infinity-scroll';
 
 export default {
   name: 'Item-list',
@@ -90,18 +86,17 @@ export default {
     }
   },
 
-  mixins: [loadMore, scrollFixed],
-
   data() {
     return {
+      listApi: GOODS_SEARCH,
       shop_id: 1,
+      tabActive: 0,
       tabsItem: [
-        { name: '默认', sort: '' },
-        { name: '销量', sort: 'sold_quantity' },
-        { name: '最新', sort: 'created_at' },
-        { name: '筛选', sort: false }
+        { name: '默认', sort: '', items: [] },
+        { name: '销量', sort: 'sold_quantity', items: [] },
+        { name: '最新', sort: 'created_at', items: [] },
+        { name: '筛选', sort: false, items: [] }
       ],
-      sortVal: '',
       is_haitao: 0,
       filterItem: [
         {
@@ -122,102 +117,87 @@ export default {
       ],
       isHaitao: 2,
       searchVal: '',
-      filterItemShow: false,
-      showArrow: false
+      filterItemShow: false
+      // showArrow: false
     };
   },
 
-  watch: {
-    itemClass() {
-      this.scrollTop = 0;
-      this.resetInit();
+  computed: {
+    sortVal() {
+      const { tabActive: i } = this;
+      return this.tabsItem[i].sort;
     }
   },
 
-  activated() {
-    this.searchVal = this.keyword;
-    this.eventListen(true);
-  },
-
-  deactivated() {
-    this.eventListen(false);
-  },
-
   created() {
-    this.resetInit();
-    this.scrollShowArrow = throttle(this.scrollShowArrow, 100);
+    // this.scrollShowArrow = throttle(this.scrollShowArrow, 100);
   },
 
   methods: {
-    initData() {
-      return this.$reqGet(
-        GOODS_SEARCH,
-        {
+    onLoad(i, items) {
+      this.tabsItem[i].items.push(...items);
+    },
+    beforeRequest() {
+      return {
+        params: {
           q: this.searchVal,
           shop_id: this.shop_id,
           cid: this.itemClass,
-          'per-page': this.pages.perPage,
-          page: this.pages.currPage,
           sort: this.sortVal,
           is_haitao: this.isHaitao
-        },
-        {
-          hideLoading: true
         }
-      ).then(res => {
-        const { items, page } = res.data.data;
-        this.items.push(...items);
-        return page;
-      });
+      };
     },
-    eventListen(isBind = true) {
-      if (isBind) {
-        this.$el.addEventListener('scroll', this.scrollShowArrow);
-      } else {
-        this.$el.removeEventListener('scroll', this.scrollShowArrow);
-      }
-    },
-    scrollShowArrow() {
-      this.showArrow = this.$el.scrollTop > 120;
-    },
-    handleTabClick(index) {
-      if (index === 3) {
-        this.filterItemShow = true;
-      } else {
-        const sortVal = this.tabsItem[index].sort;
-        if (sortVal !== this.sortVal) {
-          this.sortVal = sortVal;
-          this.resetInit();
-        }
-      }
-    },
-    filterMethod(i) {
+    // 滚动容器改变, 导致滚动监听失效, 暂时先注释了
+    // eventListen(isBind = true) {
+    //   if (isBind) {
+    //     this.$el.addEventListener('scroll', this.scrollShowArrow);
+    //   } else {
+    //     this.$el.removeEventListener('scroll', this.scrollShowArrow);
+    //   }
+    // },
+    // scrollShowArrow() {
+    //   this.showArrow = this.$el.scrollTop > 120;
+    // },
+    activeFilter(i) {
       this.filterItem.forEach((item, index) => {
         item.isActive = i === index;
       });
+    },
+    resetActiveTab() {
+      const { tabActive: i } = this;
+      this.tabsItem[i].items = [];
+      const targetScroll = this.$refs[`tabScrolls${i}`][0];
+      targetScroll && targetScroll.resetInit();
+    },
+    toggleFilterModal(status) {
+      this.filterItemShow = status;
+    },
+    filterMethod(i) {
       const filterType = this.filterItem[i].filterType;
-      this.filterItemShow = false;
-      if (this.isHaitao !== filterType) {
-        this.isHaitao = filterType;
-        this.resetInit();
-      }
+      if (filterType === this.isHaitao) return;
+
+      this.isHaitao = filterType;
+      this.activeFilter(i);
+      this.toggleFilterModal(false);
+      this.resetActiveTab();
     },
-    backTop() {
-      this.$el.scrollTop = 0;
-    },
+    // backTop() {
+    //   this.$el.scrollTop = 0;
+    // },
     itemClick(id) {
       this.$router.push({ name: 'detail', params: { itemId: id } });
     }
   },
 
   components: {
+    InfinityScroll,
     [ItemGroup.name]: ItemGroup,
     [ItemCardHori.name]: ItemCardHori,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Search.name]: Search,
-    [Popup.name]: Popup,
-    [IsEmpty.name]: IsEmpty
+    [Popup.name]: Popup
   }
 };
 </script>
@@ -231,6 +211,15 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.5s;
+}
+
+.fix-height {
+  padding-bottom: 88px;
+  box-sizing: border-box;
+}
+
+.over-hide {
+  overflow: hidden;
 }
 
 .item_list {

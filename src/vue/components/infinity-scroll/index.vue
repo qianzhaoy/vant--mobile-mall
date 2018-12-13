@@ -8,7 +8,7 @@
     v-on="$listeners"
     :immediate-check="false"
   >
-    <is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
+    <is-empty v-if="isEmpty">{{emptyText || '抱歉,没有更多了'}}</is-empty>
     <slot v-else></slot>
   </van-list>
 </template>
@@ -42,6 +42,7 @@ export default {
       type: String,
       default: 'data.page'
     },
+    emptyText: String,
     perPage: Number,
     beforeRequest: Function
   },
