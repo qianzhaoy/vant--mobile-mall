@@ -5,7 +5,7 @@
 			<div class="tal_class_searchMask"  @click="$router.push({ name: 'search' })"></div>
 		</div>
 		<class-tree
-			v-if="list.length"
+      class="height-fix42"
 			@class-click="toItemList"
 			@all-click="toItemList"
 			:list="list"
@@ -21,7 +21,8 @@ import { GOODS_CATEGORY } from '@/api/goods';
 import getLocationParam from 'core/utils/location-param';
 import { Search } from 'vant';
 import classTree from './tabbar-class-tree';
-import IsEmpty from '@/vue/components/is-empty/';
+import IsEmpty from '@/vue/components/is-empty';
+import _ from 'lodash';
 
 export default {
   data() {
@@ -40,6 +41,13 @@ export default {
       const shop_id = getLocationParam('shop_id');
       this.$reqGet(`${GOODS_CATEGORY}/${shop_id}`).then(res => {
         const data = this.removeNoChild(res.data.data);
+        new Array(30).fill(1).forEach(() => {
+          var b = _.cloneDeep(_.last(data));
+          b.id++;
+
+          b.children.push(_.cloneDeep(_.last(b.children)));
+          data.push(b);
+        });
         this.list = data;
         this.isEmpty = !data || !data.length;
       });
@@ -65,8 +73,12 @@ export default {
 
 <style scoped>
 .tab_class {
+  overflow: hidden;
   background-color: #fff;
-  height: 100%;
+}
+
+.height-fix {
+  padding-bottom: 42px;
 }
 
 .tal_class_searchBox {

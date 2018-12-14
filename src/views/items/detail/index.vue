@@ -33,7 +33,7 @@
 			@skuBuy="doBuyNow"
 			/>
 
-		<div class="item_desc"  v-if="goods">
+		<div class="item_desc" v-if="goods">
 			<div class="item_desc_title">商品详情</div>
 			<div class="item_desc_wrap" v-html="goods.desc"></div>
 		</div>
@@ -215,8 +215,9 @@ export default {
   p {
     padding: 0 10px;
   }
-  img {
+  /deep/ img {
     max-width: 100%;
+    display: block;
   }
 }
 

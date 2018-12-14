@@ -15,7 +15,9 @@
 			</div>
 			<div class="class_tree_items_wrap clearfix">
 				<div @click="classClick(item.id)" :key="i" v-for="(item, i) in goods">
-					<div class="class_tree_item_img"><img :src="item.pic_url" :alt="item.name"></div>
+					<div class="class_tree_item_img">
+            <img :src="item.pic_url" :alt="item.name">
+          </div>
 					<div class="class_tree_item_name">{{item.name}}</div>
 				</div>
 			</div>
@@ -36,7 +38,10 @@ export default {
       type: Number,
       default: 0
     },
-    list: Array
+    list: {
+      type: Array,
+      default: () => []
+    }
   },
 
   data() {
@@ -51,7 +56,7 @@ export default {
     goods() {
       const list = this.list,
         navActive = this.navActive;
-      return list && list.length ? list[navActive].children : [];
+      return list.length ? list[navActive].children : [];
     }
   },
 
@@ -80,7 +85,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   height: 100%;
-  padding-bottom: 42px;
   box-sizing: border-box;
 }
 .class_tree_nav {

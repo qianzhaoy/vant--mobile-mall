@@ -215,7 +215,6 @@ export default {
 
 .fix-height {
   padding-bottom: 88px;
-  box-sizing: border-box;
 }
 
 .over-hide {

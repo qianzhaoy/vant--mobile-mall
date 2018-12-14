@@ -1,7 +1,6 @@
 <template>
-  <div class="order_list">
+  <div class="order_list over-hide">
     <van-tabs 
-      sticky
       v-model="activeIndex" 
       :swipe-threshold="5" 
       click="handleTabClick"
@@ -12,7 +11,7 @@
         :key="tab.type"
       >
         <InfinityScroll
-          class="full-page scroll-wrap"
+          class="full-page scroll-wrap height-fix42"
           :beforeRequest="beforeRequest"
           :apiUrl="listApi"
           @onLoad="onLoad(tabIndex, $event)"
@@ -206,6 +205,7 @@ export default {
 <style lang="scss" scoped>
 .order_list {
   padding-bottom: 0;
+  overflow-y: hidden;
   &--footer_btn {
     text-align: right;
   }

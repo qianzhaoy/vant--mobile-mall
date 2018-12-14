@@ -5,6 +5,10 @@
 @import "./vant-theme";
 @import "./spinner";
 
+* {
+	box-sizing: border-box;
+}
+
 a {
 	color: #000
 }
@@ -30,14 +34,6 @@ body {
 	overflow-y: auto;
 	padding-bottom: 50px;
 	box-sizing: border-box;
-}
-
-//商品详情页
-.item_desc{
-	img{
-		max-width: 100%;
-		display: block;
-	}
 }
 
 .full-page {

@@ -1,7 +1,6 @@
 <template>
-	<div class="order_list">
+	<div class="order_list no-pad-bottom over-hide">
 		<van-tabs
-			sticky
 			v-model="activeIndex"
 			:swipe-threshold="5"
 			 @click="handleTabClick"
@@ -12,7 +11,7 @@
 				:key="tab.type"
       >
         <InfinityScroll
-          class="full-page scroll-wrap"
+          class="full-page scroll-wrap height-fix42"
           :beforeRequest="beforeRequest"
           :apiUrl="listApi"
           @onLoad="onLoad(tabIndex, $event)"
@@ -64,6 +63,7 @@ import status70 from './handle-status-70';
 import status100 from './handle-status-100';
 import status110 from './handle-status-110';
 import status120 from './handle-status-120';
+import _ from 'lodash';
 
 import InfinityScroll from '@/vue/components/infinity-scroll';
 
@@ -125,6 +125,9 @@ export default {
 
   methods: {
     onLoad(i, items) {
+      new Array(10).fill(1).forEach(() => {
+        items.push(_.cloneDeep(_.last(items)));
+      });
       this.tabsItem[i].items.push(...items);
     },
     beforeRequest() {
@@ -186,11 +189,6 @@ export default {
 
 <style lang="scss" scoped>
 .order_list {
-  padding-bottom: 0;
-  height: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: scroll;
   &--footer_btn {
     text-align: right;
   }
