@@ -14,10 +14,10 @@
 
 - Vue + Vue-router + Vant + Sass
 - axios
-- vuelidation( 表单验证 )
+- vee-validate
 - fastclick
 - babel-polyfill
-- @xkeshi/vue-countdown ( 各种倒计时 )
+- @xkeshi/vue-countdown
 
 > 未使用Vuex, 因为各个页面有较高的独立性. 可以省下Vuex, 少部分组件通信使用 event bus 即可.
 
