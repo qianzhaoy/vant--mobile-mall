@@ -43,42 +43,9 @@ export default {
     repeat_password: ''
   }),
 
-  vuelidation: {
-    data: {
-      password: {
-        required: true,
-        msg() {
-          return '请输入密码';
-        }
-      },
-      new_password: {
-        alpha: true,
-        required: true,
-        betweenLength: {
-          min: 6,
-          max: 12
-        },
-        msg() {
-          return '请输入正确密码格式, 密码必须大于6位, 小于12位, 且只能包含数字和字母';
-        }
-      },
-      repeat_password: {
-        alpha: true,
-        required: true,
-        betweenLength: {
-          min: 6,
-          max: 12
-        },
-        msg() {
-          return '请输入正确密码格式, 密码必须大于6位, 小于12位, 且只能包含数字和字母';
-        }
-      }
-    }
-  },
-
   methods: {
     modifypassword() {
-      if (this.mixValid() && this.passwordValid()) {
+      if (this.passwordValid()) {
         this.$reqPut(USER_MODIFY_PASSWORD, {
           old_password: this.password,
           new_password: this.new_password

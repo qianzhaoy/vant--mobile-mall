@@ -5,7 +5,6 @@ import './assets/scss/global.scss';
 import '@/assets/scss/iconfont/iconfont.css';
 
 import VeeValidate, { Validator } from 'vee-validate';
-import valid from '@/vue/mixin/valid';
 import VueCountdown from '@/vue/plugins/vue-countdown';
 import zhCN from 'vee-validate/dist/locale/zh_CN';
 
@@ -14,7 +13,6 @@ import filters from '@/vue/filter';
 
 Vue.use(VueCountdown);
 Vue.use(axios);
-Vue.use(valid);
 Vue.use(filters);
 
 Validator.localize('zh-CN', zhCN);

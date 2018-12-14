@@ -25,18 +25,6 @@ export default {
     };
   },
 
-  vuelidation: {
-    data: {
-      nickName: {
-        required: {
-          msg() {
-            return '请填写昵称';
-          }
-        }
-      }
-    }
-  },
-
   created() {
     this.getNick();
   },
@@ -46,7 +34,7 @@ export default {
       this.nickName = localStorage.getItem('nick_name') || '';
     },
     saveNick() {
-      if (this.mixValid()) {
+      if (true) {
         this.$reqPut(USER_PROFILE, { nick_name: this.nickName })
           .then(res => {
             localStorage.setItem('nick_name', res.data.data.nick_name);
